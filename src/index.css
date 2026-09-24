@@ -5,52 +5,26 @@
 @layer base {
   :root {
     color-scheme: light;
+    /* Focus ring accesible: azul Okabe (contrasta con bermellón/cian/naranja) */
+    --focus-ring: 0 114 178;
   }
 
-  html {
-    -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 4rem;
-  }
+  html { -webkit-text-size-adjust: 100%; }
 
   body {
-    background-color: var(--color-ink-50, #f7f7f7);
-    font-family: var(--font-sans, "Segoe UI", sans-serif);
-    color: var(--color-ink-900, #111827);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  html.dark body {
-    background-color: var(--color-ink-900, #111827);
-    color: var(--color-ink-100, #f3f4f6);
+    @apply bg-ink-50 font-sans text-ink-900 antialiased dark:bg-ink-900 dark:text-ink-100;
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-gold-600, #9a4419);
-    outline-offset: 3px;
+    outline: 2px solid rgb(var(--focus-ring));
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
-  @media (forced-colors: active) {
-    :focus-visible {
-      outline: 2px solid CanvasText;
-    }
+  /* Estados con patrón, no solo color */
+  .underline-links a { text-decoration: underline; text-underline-offset: 3px; }
+  .underline-links button { text-decoration: underline; }
 
-    button,
-    a,
-    input,
-    select,
-    textarea {
-      forced-color-adjust: auto;
-    }
-  }
-
-  /* Accesibilidad: enlaces subrayados cuando el usuario lo activa */
-  .underline-links a {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  /* Accesibilidad: reducir movimiento */
   .reduce-motion *,
   .reduce-motion *::before,
   .reduce-motion *::after {
@@ -60,158 +34,18 @@
     scroll-behavior: auto !important;
   }
 
-  /* Accesibilidad: alto contraste */
-  .high-contrast {
-    filter: contrast(1.15);
-  }
+  .high-contrast { filter: contrast(1.15); }
   .high-contrast a,
-  .high-contrast button {
-    text-decoration: underline;
-  }
-
-  .site-atmosphere {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    background:
-      radial-gradient(circle at 12% 18%, rgb(233 160 59 / 0.14), transparent 28rem),
-      radial-gradient(circle at 88% 72%, rgb(31 111 107 / 0.12), transparent 32rem),
-      linear-gradient(135deg, rgb(255 255 255 / 0.25), transparent 45%);
-  }
-
-  .site-atmosphere::before,
-  .site-atmosphere::after {
-    content: '';
-    position: absolute;
-    width: 34rem;
-    height: 34rem;
-    border: 1px solid rgb(180 83 31 / 0.12);
-    border-radius: 45% 55% 60% 40%;
-    animation: drift 18s ease-in-out infinite alternate;
-  }
-
-  .site-atmosphere::before {
-    top: 8%;
-    left: -18rem;
-  }
-
-  .site-atmosphere::after {
-    right: -18rem;
-    bottom: 10%;
-    border-color: rgb(31 111 107 / 0.12);
-    animation-delay: -7s;
-  }
-
-  .page-transition {
-    animation: page-enter 0.42s ease-out both;
-  }
-
-  .leaflet-container,
-  .leaflet-map-surface {
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 20rem;
-    background: linear-gradient(135deg, #dfeaf1 0%, #edf6fb 40%, #e2f0ea 100%);
-    border: 0;
-  }
-
-  .leaflet-control-zoom {
-    border: 0 !important;
-    box-shadow: 0 18px 40px -22px rgba(15, 23, 42, 0.35) !important;
-    overflow: hidden;
-    border-radius: 1rem !important;
-  }
-
-  .leaflet-control-zoom a {
-    width: 2.05rem !important;
-    height: 2.05rem !important;
-    line-height: 2.05rem !important;
-    color: #1f2937 !important;
-    border: 0 !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    backdrop-filter: blur(10px);
-    transition: all 0.2s ease;
-  }
-
-  .leaflet-control-zoom a:hover {
-    background: rgba(255, 255, 255, 1) !important;
-  }
-
-  .leaflet-control-attribution {
-    background: rgba(255, 255, 255, 0.72) !important;
-    backdrop-filter: blur(10px);
-    border-radius: 999px;
-    padding: 0.2rem 0.5rem !important;
-    margin: 0 0.75rem 0.75rem 0 !important;
-    box-shadow: 0 10px 25px -18px rgba(15, 23, 42, 0.7);
-  }
-
-  .leaflet-popup-content-wrapper {
-    border-radius: 1rem !important;
-    box-shadow: 0 18px 40px -22px rgba(15, 23, 42, 0.55) !important;
-    border: 1px solid rgba(15, 23, 42, 0.06);
-  }
-
-  .leaflet-popup-tip {
-    background: white;
-  }
-
-  .leaflet-container a.leaflet-popup-close-button {
-    color: #374151;
-    font-size: 1rem;
-    padding: 0.6rem 0.8rem 0 0;
-  }
-
-  .visual-feedback [role='alert'],
-  .visual-feedback [aria-live='assertive'] {
-    outline: 2px solid var(--color-gold-600, #9a4419);
-    outline-offset: 2px;
-  }
-
-  @keyframes page-enter {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes drift {
-    from { transform: translate3d(0, -1rem, 0) rotate(-8deg); }
-    to { transform: translate3d(4rem, 2rem, 0) rotate(12deg); }
-  }
+  .high-contrast button { text-decoration: underline; }
 
   @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       animation-duration: 0.001ms !important;
       transition-duration: 0.001ms !important;
-    }
-
-    .site-atmosphere::before,
-    .site-atmosphere::after,
-    .page-transition {
-      animation: none;
     }
   }
 }
 
 @layer components {
-  .contenedor-app {
-    margin-inline: auto;
-    width: 100%;
-    max-width: 80rem;
-    padding-inline: 1rem;
-  }
-
-  @media (min-width: 640px) {
-    .contenedor-app {
-      padding-inline: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .contenedor-app {
-      padding-inline: 2rem;
-    }
-  }
+  .contenedor-app { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
 }

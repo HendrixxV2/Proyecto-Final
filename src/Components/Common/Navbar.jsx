@@ -55,6 +55,7 @@ export default function Navbar() {
   const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
   const NAV = NAV_BY_LANGUAGE[language] ?? NAV_BY_LANGUAGE.es;
+  const isRegularUser = isAuthenticated && !isAdmin;
 
   const handleLogout = () => {
     logout();
@@ -83,7 +84,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <ul className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 xl:flex">
+        <ul className="hidden min-w-0 flex-1 items-center justify-end gap-0.5 overflow-x-auto xl:flex" aria-label="Secciones públicas">
           {NAV.map((item) => (
             <li key={item.to}>
               <NavLink
@@ -91,7 +92,7 @@ export default function Navbar() {
                 end={item.to === PATHS.home}
                 className={({ isActive }) =>
                   cn(
-                    'whitespace-nowrap rounded-lg px-2 py-2 text-xs font-medium transition',
+                    'relative whitespace-nowrap rounded-lg px-2 py-2 text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm',
                     isActive
                       ? 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200'
                       : 'text-ink-600 hover:bg-ink-100 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800 dark:hover:text-ink-50',
@@ -105,7 +106,7 @@ export default function Navbar() {
         </ul>
 
         <div className="ml-auto flex items-center gap-2">
-          <div className="hidden items-center gap-1 rounded-xl border border-ink-200 bg-white p-1 dark:border-ink-700 dark:bg-ink-800 2xl:flex">
+          <div className="hidden items-center gap-1 rounded-xl border border-ink-200 bg-white p-1 shadow-sm transition-shadow duration-300 hover:shadow-md dark:border-ink-700 dark:bg-ink-800 lg:flex">
             <span className="px-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-500 dark:text-ink-400">{language === 'es' ? 'ES' : language === 'en' ? 'EN' : '繁中'}</span>
             {LANGUAGE_OPTIONS.map((option) => (
               <button
@@ -113,7 +114,7 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setLanguage(option.id)}
                 className={cn(
-                  'rounded-lg px-2 py-1 text-[11px] font-semibold transition',
+                  'rounded-lg px-2 py-1 text-[11px] font-semibold transition-all duration-200 hover:-translate-y-0.5',
                   language === option.id
                     ? 'bg-brand-500 text-white'
                     : 'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-700',
@@ -142,10 +143,12 @@ export default function Navbar() {
                   {language === 'en' ? 'Panel' : language === 'zh' ? '控制台' : 'Panel'}
                 </Button>
               )}
-              <Button as={Link} to={PATHS.misReservas} variant="ghost" size="sm">
-                <User aria-hidden="true" className="h-4 w-4" />
-                {user.nombre.split(' ')[0]}
-              </Button>
+              {isRegularUser && (
+                <Button as={Link} to={PATHS.misReservas} variant="ghost" size="sm">
+                  <User aria-hidden="true" className="h-4 w-4" />
+                  {user.nombre.split(' ')[0]}
+                </Button>
+              )}
               <Button variant="ghost" size="icon" onClick={handleLogout} aria-label={language === 'en' ? 'Log out' : language === 'zh' ? '登出' : 'Cerrar sesión'}>
                 <LogOut aria-hidden="true" className="h-4 w-4" />
               </Button>
@@ -181,7 +184,7 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
                     cn(
-                      'block rounded-lg px-3 py-2.5 text-sm font-medium',
+                      'block rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 hover:translate-x-1',
                       isActive
                         ? 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200'
                         : 'text-ink-700 hover:bg-ink-100 dark:text-ink-200 dark:hover:bg-ink-800',
@@ -227,9 +230,11 @@ export default function Navbar() {
                     {language === 'en' ? 'Admin panel' : language === 'zh' ? '管理面板' : 'Panel administrativo'}
                   </Button>
                 )}
-                <Button as={Link} to={PATHS.misReservas} variant="outline" onClick={() => setOpen(false)}>
-                  {language === 'en' ? 'My bookings' : language === 'zh' ? '我的預約' : 'Mis reservas'}
-                </Button>
+                {isRegularUser && (
+                  <Button as={Link} to={PATHS.misReservas} variant="outline" onClick={() => setOpen(false)}>
+                    {language === 'en' ? 'My bookings' : language === 'zh' ? '我的預約' : 'Mis reservas'}
+                  </Button>
+                )}
                 <Button variant="danger" onClick={handleLogout}>{language === 'en' ? 'Log out' : language === 'zh' ? '登出' : 'Cerrar sesión'}</Button>
               </>
             ) : (

@@ -669,7 +669,7 @@ const INTENTS = [
   {
     id: 'sistema.tema',
     tags: ['modo oscuro', 'dark mode', 'tema oscuro', 'tema claro', 'cambiar tema', 'colores del sitio'],
-    resolve: async () => r('Usa el selector de tema en la barra superior (Claro / Oscuro / Sistema).'),
+    resolve: async () => r('Usa el selector de tema en la barra superior (Claro / Oscuro).'),
   },
 
   {

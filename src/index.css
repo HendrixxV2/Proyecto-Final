@@ -48,4 +48,27 @@
 
 @layer components {
   .contenedor-app { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+
+  .page-transition {
+    animation: page-enter 240ms ease-out both;
+  }
+
+  .leaflet-map-surface,
+  .leaflet-map-surface.leaflet-container {
+    height: 100%;
+    min-height: 20rem;
+    width: 100%;
+    z-index: 0;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

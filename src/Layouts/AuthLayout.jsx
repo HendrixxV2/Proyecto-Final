@@ -1,7 +1,9 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Landmark } from 'lucide-react';
 
 export default function AuthLayout() {
+  const { pathname } = useLocation();
+
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <aside className="relative hidden overflow-hidden bg-brand-700 p-12 text-white lg:flex lg:flex-col lg:justify-between">
@@ -27,7 +29,7 @@ export default function AuthLayout() {
       </aside>
 
       <main id="contenido-principal" className="flex items-center justify-center bg-ink-50 px-6 py-12 dark:bg-ink-900">
-        <div className="w-full max-w-md">
+        <div key={pathname} className="page-transition w-full max-w-md">
           <Outlet />
         </div>
       </main>

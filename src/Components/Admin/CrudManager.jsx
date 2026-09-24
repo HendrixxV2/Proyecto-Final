@@ -54,6 +54,8 @@ export default function CrudManager({
   emptyMessage = 'No hay registros todavía.',
   extraActions,
   rowKey = 'id',
+  createLabel = 'Nuevo',
+  createDefaults = {},
 }) {
   const { data, loading, error, refetch } = useFetch(() => service.list(), []);
   const [query, setQuery] = useState('');
@@ -80,7 +82,7 @@ export default function CrudManager({
   const openCreate = () => {
     const inicial = {};
     fields.forEach((f) => {
-      inicial[f.name] = f.type === 'checkbox' ? Boolean(f.default) : f.default ?? '';
+      inicial[f.name] = createDefaults[f.name] ?? (f.type === 'checkbox' ? Boolean(f.default) : f.default ?? '');
     });
     setEditing(null);
     setForm(inicial);
@@ -206,7 +208,7 @@ export default function CrudManager({
           </div>
           <Button onClick={openCreate}>
             <Plus aria-hidden="true" className="h-4 w-4" />
-            Nuevo
+            {createLabel}
           </Button>
         </div>
       </header>

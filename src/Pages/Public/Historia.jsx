@@ -46,6 +46,13 @@ const HISTORY_COPY = {
   },
 };
 
+function getLocalizedBlock(block, language) {
+  return {
+    title: language === 'en' ? block.tituloEn ?? block.titulo : language === 'zh' ? block.tituloZh ?? block.titulo : block.titulo,
+    body: language === 'en' ? block.cuerpoEn ?? block.cuerpo : language === 'zh' ? block.cuerpoZh ?? block.cuerpo : block.cuerpo,
+  };
+}
+
 export default function Historia() {
   const { data, loading, error, refetch } = useFetch(() => contenidoService.bySeccion('historia'), []);
   const { language } = useLanguage();
@@ -83,8 +90,8 @@ export default function Historia() {
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">
                 {copy.chapter} {index + 1}
               </p>
-              <h2 className="mt-1 font-display text-2xl font-bold text-ink-900 dark:text-ink-50">{bloque.titulo}</h2>
-              <p className="mt-3 whitespace-pre-line text-base leading-relaxed text-ink-700 dark:text-ink-200">{bloque.cuerpo}</p>
+              <h2 className="mt-1 font-display text-2xl font-bold text-ink-900 dark:text-ink-50">{getLocalizedBlock(bloque, language).title}</h2>
+              <p className="mt-3 whitespace-pre-line text-base leading-relaxed text-ink-700 dark:text-ink-200">{getLocalizedBlock(bloque, language).body}</p>
             </article>
           ))}
       </div>

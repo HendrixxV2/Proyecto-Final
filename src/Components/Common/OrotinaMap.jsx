@@ -1,12 +1,31 @@
 import { useEffect, useState } from 'react';
-import { MapPinned } from 'lucide-react';
+import { ExternalLink, MapPinned, Navigation } from 'lucide-react';
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from 'react-leaflet';
 import { useLanguage } from '@/Hooks/useLanguage';
 import 'leaflet/dist/leaflet.css';
 
 const OROTINA_CENTER = [9.9112, -84.5239];
 
+function getWazeUrl(punto) {
+  const [latitude, longitude] = punto.posicion;
+  return `https://waze.com/ul?ll=${latitude}%2C${longitude}&navigate=yes`;
+}
+
 const PUNTOS = [
+  {
+    id: 'centro-cultural-orotinense',
+    nombre: 'Centro de Arte y Cultura Orotinense Luis Acosta Ferrer',
+    nombreEn: 'Luis Acosta Ferrer Orotina Arts and Culture Center',
+    nombreZh: 'Luis Acosta Ferrer 奧羅蒂納藝術與文化中心',
+    categoria: 'Centro cultural',
+    categoriaEn: 'Cultural center',
+    categoriaZh: '文化中心',
+    posicion: [9.9112, -84.5239],
+    descripcion: 'WF5G+85P, Provincia de Alajuela, Orotina, Costa Rica.',
+    descripcionEn: 'WF5G+85P, Alajuela Province, Orotina, Costa Rica.',
+    descripcionZh: 'WF5G+85P，阿拉胡埃拉省，哥斯大黎加奧羅蒂納。',
+    fuente: 'Ubicación indicada por el centro',
+  },
   {
     id: 'parque-jose-marti',
     nombre: 'Parque José Martí',
@@ -68,6 +87,9 @@ const translations = {
     institutional: 'Contexto institucional:',
     ministry: 'directorio del Ministerio de Cultura y Juventud',
     languageLabel: 'Idioma',
+    mapLabel: 'Mapa interactivo de puntos de interés de Orotina',
+    directions: 'Cómo llegar',
+    waze: 'Abrir en Waze',
   },
   en: {
     badge: 'Cultural map',
@@ -85,6 +107,9 @@ const translations = {
     institutional: 'Institutional context:',
     ministry: 'directory of the Ministry of Culture and Youth',
     languageLabel: 'Language',
+    mapLabel: 'Interactive map of points of interest in Orotina',
+    directions: 'Get directions',
+    waze: 'Open in Waze',
   },
   zh: {
     badge: '文化地圖',
@@ -102,6 +127,9 @@ const translations = {
     institutional: '制度背景：',
     ministry: '文化與青年部目錄',
     languageLabel: '語言',
+    mapLabel: '奧羅蒂納興趣點互動地圖',
+    directions: '如何前往',
+    waze: '在 Waze 中開啟',
   },
 };
 
@@ -134,6 +162,7 @@ function RecenterMap() {
 
   useEffect(() => {
     map.setView(OROTINA_CENTER, 14);
+    requestAnimationFrame(() => map.invalidateSize());
   }, [map]);
 
   return null;
@@ -171,6 +200,16 @@ function PuntoMapa({ punto, language, selected, onSelect }) {
           </div>
           <p className="text-xs leading-relaxed text-ink-600">{content.descripcion}</p>
           <div className="text-xs font-medium text-ink-600">{punto.fuente}</div>
+          <a
+            href={getWazeUrl(punto)}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:underline"
+          >
+            <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
+            {translations[language]?.waze ?? translations.es.waze}
+            <ExternalLink aria-hidden="true" className="h-3 w-3" />
+          </a>
         </div>
       </Popup>
     </CircleMarker>
@@ -241,7 +280,7 @@ export default function OrotinaMap() {
           </div>
         </div>
 
-        <div className="relative z-10 h-[min(32rem,78vh)] min-h-80" aria-label="Mapa interactivo de puntos de interés de Orotina">
+        <div className="relative z-10 h-[min(32rem,78vh)] min-h-80" aria-label={t.mapLabel}>
           <MapContainer center={OROTINA_CENTER} zoom={14} scrollWheelZoom={false} className="leaflet-map-surface z-10">
             <RecenterMap />
             <TileLayer
@@ -267,7 +306,7 @@ export default function OrotinaMap() {
 
         <div className="border-t border-ink-200 bg-white/60 p-4 dark:border-ink-700 dark:bg-ink-900/50">
           <h3 className="text-sm font-semibold text-ink-900 dark:text-ink-50">{t.points}</h3>
-          <ul className="mt-3 grid gap-3 sm:grid-cols-3">
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {PUNTOS.map((punto) => {
               const content = getPointContent(punto, language);
               return (
@@ -281,6 +320,16 @@ export default function OrotinaMap() {
                     <p className="mt-1 text-xs text-ink-500 dark:text-ink-300">{content.categoria}</p>
                     <p className="mt-2 text-xs font-semibold text-brand-700 dark:text-brand-300">{t.source}: {punto.fuente}</p>
                   </button>
+                  <a
+                    href={getWazeUrl(punto)}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:underline dark:text-brand-300"
+                  >
+                    <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
+                    {t.directions}
+                    <ExternalLink aria-hidden="true" className="h-3 w-3" />
+                  </a>
                 </li>
               );
             })}

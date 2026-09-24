@@ -1,11 +1,10 @@
-import { Monitor, Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/Hooks/useTheme';
 import { cn } from '@/Utils/cn';
 
 const OPCIONES = [
   { id: 'light', label: 'Claro', Icon: Sun },
   { id: 'dark', label: 'Oscuro', Icon: Moon },
-  { id: 'system', label: 'Sistema', Icon: Monitor },
 ];
 
 export default function ThemeToggle({ compact = false }) {

@@ -12,6 +12,8 @@ export default function UsuariosAdmin() {
       descripcion="Administra las cuentas y los roles de acceso a la plataforma."
       service={usuariosService}
       searchKeys={['nombre', 'email', 'rol']}
+      createLabel="Nuevo administrador"
+      createDefaults={{ rol: ROLES.ADMIN }}
       columns={[
         { key: 'nombre', label: 'Nombre' },
         { key: 'email', label: 'Correo' },

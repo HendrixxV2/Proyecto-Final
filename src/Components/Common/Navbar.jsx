@@ -10,38 +10,16 @@ import ThemeToggle from '@/Components/UI/ThemeToggle';
 import FontSizeControl from '@/Components/UI/FontSizeControl';
 import AccessibilityPanel from '@/Components/UI/AccessibilityPanel';
 
-const NAV_BY_LANGUAGE = {
-  es: [
-    { to: PATHS.home, label: 'Inicio' },
-    { to: PATHS.calendario, label: 'Calendario' },
-    { to: PATHS.espacios, label: 'Espacios' },
-    { to: PATHS.boletos, label: 'Boletos' },
-    { to: PATHS.artes, label: 'Teatro · Baile · Canto' },
-    { to: PATHS.galeria, label: 'Galería Ferrocarril' },
-    { to: PATHS.historia, label: 'Historia' },
-    { to: PATHS.noticias, label: 'Noticias' },
-  ],
-  en: [
-    { to: PATHS.home, label: 'Home' },
-    { to: PATHS.calendario, label: 'Calendar' },
-    { to: PATHS.espacios, label: 'Spaces' },
-    { to: PATHS.boletos, label: 'Tickets' },
-    { to: PATHS.artes, label: 'Theater · Dance · Song' },
-    { to: PATHS.galeria, label: 'Railway Gallery' },
-    { to: PATHS.historia, label: 'History' },
-    { to: PATHS.noticias, label: 'News' },
-  ],
-  zh: [
-    { to: PATHS.home, label: '首頁' },
-    { to: PATHS.calendario, label: '日曆' },
-    { to: PATHS.espacios, label: '空間' },
-    { to: PATHS.boletos, label: '門票' },
-    { to: PATHS.artes, label: '戲劇 · 舞蹈 · 歌唱' },
-    { to: PATHS.galeria, label: '鐵路畫廊' },
-    { to: PATHS.historia, label: '歷史' },
-    { to: PATHS.noticias, label: '新聞' },
-  ],
-};
+const NAV_ITEMS = [
+  { to: PATHS.home, key: 'home' },
+  { to: PATHS.calendario, key: 'calendar' },
+  { to: PATHS.espacios, key: 'spaces' },
+  { to: PATHS.boletos, key: 'tickets' },
+  { to: PATHS.artes, key: 'arts' },
+  { to: PATHS.galeria, key: 'gallery' },
+  { to: PATHS.historia, key: 'history' },
+  { to: PATHS.noticias, key: 'news' },
+];
 
 const LANGUAGE_OPTIONS = [
   { id: 'es', label: 'ES' },
@@ -52,9 +30,9 @@ const LANGUAGE_OPTIONS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const navigate = useNavigate();
-  const NAV = NAV_BY_LANGUAGE[language] ?? NAV_BY_LANGUAGE.es;
+  const NAV = NAV_ITEMS.map((item) => ({ ...item, label: t(`common.${item.key}`) }));
   const isRegularUser = isAuthenticated && !isAdmin;
 
   const handleLogout = () => {
@@ -64,8 +42,8 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-200/70 bg-ink-50/85 backdrop-blur-md dark:border-ink-700/70 dark:bg-ink-900/85">
-      <nav aria-label="Navegación principal" className="mx-auto flex min-h-16 max-w-7xl items-center gap-3 px-3 py-2 sm:gap-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 border-b border-ink-200/70 bg-ink-50/90 shadow-sm backdrop-blur-xl dark:border-ink-700/70 dark:bg-ink-950/90">
+      <nav aria-label={t('common.mainNavigation')} className="mx-auto flex min-h-16 max-w-[90rem] items-center gap-3 px-3 py-2 sm:gap-4 sm:px-6 lg:px-8">
         <Link to={PATHS.home} className="flex min-w-0 flex-1 items-center gap-2 sm:flex-none" aria-label="Ir al inicio">
           <span className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-ink-200/70 sm:h-11 sm:w-11 dark:ring-ink-700">
             <Landmark aria-hidden="true" className="h-5 w-5 text-brand-500 sm:h-6 sm:w-6" />
@@ -84,7 +62,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <ul className="hidden min-w-0 flex-1 items-center justify-end gap-0.5 overflow-x-auto xl:flex" aria-label="Secciones públicas">
+        <ul className="hidden min-w-0 flex-1 items-center justify-end gap-0.5 overflow-x-auto xl:flex" aria-label={t('common.publicSections')}>
           {NAV.map((item) => (
             <li key={item.to}>
               <NavLink
@@ -107,7 +85,7 @@ export default function Navbar() {
 
         <div className="ml-auto flex items-center gap-2">
           <div className="hidden items-center gap-1 rounded-xl border border-ink-200 bg-white p-1 shadow-sm transition-shadow duration-300 hover:shadow-md dark:border-ink-700 dark:bg-ink-800 lg:flex">
-            <span className="px-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-500 dark:text-ink-400">{language === 'es' ? 'ES' : language === 'en' ? 'EN' : '繁中'}</span>
+            <span className="px-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-500 dark:text-ink-400">{LANGUAGE_OPTIONS.find((option) => option.id === language)?.label ?? 'ES'}</span>
             {LANGUAGE_OPTIONS.map((option) => (
               <button
                 key={option.id}
@@ -119,7 +97,7 @@ export default function Navbar() {
                     ? 'bg-brand-500 text-white'
                     : 'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-700',
                 )}
-                aria-label={`Cambiar idioma a ${option.label}`}
+                aria-label={`${t('common.changeLanguage')} ${option.label}`}
               >
                 {option.label}
               </button>
@@ -140,7 +118,7 @@ export default function Navbar() {
               {isAdmin && (
                 <Button as={Link} to={PATHS.admin.dashboard} variant="outline" size="sm">
                   <Shield aria-hidden="true" className="h-4 w-4" />
-                  {language === 'en' ? 'Panel' : language === 'zh' ? '控制台' : 'Panel'}
+                  {t('common.panel')}
                 </Button>
               )}
               {isRegularUser && (
@@ -149,14 +127,14 @@ export default function Navbar() {
                   {user.nombre.split(' ')[0]}
                 </Button>
               )}
-              <Button variant="ghost" size="icon" onClick={handleLogout} aria-label={language === 'en' ? 'Log out' : language === 'zh' ? '登出' : 'Cerrar sesión'}>
+              <Button variant="ghost" size="icon" onClick={handleLogout} aria-label={t('common.logout')}>
                 <LogOut aria-hidden="true" className="h-4 w-4" />
               </Button>
             </div>
           ) : (
             <div className="hidden items-center gap-2 md:flex">
-              <Button as={Link} to={PATHS.login} variant="ghost" size="sm">{language === 'en' ? 'Log in' : language === 'zh' ? '登入' : 'Ingresar'}</Button>
-              <Button as={Link} to={PATHS.registro} size="sm">{language === 'en' ? 'Sign up' : language === 'zh' ? '註冊' : 'Registrarse'}</Button>
+              <Button as={Link} to={PATHS.login} variant="ghost" size="sm">{t('common.login')}</Button>
+              <Button as={Link} to={PATHS.registro} size="sm">{t('common.signup')}</Button>
             </div>
           )}
 
@@ -165,7 +143,7 @@ export default function Navbar() {
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open}
             aria-controls="menu-movil"
-            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-label={open ? t('common.closeMenu') : t('common.openMenu')}
             className="rounded-lg p-2 text-ink-700 transition hover:bg-ink-100 xl:hidden dark:text-ink-200 dark:hover:bg-ink-800"
           >
             {open ? <X aria-hidden="true" className="h-5 w-5" /> : <Menu aria-hidden="true" className="h-5 w-5" />}
@@ -227,20 +205,20 @@ export default function Navbar() {
               <>
                 {isAdmin && (
                   <Button as={Link} to={PATHS.admin.dashboard} variant="outline" onClick={() => setOpen(false)}>
-                    {language === 'en' ? 'Admin panel' : language === 'zh' ? '管理面板' : 'Panel administrativo'}
+                    {t('common.adminPanel')}
                   </Button>
                 )}
                 {isRegularUser && (
                   <Button as={Link} to={PATHS.misReservas} variant="outline" onClick={() => setOpen(false)}>
-                    {language === 'en' ? 'My bookings' : language === 'zh' ? '我的預約' : 'Mis reservas'}
+                    {t('common.myBookings')}
                   </Button>
                 )}
-                <Button variant="danger" onClick={handleLogout}>{language === 'en' ? 'Log out' : language === 'zh' ? '登出' : 'Cerrar sesión'}</Button>
+                <Button variant="danger" onClick={handleLogout}>{t('common.logout')}</Button>
               </>
             ) : (
               <>
-                <Button as={Link} to={PATHS.login} variant="outline" onClick={() => setOpen(false)}>{language === 'en' ? 'Log in' : language === 'zh' ? '登入' : 'Ingresar'}</Button>
-                <Button as={Link} to={PATHS.registro} onClick={() => setOpen(false)}>{language === 'en' ? 'Sign up' : language === 'zh' ? '註冊' : 'Registrarse'}</Button>
+                <Button as={Link} to={PATHS.login} variant="outline" onClick={() => setOpen(false)}>{t('common.login')}</Button>
+                <Button as={Link} to={PATHS.registro} onClick={() => setOpen(false)}>{t('common.signup')}</Button>
               </>
             )}
           </div>

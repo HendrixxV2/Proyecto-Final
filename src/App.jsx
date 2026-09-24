@@ -6,11 +6,13 @@ import { LanguageProvider } from '@/Context/LanguageContext';
 import { A11yProvider } from '@/Context/A11yContext';
 import { ToastProvider } from '@/Context/ToastContext';
 import ErrorBoundary from '@/Components/Common/ErrorBoundary';
+import AppIntro from '@/Components/Common/AppIntro';
 import Toaster from '@/Components/UI/Toaster';
 
 export default function App() {
   return (
     <ErrorBoundary>
+      <AppIntro />
       <BrowserRouter>
         <ThemeProvider>
           <LanguageProvider>

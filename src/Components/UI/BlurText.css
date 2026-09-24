@@ -1,0 +1,17 @@
+.blur-text {
+  display: inline;
+}
+
+.blur-text__segment {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blur-text__segment {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

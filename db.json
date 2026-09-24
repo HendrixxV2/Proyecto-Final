@@ -1,0 +1,47 @@
+{
+  "usuarios": [
+    { "id": 1, "nombre": "Ana Rodríguez", "email": "admin@orotina.cr", "password": "admin123", "rol": "admin", "avatar": null, "creadoEn": "2024-01-15T10:00:00.000Z" },
+    { "id": 2, "nombre": "Carlos Mora", "email": "usuario@orotina.cr", "password": "user123", "rol": "usuario_regular", "avatar": null, "creadoEn": "2024-03-02T10:00:00.000Z" },
+    { "id": 3, "nombre": "María Jiménez", "email": "maria@orotina.cr", "password": "user123", "rol": "usuario_regular", "avatar": null, "creadoEn": "2024-05-20T10:00:00.000Z" }
+  ],
+  "espacios": [
+    { "id": 1, "nombre": "Teatro Municipal Luis Ferrero Acosta", "tipo": "teatro", "capacidad": 320, "ubicacion": "Costado norte del Parque de Orotina", "precioHora": 45000, "descripcion": "Sala principal con acústica restaurada y camerinos.", "imagen": "/assets/espacios/teatro.jpg", "activo": true, "accesible": true },
+    { "id": 2, "nombre": "Sala de Danza La Trocha", "tipo": "danza", "capacidad": 60, "ubicacion": "Antiguo edificio del Ferrocarril al Pacífico", "precioHora": 18000, "descripcion": "Piso de madera flotante y espejos de pared completa.", "imagen": "/assets/espacios/danza.jpg", "activo": true, "accesible": true },
+    { "id": 3, "nombre": "Galería Ferrocarril", "tipo": "galeria", "capacidad": 120, "ubicacion": "Ala este, planta baja", "precioHora": 22000, "descripcion": "Espacio expositivo dedicado a la memoria ferroviaria.", "imagen": "/assets/espacios/galeria.jpg", "activo": true, "accesible": true },
+    { "id": 4, "nombre": "Aula Taller Semillas", "tipo": "taller", "capacidad": 35, "ubicacion": "Planta alta, aula 2", "precioHora": 12000, "descripcion": "Aula multiuso para talleres de formación artística.", "imagen": "/assets/espacios/taller.jpg", "activo": true, "accesible": false },
+    { "id": 5, "nombre": "Explanada del Ferrocarril", "tipo": "aire_libre", "capacidad": 500, "ubicacion": "Patio exterior del complejo", "precioHora": 30000, "descripcion": "Espacio al aire libre para ferias y conciertos.", "imagen": "/assets/espacios/explanada.jpg", "activo": true, "accesible": true }
+  ],
+  "eventos": [
+    { "id": 1, "titulo": "Noche de Teatro: Voces del Pacífico", "categoria": "teatro", "espacioId": 1, "fecha": "2025-07-12", "horaInicio": "19:00", "horaFin": "21:00", "descripcion": "Montaje sobre la memoria ferroviaria de Orotina.", "imagen": "/assets/eventos/teatro.jpg", "aforo": 300, "precio": 8000, "publicado": true },
+    { "id": 2, "titulo": "Festival de Baile Folclórico", "categoria": "baile", "espacioId": 5, "fecha": "2025-07-19", "horaInicio": "16:00", "horaFin": "20:00", "descripcion": "Punto guanacasteco y cimarrona en vivo.", "imagen": "/assets/eventos/baile.jpg", "aforo": 450, "precio": 0, "publicado": true },
+    { "id": 3, "titulo": "Taller de Canto para Juventudes", "categoria": "canto", "espacioId": 4, "fecha": "2025-07-24", "horaInicio": "14:00", "horaFin": "17:00", "descripcion": "Técnica vocal y repertorio costarricense.", "imagen": "/assets/eventos/canto.jpg", "aforo": 30, "precio": 5000, "publicado": true },
+    { "id": 4, "titulo": "Exposición: Rieles y Memoria", "categoria": "exposicion", "espacioId": 3, "fecha": "2025-08-02", "horaInicio": "10:00", "horaFin": "18:00", "descripcion": "Fotografía histórica del Ferrocarril al Pacífico.", "imagen": "/assets/eventos/expo.jpg", "aforo": 120, "precio": 0, "publicado": true }
+  ],
+  "reservas": [
+    { "id": 1, "espacioId": 2, "usuarioId": 2, "fecha": "2025-07-15", "horaInicio": "09:00", "horaFin": "12:00", "motivo": "Ensayo del grupo de danza juvenil", "estado": "pendiente", "creadoEn": "2025-07-01T14:20:00.000Z" },
+    { "id": 2, "espacioId": 4, "usuarioId": 3, "fecha": "2025-07-18", "horaInicio": "14:00", "horaFin": "16:00", "motivo": "Taller de pintura infantil", "estado": "aprobada", "creadoEn": "2025-07-02T09:05:00.000Z" }
+  ],
+  "boletos": [
+    { "id": 1, "eventoId": 1, "codigo": "ORO-TEATRO-0001", "precio": 8000, "estado": "disponible", "usuarioId": null },
+    { "id": 2, "eventoId": 1, "codigo": "ORO-TEATRO-0002", "precio": 8000, "estado": "pagado", "usuarioId": 2 },
+    { "id": 3, "eventoId": 2, "codigo": "ORO-BAILE-0001", "precio": 0, "estado": "reservado", "usuarioId": 3 }
+  ],
+  "noticias": [
+    { "id": 1, "titulo": "El Centro de Arte reabre la Galería Ferrocarril", "resumen": "Tras seis meses de restauración, la galería vuelve a abrir con una muestra sobre el Ferrocarril al Pacífico.", "contenido": "La Galería Ferrocarril reabre sus puertas luego de un proceso de restauración que recuperó la estructura original de madera de 1928. La muestra inaugural reúne 48 fotografías, planos y objetos donados por familias orotinenses. El proyecto fue financiado con fondos municipales y aportes de la comunidad. Se espera recibir más de 3.000 visitantes durante el trimestre.", "autor": "Prensa CACO", "fecha": "2025-06-28", "categoria": "institucional", "imagen": "/assets/noticias/galeria.jpg" },
+    { "id": 2, "titulo": "Convocatoria abierta para el Festival de Baile Folclórico", "resumen": "Grupos de todo el Pacífico Central podrán inscribirse hasta el 10 de julio.", "contenido": "La convocatoria está dirigida a grupos de danza folclórica de la Región Pacífico Central. La inscripción es gratuita y se realiza en la recepción del centro o mediante el formulario en línea. Se seleccionarán doce agrupaciones que se presentarán en la Explanada del Ferrocarril.", "autor": "Coordinación Cultural", "fecha": "2025-06-15", "categoria": "convocatoria", "imagen": "/assets/noticias/baile.jpg" }
+  ],
+  "contenido": [
+    { "id": 1, "seccion": "historia", "titulo": "Orotina y el Ferrocarril al Pacífico", "cuerpo": "Orotina nació y creció al ritmo del tren. La llegada del Ferrocarril al Pacífico en la primera mitad del siglo XX transformó la villa en un nudo comercial clave entre el Valle Central y el puerto de Caldera. Las bodegas, la estación y el taller de máquinas marcaron la vida cotidiana de varias generaciones. El Centro de Arte y Cultura Luis Ferrero Acosta recupera esa memoria ferroviaria como eje de su identidad institucional.", "imagen": "/assets/contenido/historia.jpg", "orden": 1 },
+    { "id": 2, "seccion": "galeria_ferrocarril", "titulo": "Estación de Orotina, circa 1952", "cuerpo": "Fotografía de la plataforma principal con el tren de carga procedente de Caldera.", "imagen": "/assets/galeria/estacion-1952.jpg", "orden": 1 },
+    { "id": 3, "seccion": "teatro", "titulo": "Teatro Luis Ferrero Acosta", "cuerpo": "La sala principal alberga temporadas de teatro, conciertos y danza contemporánea.", "imagen": "/assets/contenido/teatro.jpg", "orden": 1 },
+    { "id": 4, "seccion": "baile", "titulo": "Danza folclórica", "cuerpo": "Programa permanente de formación en danza folclórica costarricense para niñas, niños y jóvenes.", "imagen": "/assets/contenido/baile.jpg", "orden": 2 },
+    { "id": 5, "seccion": "canto", "titulo": "Coro Infantil Orotinense", "cuerpo": "El coro infantil ensaya semanalmente y se presenta en las festividades cantonales.", "imagen": "/assets/contenido/canto.jpg", "orden": 3 }
+  ],
+  "categorias": [
+    { "id": 1, "nombre": "teatro", "etiqueta": "Teatro" },
+    { "id": 2, "nombre": "baile", "etiqueta": "Baile" },
+    { "id": 3, "nombre": "canto", "etiqueta": "Canto" },
+    { "id": 4, "nombre": "exposicion", "etiqueta": "Exposición" },
+    { "id": 5, "nombre": "taller", "etiqueta": "Taller" }
+  ]
+}

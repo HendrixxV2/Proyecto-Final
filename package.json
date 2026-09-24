@@ -1,0 +1,46 @@
+{
+  "name": "centro-arte-orotina",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server": "json-server --watch db.json --port 4000 --delay 350",
+    "start": "concurrently -n API,WEB -c yellow,cyan \"npm:server\" \"npm:dev\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.441.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-leaflet": "^4.2.1",
+    "react-router-dom": "^7.18.4",
+    "recharts": "^2.12.7",
+    "tailwind-merge": "^2.5.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-react": "^7.24.7",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.6.1",
+    "babel-jest": "^29.7.0",
+    "concurrently": "^9.0.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "json-server": "^0.17.4",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.3.0"
+  }
+}

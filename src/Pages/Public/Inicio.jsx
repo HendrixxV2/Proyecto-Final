@@ -20,6 +20,18 @@ const ACCESOS = [
   { to: PATHS.galeria, key: 'gallery', Icon: TrainFront, tone: 'bg-ink-700' },
 ];
 
+const GALERIA_DANZA = [
+  { src: '/danzaOrotina.jpeg', alt: 'Presentación del Grupo de Baile Folclórico de Orotina', caption: 'Tradición que se baila' },
+  { src: '/danzaOrotina1.jpg', alt: 'Integrantes del grupo durante una actividad cultural', caption: 'Encuentros culturales' },
+  { src: '/danzaOrotina2.jpg', alt: 'Baile folclórico en una presentación del cantón', caption: 'Orgullo orotinense' },
+];
+
+const GALERIA_BANDA = [
+  { src: '/bandaOrotina2.jpeg', alt: 'Músicos de la Banda Comunal de Orotina en presentación', caption: 'Música en comunidad' },
+  { src: '/bandaOrotina3.jpeg', alt: 'Presentación de la Banda Comunal de Orotina', caption: 'Ritmo y movimiento' },
+  { src: '/bandaOrotina4.jpeg', alt: 'Integrantes de la banda representando a Orotina', caption: 'Representación cantonal' },
+];
+
 export default function Inicio() {
   const { t } = useLanguage();
   const { data: eventos, loading: cargandoEventos } = useFetch(() => eventosService.listPublicados(), []);
@@ -156,6 +168,69 @@ export default function Inicio() {
 
           <div className="mt-8">
             <Button as={Link} to={PATHS.calendario} variant="outline">{t('home.fullCalendar')}</Button>
+          </div>
+        </div>
+      </section>
+
+      {/* AGRUPACIONES CULTURALES */}
+      <section className="overflow-hidden bg-gold-50 py-14 dark:bg-ink-900 sm:py-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16 lg:px-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700 dark:text-gold-400">Tradición en movimiento</p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-ink-900 dark:text-ink-50 sm:text-4xl">Grupo de Baile Folclórico</h2>
+            <p className="mt-5 text-base leading-7 text-ink-700 dark:text-ink-300">
+              El grupo celebra las raíces de Orotina a través de la danza tradicional. Sus presentaciones reúnen música, vestuario y movimiento para compartir las costumbres costarricenses en actividades culturales y encuentros de la comunidad.
+            </p>
+            <p className="mt-4 text-sm leading-6 text-ink-600 dark:text-ink-400">
+              Cada baile es una invitación a conocer y mantener viva la identidad local, con espacio para que nuevas generaciones se acerquen al folclore.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4">
+            {GALERIA_DANZA.map((imagen, index) => (
+              <figure key={imagen.src} className={`group relative min-h-36 overflow-hidden rounded-lg bg-ink-200 dark:bg-ink-700 ${index === 0 ? 'row-span-2' : ''}`}>
+                <img
+                  src={imagen.src}
+                  alt={imagen.alt}
+                  loading="lazy"
+                  className={`h-full w-full object-cover transition duration-500 ease-out group-hover:scale-105 ${index === 0 ? 'absolute inset-0' : 'aspect-square'}`}
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 to-transparent px-3 pb-3 pt-10 text-xs font-semibold text-white sm:px-4 sm:pb-4 sm:text-sm">
+                  {imagen.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-14 dark:bg-ink-800/40 sm:py-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8">
+          <div className="order-2 grid grid-cols-2 gap-3 sm:gap-4 lg:order-1">
+            {GALERIA_BANDA.map((imagen) => (
+              <figure key={imagen.src} className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-ink-200 dark:bg-ink-700">
+                <img
+                  src={imagen.src}
+                  alt={imagen.alt}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-105"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 to-transparent px-3 pb-3 pt-10 text-xs font-semibold text-white sm:px-4 sm:pb-4 sm:text-sm">
+                  {imagen.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+
+          <div className="order-1 lg:order-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-jade-700 dark:text-jade-300">Trayectoria viva</p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-ink-900 dark:text-ink-50 sm:text-4xl">Banda Municipal Cantonal de Orotina</h2>
+            <p className="mt-5 text-base leading-7 text-ink-700 dark:text-ink-300">
+              Conocida como Banda Comunal de Orotina (BCO), la agrupación lleva el nombre del cantón a celebraciones y festivales. Su participación en el Festival de la Luz 2025 y su papel como banda anfitriona del Festival de Reyes 2026 reflejan una presencia activa en la vida cultural de Orotina y en encuentros de alcance nacional.
+            </p>
+            <p className="mt-4 text-sm leading-6 text-ink-600 dark:text-ink-400">
+              Con formato de banda de marcha, combina interpretación musical, coordinación y movimiento. Cada presentación pone en escena el trabajo colectivo de sus integrantes y acerca la música a públicos de todas las edades.
+            </p>
           </div>
         </div>
       </section>

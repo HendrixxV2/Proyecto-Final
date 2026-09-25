@@ -51,7 +51,7 @@ export default function Navbar() {
 
   return (
     <header className={cn('sticky top-0 z-40 border-b border-ink-200/70 bg-ink-50/95 shadow-sm backdrop-blur-xl transition-all duration-300 dark:border-ink-700/70 dark:bg-ink-900/95', scrolled && 'shadow-md')}>
-      <nav aria-label={t('common.mainNavigation')} className={cn('mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 sm:gap-4 sm:px-6 lg:px-8 xl:grid-rows-[auto_auto] xl:gap-x-6 xl:gap-y-1', scrolled ? 'min-h-12 py-1 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:grid-rows-1 xl:gap-y-0' : 'min-h-16 py-2 xl:grid-cols-[auto_minmax(0,1fr)]')}>
+      <nav aria-label={t('common.mainNavigation')} className={cn('mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 sm:gap-4 sm:px-6 lg:px-8 xl:grid-rows-[auto_auto] xl:gap-x-6 xl:gap-y-1', scrolled ? 'min-h-12 py-1 xl:grid-cols-[auto_minmax(0,1fr)] xl:gap-y-0' : 'min-h-16 py-2 xl:grid-cols-[auto_minmax(0,1fr)]')}>
         <Link to={PATHS.home} className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3" aria-label="Ir al inicio">
           <span className={cn('relative grid shrink-0 place-items-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-ink-200/70 transition-all duration-300 dark:ring-ink-700', scrolled ? 'h-8 w-8' : 'h-10 w-10 sm:h-11 sm:w-11')}>
             <Landmark aria-hidden="true" className="h-5 w-5 text-brand-500 sm:h-6 sm:w-6" />
@@ -70,7 +70,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <ul className={cn('hidden min-w-0 items-center justify-center gap-1 px-1 xl:flex', scrolled ? 'xl:col-span-1 xl:row-start-1 xl:flex-nowrap xl:overflow-hidden' : 'xl:col-span-2 xl:row-start-2 xl:flex-wrap xl:overflow-visible xl:pb-1')} aria-label={t('common.publicSections')}>
+        <ul className={cn('hidden min-w-0 items-center justify-center gap-1 px-1 xl:col-span-2 xl:row-start-2 xl:flex', scrolled ? 'xl:flex-nowrap xl:overflow-visible xl:pb-0' : 'xl:flex-wrap xl:overflow-visible xl:pb-1')} aria-label={t('common.publicSections')}>
           {NAV.map((item) => (
             <li key={item.to}>
               <NavLink
@@ -91,7 +91,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className={cn('col-start-2 row-start-1 flex shrink-0 items-center gap-2', scrolled ? 'xl:col-start-3 xl:justify-self-end' : 'xl:col-start-2 xl:justify-self-end')}>
+        <div className="col-start-2 row-start-1 flex shrink-0 items-center gap-2 xl:col-start-2 xl:justify-self-end">
           <div className="hidden items-center gap-1 rounded-xl border border-ink-200 bg-white p-1 shadow-sm transition-shadow duration-300 hover:shadow-md dark:border-ink-700 dark:bg-ink-800 lg:flex">
             <span className="px-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-500 dark:text-ink-400">{LANGUAGE_OPTIONS.find((option) => option.id === language)?.label ?? 'ES'}</span>
             {LANGUAGE_OPTIONS.map((option) => (

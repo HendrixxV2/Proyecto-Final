@@ -26,6 +26,15 @@
       "rol": "usuario_regular",
       "avatar": null,
       "creadoEn": "2024-05-20T10:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "nombre": "Luis Fernández",
+      "email": "luis@orotina.cr",
+      "password": "user123",
+      "rol": "usuario_regular",
+      "avatar": null,
+      "creadoEn": "2024-06-10T10:00:00.000Z"
     }
   ],
   "espacios": [

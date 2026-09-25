@@ -94,6 +94,25 @@
   }
 }
 
+.home-title-glow {
+  animation: home-title-glow 5s ease-in-out infinite;
+}
+
+@keyframes home-title-glow {
+  0%, 70%, 100% { text-shadow: 0 0 0 rgb(255 231 166 / 0); }
+  74% { text-shadow: 0 0 0.2em rgb(255 231 166 / 0.85); }
+  78% { text-shadow: 0 0 0.5em rgb(255 218 116 / 1); }
+  82% { text-shadow: 0 0 0 rgb(255 231 166 / 0); }
+  86% { text-shadow: 0 0 0.28em rgb(255 231 166 / 0.8); }
+  90% { text-shadow: 0 0 0 rgb(255 231 166 / 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-title-glow {
+    animation: none;
+  }
+}
+
 .app-intro {
   position: fixed;
   inset: 0;

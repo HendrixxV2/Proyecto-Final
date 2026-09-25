@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CalendarDays, Landmark, Palette, Ticket, TrainFront } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
@@ -12,6 +13,7 @@ import BlurText from '@/Components/UI/BlurText';
 import { formatFecha } from '@/Utils/format';
 import { PATHS } from '@/Routes/paths';
 import { useLanguage } from '@/Hooks/useLanguage';
+import { useA11y } from '@/Hooks/useA11y';
 
 const ACCESOS = [
   { to: PATHS.calendario, key: 'calendar', Icon: CalendarDays, tone: 'bg-brand-500' },
@@ -32,21 +34,43 @@ const GALERIA_BANDA = [
   { src: '/bandaOrotina4.jpeg', alt: 'Integrantes de la banda representando a Orotina', caption: 'Representación cantonal' },
 ];
 
+const IMAGENES_INICIO = [
+  { src: '/imgCarga138.jpeg', alt: 'Vista del Centro Cultural Orotinense' },
+  { src: '/Iglesia_San_Mateo_Alajuela_Costa_Rica.jpg.jpg', alt: 'Iglesia de San Mateo, Alajuela' },
+  { src: '/Orotina_Pavilion._Costa_Rica.jpeg', alt: 'Pabellón de Orotina' },
+];
+
 export default function Inicio() {
   const { t } = useLanguage();
+  const { reducedMotion } = useA11y();
+  const [imagenActiva, setImagenActiva] = useState(0);
   const { data: eventos, loading: cargandoEventos } = useFetch(() => eventosService.listPublicados(), []);
   const { data: noticias, loading: cargandoNoticias } = useFetch(() => noticiasService.latest(3), []);
+
+  useEffect(() => {
+    if (reducedMotion) return undefined;
+
+    const intervalo = window.setInterval(() => {
+      setImagenActiva((actual) => (actual + 1) % IMAGENES_INICIO.length);
+    }, 6000);
+
+    return () => window.clearInterval(intervalo);
+  }, [reducedMotion]);
 
   return (
     <>
       {/* HERO */}
       <section className="relative isolate min-h-[clamp(38rem,78vh,52rem)] overflow-hidden bg-brand-700 text-white">
-        <img
-          src="/imgCarga138.jpeg"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
-        />
+        <div aria-hidden="true" className="absolute inset-0">
+          {IMAGENES_INICIO.map((imagen, index) => (
+            <img
+              key={imagen.src}
+              src={imagen.src}
+              alt=""
+              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${imagenActiva === index ? 'opacity-40' : 'opacity-0'}`}
+            />
+          ))}
+        </div>
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/80 to-brand-900/35" />
         <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_78%_45%,transparent_0%,rgb(28_25_23_/_0.12)_52%,rgb(28_25_23_/_0.4)_100%)]" />
         <div className="relative mx-auto grid min-h-[clamp(38rem,78vh,52rem)] max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-8 lg:py-24">
@@ -54,9 +78,9 @@ export default function Inicio() {
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
               {t('home.eyebrow')}
             </p>
-            <h1 className="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+            <h1 className="home-title-glow mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
               <BlurText text="Centro Cultural Orotinense" delay={90} />
-              <span className="mt-2 block text-2xl font-semibold text-brand-100 sm:text-3xl">
+              <span className="home-title-glow mt-2 block text-2xl font-semibold text-brand-100 sm:text-3xl">
                 Luis Ferrero Acosta
               </span>
             </h1>
@@ -94,6 +118,18 @@ export default function Inicio() {
             </dl>
           </div>
 
+        </div>
+        <div role="group" aria-label="Carrusel de imágenes" className="absolute bottom-5 right-5 z-10 flex items-center gap-2 sm:bottom-8 sm:right-8">
+          {IMAGENES_INICIO.map((imagen, index) => (
+            <button
+              key={imagen.src}
+              type="button"
+              onClick={() => setImagenActiva(index)}
+              aria-label={`Mostrar imagen: ${imagen.alt}`}
+              aria-pressed={imagenActiva === index}
+              className={`h-2.5 rounded-full transition-all ${imagenActiva === index ? 'w-7 bg-gold-400' : 'w-2.5 bg-white/70 hover:bg-white'}`}
+            />
+          ))}
         </div>
       </section>
 

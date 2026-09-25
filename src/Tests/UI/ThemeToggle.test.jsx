@@ -7,6 +7,37 @@ describe('ThemeToggle', () => {
   beforeEach(() => {
     document.documentElement.classList.remove('dark');
     window.localStorage.clear();
+    window.matchMedia = jest.fn().mockImplementation((query) => ({
+      matches: query === '(prefers-color-scheme: dark)' ? false : false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }));
+  });
+
+  it('inicializa en modo oscuro cuando el sistema lo usa', () => {
+    window.matchMedia = jest.fn().mockImplementation((query) => ({
+      matches: query === '(prefers-color-scheme: dark)',
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }));
+
+    render(
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>,
+    );
+
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
   });
 
   it('activa el modo oscuro en el documento', async () => {

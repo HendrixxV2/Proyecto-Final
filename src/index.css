@@ -9,10 +9,29 @@
     --focus-ring: 0 114 178;
   }
 
-  html { -webkit-text-size-adjust: 100%; }
+  html {
+    -webkit-text-size-adjust: 100%;
+    background-color: rgb(247 246 244);
+  }
+
+  html.dark {
+    color-scheme: dark;
+    background-color: rgb(28 25 23);
+  }
+
+  html, body, #root {
+    min-height: 100%;
+  }
 
   body {
     @apply bg-ink-50 font-sans text-ink-900 antialiased dark:bg-ink-900 dark:text-ink-100;
+    min-height: 100vh;
+    transition: background-color 220ms ease, color 220ms ease;
+  }
+
+  html.dark body {
+    background-image: radial-gradient(circle at top, rgba(30, 58, 138, 0.18), transparent 35%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(12, 15, 20, 1));
   }
 
   :focus-visible {
@@ -168,6 +187,25 @@
   }
 }
 
+@media (max-width: 767px) {
+  html, body, #root {
+    overscroll-behavior-y: contain;
+  }
+
+  body {
+    background-attachment: fixed;
+  }
+
+  #contenido-principal {
+    padding-bottom: 0.5rem;
+  }
+
+  #contenido-principal section,
+  #contenido-principal article {
+    scroll-margin-top: 5rem;
+  }
+}
+
 .weather-scene {
   position: relative;
   width: 7rem;
@@ -184,6 +222,23 @@
   transform: translateY(-3px) scale(1.04);
   box-shadow: 0 10px 24px rgb(45 123 166 / 0.2);
 }
+
+.weather-forecast-icon {
+  transition: transform 300ms ease;
+}
+
+.weather-forecast-day:hover .weather-forecast-icon,
+.weather-forecast-day:focus-visible .weather-forecast-icon {
+  transform: scale(1.18);
+}
+
+.weather-forecast-icon--sun { animation: weather-sun 3.6s ease-in-out infinite; }
+.weather-forecast-icon--cloud-sun { animation: weather-cloud-front 5s ease-in-out infinite; }
+.weather-forecast-icon--cloud { animation: weather-cloud-back 8s ease-in-out infinite; }
+.weather-forecast-icon--fog { animation: weather-fog 2.8s ease-in-out infinite; }
+.weather-forecast-icon--drizzle,
+.weather-forecast-icon--rain { animation: weather-rain 1.4s linear infinite; }
+.weather-forecast-icon--storm { animation: weather-flash 2.6s ease-in-out infinite; }
 
 .weather-scene > span,
 .weather-scene__fallback {
@@ -257,7 +312,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .weather-scene *,
-  .weather-scene {
+  .weather-scene,
+  .weather-forecast-icon {
     animation: none !important;
     transition: none !important;
   }

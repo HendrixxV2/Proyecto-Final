@@ -35,6 +35,15 @@
       "rol": "usuario_regular",
       "avatar": null,
       "creadoEn": "2024-06-10T10:00:00.000Z"
+    },
+    {
+      "password": "prueba123",
+      "nombre": "Usuario de Prueba",
+      "creadoEn": "2026-09-25T03:03:51.5611651Z",
+      "avatar": null,
+      "rol": "usuario_regular",
+      "email": "prueba20260924210351@prueba",
+      "id": 5
     }
   ],
   "espacios": [

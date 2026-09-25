@@ -28,12 +28,16 @@ export default function Inicio() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-brand-700 text-white">
-        <div
+      <section className="relative isolate min-h-[clamp(38rem,78vh,52rem)] overflow-hidden bg-brand-700 text-white">
+        <img
+          src="/imgCarga138.jpeg"
+          alt=""
           aria-hidden="true"
-          className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_15%_25%,#E9A03B,transparent_45%),radial-gradient(circle_at_85%_75%,#1F6F6B,transparent_45%)]"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
         />
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:px-8 lg:py-24">
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/80 to-brand-900/35" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_78%_45%,transparent_0%,rgb(28_25_23_/_0.12)_52%,rgb(28_25_23_/_0.4)_100%)]" />
+        <div className="relative mx-auto grid min-h-[clamp(38rem,78vh,52rem)] max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-8 lg:py-24">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
               {t('home.eyebrow')}
@@ -78,31 +82,42 @@ export default function Inicio() {
             </dl>
           </div>
 
-          <WeatherWidget className="lg:bg-white/95 lg:dark:bg-ink-800/95" />
         </div>
       </section>
 
       {/* ACCESOS RÁPIDOS */}
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {ACCESOS.map(({ to, key, Icon, tone }) => (
-            <li key={to}>
-              <Link
-                to={to}
-                className="group flex h-full flex-col rounded-2xl border border-ink-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-soft dark:border-ink-700 dark:bg-ink-800"
-              >
-                <span className={`grid h-11 w-11 place-items-center rounded-xl text-white ${tone}`}>
-                  <Icon aria-hidden="true" className="h-5 w-5" />
-                </span>
-                <span className="mt-4 font-display text-base font-semibold text-ink-900 dark:text-ink-50">{t(`home.access.${key}.0`)}</span>
-                <span className="mt-1 text-sm text-ink-500 dark:text-ink-400">{t(`home.access.${key}.1`)}</span>
-                <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-brand-600 dark:text-brand-300">
-                  {t('common.explore')} <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+      <section className="bg-cian-900 py-12 text-white sm:py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.72fr)] lg:items-center">
+            <div>
+              <div className="mb-5 max-w-xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cian-200">Centro Cultural</p>
+                <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">Explora nuestros espacios</h2>
+                <p className="mt-2 text-sm text-cian-100">Todo lo que necesitas para vivir la programación cultural de Orotina.</p>
+              </div>
+              <ul className="grid gap-4 sm:grid-cols-2">
+                {ACCESOS.map(({ to, key, Icon, tone }) => (
+                  <li key={to}>
+                    <Link
+                      to={to}
+                      className="group flex h-full min-h-44 flex-col rounded-2xl border border-white/15 bg-white p-5 transition hover:-translate-y-1 hover:border-white/40 hover:shadow-xl dark:bg-ink-800"
+                    >
+                      <span className={`grid h-11 w-11 place-items-center rounded-xl text-white ${tone}`}>
+                        <Icon aria-hidden="true" className="h-5 w-5" />
+                      </span>
+                      <span className="mt-4 font-display text-base font-semibold text-ink-900 dark:text-ink-50">{t(`home.access.${key}.0`)}</span>
+                      <span className="mt-1 text-sm text-ink-500 dark:text-ink-400">{t(`home.access.${key}.1`)}</span>
+                      <span className="mt-auto pt-4 inline-flex items-center gap-1 text-xs font-semibold text-brand-600 dark:text-brand-300">
+                        {t('common.explore')} <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <WeatherWidget className="border-white/20 shadow-xl lg:justify-self-end" />
+          </div>
+          </div>
       </section>
 
       {/* PRÓXIMOS EVENTOS */}

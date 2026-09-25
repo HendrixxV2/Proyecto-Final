@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Landmark, LogOut, Menu, Shield, User, X } from 'lucide-react';
 import { PATHS } from '@/Routes/paths';
@@ -29,11 +29,19 @@ const LANGUAGE_OPTIONS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
   const { language, setLanguage, t } = useLanguage();
   const navigate = useNavigate();
   const NAV = NAV_ITEMS.map((item) => ({ ...item, label: t(`common.${item.key}`) }));
   const isRegularUser = isAuthenticated && !isAdmin;
+
+  useEffect(() => {
+    const updateScrollState = () => setScrolled(window.scrollY > 32);
+    updateScrollState();
+    window.addEventListener('scroll', updateScrollState, { passive: true });
+    return () => window.removeEventListener('scroll', updateScrollState);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -42,27 +50,27 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-200/70 bg-ink-50/90 shadow-sm backdrop-blur-xl dark:border-ink-700/70 dark:bg-ink-950/90">
-      <nav aria-label={t('common.mainNavigation')} className="mx-auto flex min-h-16 max-w-[90rem] items-center gap-3 px-3 py-2 sm:gap-4 sm:px-6 lg:px-8">
-        <Link to={PATHS.home} className="flex min-w-0 flex-1 items-center gap-2 sm:flex-none" aria-label="Ir al inicio">
-          <span className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-ink-200/70 sm:h-11 sm:w-11 dark:ring-ink-700">
+    <header className={cn('sticky top-0 z-40 border-b border-ink-200/70 bg-ink-50/95 shadow-sm backdrop-blur-xl transition-all duration-300 dark:border-ink-700/70 dark:bg-ink-900/95', scrolled && 'shadow-md')}>
+      <nav aria-label={t('common.mainNavigation')} className={cn('mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 sm:gap-4 sm:px-6 lg:px-8 xl:grid-rows-[auto_auto] xl:gap-x-6 xl:gap-y-1', scrolled ? 'min-h-12 py-1 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:grid-rows-1 xl:gap-y-0' : 'min-h-16 py-2 xl:grid-cols-[auto_minmax(0,1fr)]')}>
+        <Link to={PATHS.home} className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3" aria-label="Ir al inicio">
+          <span className={cn('relative grid shrink-0 place-items-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-ink-200/70 transition-all duration-300 dark:ring-ink-700', scrolled ? 'h-8 w-8' : 'h-10 w-10 sm:h-11 sm:w-11')}>
             <Landmark aria-hidden="true" className="h-5 w-5 text-brand-500 sm:h-6 sm:w-6" />
             <img
               src="/logoOrotina.jpeg"
               alt=""
               onError={(event) => { event.currentTarget.style.display = 'none'; }}
-              className="absolute h-10 w-10 scale-[1.24] object-cover object-center sm:h-11 sm:w-11"
+              className={cn('absolute scale-[1.24] object-cover object-center', scrolled ? 'h-8 w-8' : 'h-10 w-10 sm:h-11 sm:w-11')}
             />
           </span>
-          <span className="min-w-0 font-brand text-[11px] font-bold leading-[1.1] text-ink-900 sm:text-sm dark:text-ink-50">
-            <span className="block break-words">Centro Cultural Orotinense</span>
-            <span className="mt-0.5 block break-words text-[9px] font-medium leading-tight text-ink-500 sm:text-[11px] dark:text-ink-400">
+          <span className={cn('min-w-0 max-w-[13rem] font-brand text-[11px] font-bold leading-[1.1] text-ink-900 transition-all duration-300 sm:max-w-[15rem] sm:text-sm dark:text-ink-50', scrolled && 'sm:text-xs')}>
+            <span className="block truncate">Centro Cultural Orotinense</span>
+            <span className={cn('mt-0.5 block truncate text-[9px] font-medium leading-tight text-ink-500 transition-all duration-300 sm:text-[11px] dark:text-ink-400', scrolled && 'hidden')}>
               Luis Ferrero Acosta
             </span>
           </span>
         </Link>
 
-        <ul className="hidden min-w-0 flex-1 items-center justify-end gap-0.5 overflow-x-auto xl:flex" aria-label={t('common.publicSections')}>
+        <ul className={cn('hidden min-w-0 items-center justify-center gap-1 px-1 xl:flex', scrolled ? 'xl:col-span-1 xl:row-start-1 xl:flex-nowrap xl:overflow-hidden' : 'xl:col-span-2 xl:row-start-2 xl:flex-wrap xl:overflow-visible xl:pb-1')} aria-label={t('common.publicSections')}>
           {NAV.map((item) => (
             <li key={item.to}>
               <NavLink
@@ -83,7 +91,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className={cn('col-start-2 row-start-1 flex shrink-0 items-center gap-2', scrolled ? 'xl:col-start-3 xl:justify-self-end' : 'xl:col-start-2 xl:justify-self-end')}>
           <div className="hidden items-center gap-1 rounded-xl border border-ink-200 bg-white p-1 shadow-sm transition-shadow duration-300 hover:shadow-md dark:border-ink-700 dark:bg-ink-800 lg:flex">
             <span className="px-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-500 dark:text-ink-400">{LANGUAGE_OPTIONS.find((option) => option.id === language)?.label ?? 'ES'}</span>
             {LANGUAGE_OPTIONS.map((option) => (
@@ -196,7 +204,7 @@ export default function Navbar() {
                 </button>
               ))}
             </div>
-            <ThemeToggle />
+            <ThemeToggle compact />
             <FontSizeControl />
           </div>
 

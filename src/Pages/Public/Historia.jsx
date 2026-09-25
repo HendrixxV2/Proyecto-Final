@@ -1,3 +1,4 @@
+import { Coffee } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
 import { useLanguage } from '@/Hooks/useLanguage';
 import { contenidoService } from '@/Services/contenidoService';
@@ -14,6 +15,8 @@ const HISTORY_COPY = {
     description: 'Un recorrido por el cantón que creció al ritmo del Ferrocarril al Pacífico.',
     loadingTitle: 'Contenido en preparación',
     loadingDesc: 'Estamos digitalizando el archivo histórico del cantón.',
+    railwayTitle: 'El riel que abrió el camino',
+    railwayText: 'El ferrocarril llegó a Orotina en 1903, transformando las Llanuras de Santo Domingo de un territorio aislado en un centro estratégico conectado a la economía nacional. La llegada de los rieles impulsó la exportación de café y oro, atrajo migración y generó un auge comercial alrededor de la estación. Hoy, la asociación ADEPPCO trabaja para preservar esta memoria histórica y el patrimonio cultural que el tren dejó en la región.',
     chapter: 'Capítulo',
     originTitle: 'El nombre del cantón',
     originText: 'La palabra Orotina proviene directamente del nombre del cacique o rey indígena Orotina (o Gurutina), quien gobernaba las tierras desde la ensenada de Tivives hacia el interior durante los primeros contactos con los conquistadores españoles en 1522. Esa raíz política y territorial no es solo un nombre: es una huella de soberanía, navegación y asentamiento que aún acompaña la memoria del cantón.',
@@ -26,6 +29,8 @@ const HISTORY_COPY = {
     description: 'A journey through the canton that grew to the rhythm of the Pacific Railway.',
     loadingTitle: 'Content in preparation',
     loadingDesc: 'We are digitizing the historical archive of the canton.',
+    railwayTitle: 'The railway that opened the way',
+    railwayText: 'The railway reached Orotina in 1903, transforming the Santo Domingo Plains from an isolated territory into a strategic center connected to the national economy. The rails boosted coffee and gold exports, attracted migration and sparked a commercial boom around the station. Today, the ADEPPCO association works to preserve this historical memory and the cultural heritage left by the train in the region.',
     chapter: 'Chapter',
     originTitle: 'The name of the canton',
     originText: 'The word Orotina comes directly from the name of the indigenous cacique or king Orotina (or Gurutina), who ruled the lands from the Tivives inlet to the interior during the first contacts with Spanish conquistadors in 1522. That political and territorial root is more than a name: it is a trace of sovereignty, navigation and settlement that still accompanies the canton’s memory.',
@@ -38,6 +43,8 @@ const HISTORY_COPY = {
     description: '探訪這個隨著太平洋鐵路成長的縣份。',
     loadingTitle: '內容準備中',
     loadingDesc: '我們正在數位化該縣的歷史檔案。',
+    railwayTitle: '開啟道路的鐵路',
+    railwayText: '鐵路於 1903 年抵達奧羅蒂納，將聖多明哥平原從偏遠地區轉變為與國家經濟相連的戰略中心。鐵軌帶動了咖啡與黃金出口，吸引移民，並在車站周圍形成商業繁榮。如今，ADEPPCO 協會致力於保存這段歷史記憶，以及火車在該地區留下的文化遺產。',
     chapter: '章節',
     originTitle: '縣名由來',
     originText: '「Orotina」一詞直接源自原住民首領或國王 Orotina（或 Gurutina）之名，他在 1522 年與西班牙征服者首次接觸時，統治著從 Tivives 海灣延伸至內陸的土地。這個政治與地域的根源不只是名稱，而是一種主權、航行與定居的痕跡，至今仍陪伴著該縣的記憶。',
@@ -65,6 +72,25 @@ export default function Historia() {
         title={copy.title}
         description={copy.description}
       />
+
+      <article className="relative mt-10 overflow-hidden rounded-sm border-2 border-naranja-700/60 bg-[#f6e8c5] p-1 text-ink-900 shadow-[0_8px_24px_rgb(92_63_0_/_0.16)] dark:border-naranja-400/50 dark:bg-naranja-900/80 dark:text-ink-50">
+        <div className="border border-naranja-600/50 px-5 py-7 sm:px-10 sm:py-9">
+          <div className="flex items-center justify-center gap-3 text-naranja-700 dark:text-naranja-200">
+            <span aria-hidden="true" className="h-px w-12 bg-current sm:w-20" />
+            <Coffee aria-hidden="true" className="h-5 w-5" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.28em]">Memoria ferroviaria</span>
+            <Coffee aria-hidden="true" className="h-5 w-5" />
+            <span aria-hidden="true" className="h-px w-12 bg-current sm:w-20" />
+          </div>
+          <h2 className="mt-5 text-center font-display text-2xl font-bold text-naranja-900 dark:text-naranja-100 sm:text-3xl">{copy.railwayTitle}</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center font-display text-base leading-relaxed text-ink-700 dark:text-ink-100 sm:text-lg">{copy.railwayText}</p>
+          <div className="mx-auto mt-6 flex max-w-xs items-center justify-center gap-2 text-naranja-700/70 dark:text-naranja-200/70">
+            <span className="h-px flex-1 bg-current" />
+            <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-current" />
+            <span className="h-px flex-1 bg-current" />
+          </div>
+        </div>
+      </article>
 
       <div className="mt-10 space-y-10">
         {loading && (

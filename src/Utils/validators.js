@@ -2,7 +2,7 @@ import { playEditorErrorSound } from './errorSound';
 
 export const isRequired = (v) => v !== undefined && v !== null && String(v).trim() !== '';
 
-export const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim());
+export const isEmail = (v) => /^[^\s@]+@[^\s@]+$/.test(String(v).trim());
 
 export const minLength = (v, n) => String(v ?? '').trim().length >= n;
 

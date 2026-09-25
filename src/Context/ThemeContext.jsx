@@ -7,9 +7,14 @@ export const ThemeContext = createContext(null);
 const getSystemTheme = () =>
   window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
+const normalizeTheme = (value) => {
+  if (value === 'dark' || value === 'light') return value;
+  return getSystemTheme();
+};
+
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useLocalStorage(THEME_KEY, 'light');
-  const normalizedTheme = theme === 'system' ? getSystemTheme() : theme;
+  const [theme, setTheme] = useLocalStorage(THEME_KEY, getSystemTheme());
+  const normalizedTheme = theme === 'system' ? getSystemTheme() : normalizeTheme(theme);
 
   const resolved = normalizedTheme === 'dark' ? 'dark' : 'light';
 

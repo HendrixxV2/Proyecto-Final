@@ -37,7 +37,7 @@ export default function PublicLayout() {
     <div className="flex min-h-screen flex-col bg-ink-50 text-ink-900 dark:bg-ink-900 dark:text-ink-100">
       <SkipLink />
       <Navbar />
-      <main id="contenido-principal" className="relative flex-1 overflow-x-hidden">
+      <main id="contenido-principal" className="relative min-h-0 flex-1 overflow-x-clip">
         <div className="site-atmosphere" aria-hidden="true" />
         <div key={pathname} className="page-transition relative">
           <Outlet />

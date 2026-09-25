@@ -3,6 +3,7 @@ import { validateForm, required, email, min, rangoHorarioValido, isFutureDate } 
 describe('validators', () => {
   it('detecta correos válidos e inválidos', () => {
     expect(email()('persona@orotina.cr')).toBeNull();
+    expect(email()('test@prueba')).toBeNull();
     expect(email()('correo-invalido')).toMatch(/inválido/i);
   });
 

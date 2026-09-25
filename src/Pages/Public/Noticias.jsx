@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
 import { noticiasService } from '@/Services/noticiasService';
-import SectionTitle from '@/Components/common/SectionTitle';
-import { SkeletonCard } from '@/Components/ui/Skeleton';
-import EmptyState from '@/Components/ui/EmptyState';
+import SectionTitle from '@/Components/Common/SectionTitle';
+import { SkeletonCard } from '@/Components/UI/Skeleton';
+import EmptyState from '@/Components/UI/EmptyState';
 import { formatFecha } from '@/Utils/format';
 import { PATHS } from '@/Routes/paths';
 

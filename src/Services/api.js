@@ -1,4 +1,13 @@
-const BASE_URL = import.meta.env?.VITE_API_URL ?? 'http://localhost:4000';
+const readViteEnv = (key, fallback) => {
+  try {
+    const env = Function('return import.meta.env')();
+    return env?.[key] ?? fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+const BASE_URL = readViteEnv('VITE_API_URL', 'http://localhost:4000');
 
 export class ApiError extends Error {
   constructor(message, status, payload) {

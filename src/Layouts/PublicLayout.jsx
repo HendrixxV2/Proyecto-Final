@@ -1,9 +1,9 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import Navbar from '@/Components/common/Navbar';
-import Footer from '@/Components/common/Footer';
-import AiAssistant from '@/Components/ai/AiAssistant';
-import SkipLink from '@/Components/common/SkipLink';
+import Navbar from '@/Components/Common/Navbar';
+import Footer from '@/Components/Common/Footer';
+import AiAssistant from '@/Components/AI/AiAssistant';
+import SkipLink from '@/Components/Common/SkipLink';
 
 export default function PublicLayout() {
   const { pathname } = useLocation();

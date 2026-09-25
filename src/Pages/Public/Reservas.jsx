@@ -6,11 +6,11 @@ import { useAuth } from '@/Hooks/useAuth';
 import { useToast } from '@/Hooks/useToast';
 import { espaciosService } from '@/Services/espaciosService';
 import { reservasService } from '@/Services/reservasService';
-import SectionTitle from '@/Components/common/SectionTitle';
-import Button from '@/Components/ui/Button';
-import Input from '@/Components/ui/Input';
-import Select from '@/Components/ui/Select';
-import Textarea from '@/Components/ui/Textarea';
+import SectionTitle from '@/Components/Common/SectionTitle';
+import Button from '@/Components/UI/Button';
+import Input from '@/Components/UI/Input';
+import Select from '@/Components/UI/Select';
+import Textarea from '@/Components/UI/Textarea';
 import { validateForm, required, isFutureDate, rangoHorarioValido } from '@/Utils/validators';
 
 const rules = {

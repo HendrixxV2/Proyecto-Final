@@ -1,10 +1,10 @@
 import { useFetch } from '@/Hooks/useFetch';
 import { useLanguage } from '@/Hooks/useLanguage';
 import { contenidoService } from '@/Services/contenidoService';
-import SectionTitle from '@/Components/common/SectionTitle';
-import { Skeleton } from '@/Components/ui/Skeleton';
-import ErrorState from '@/Components/ui/ErrorState';
-import EmptyState from '@/Components/ui/EmptyState';
+import SectionTitle from '@/Components/Common/SectionTitle';
+import { Skeleton } from '@/Components/UI/Skeleton';
+import ErrorState from '@/Components/UI/ErrorState';
+import EmptyState from '@/Components/UI/EmptyState';
 import OrotinaMap from '@/Components/Common/OrotinaMap';
 
 const HISTORY_COPY = {

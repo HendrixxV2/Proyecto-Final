@@ -5,11 +5,11 @@ import { useAuth } from '@/Hooks/useAuth';
 import { useToast } from '@/Hooks/useToast';
 import { eventosService } from '@/Services/eventosService';
 import { boletosService } from '@/Services/boletosService';
-import SectionTitle from '@/Components/common/SectionTitle';
-import Badge from '@/Components/ui/Badge';
-import Button from '@/Components/ui/Button';
-import { SkeletonCard } from '@/Components/ui/Skeleton';
-import EmptyState from '@/Components/ui/EmptyState';
+import SectionTitle from '@/Components/Common/SectionTitle';
+import Badge from '@/Components/UI/Badge';
+import Button from '@/Components/UI/Button';
+import { SkeletonCard } from '@/Components/UI/Skeleton';
+import EmptyState from '@/Components/UI/EmptyState';
 import { formatColones, formatFecha, formatHora } from '@/Utils/format';
 
 export default function Boletos() {

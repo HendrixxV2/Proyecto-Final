@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import ErrorState from '@/Components/ui/ErrorState';
+import ErrorState from '@/Components/UI/ErrorState';
 
 export default class ErrorBoundary extends Component {
   constructor(props) {

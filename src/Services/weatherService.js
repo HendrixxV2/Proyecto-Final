@@ -1,6 +1,14 @@
 
-const WEATHER_ENDPOINT =
-  import.meta.env?.VITE_WEATHER_API ?? 'https://api.open-meteo.com/v1/forecast';
+const readViteEnv = (key, fallback) => {
+  try {
+    const env = Function('return import.meta.env')();
+    return env?.[key] ?? fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+const WEATHER_ENDPOINT = readViteEnv('VITE_WEATHER_API', 'https://api.open-meteo.com/v1/forecast');
 
 // Coordenadas de Orotina, Alajuela, Costa Rica
 export const OROTINA_COORDS = { lat: 9.9118, lon: -84.5236 };

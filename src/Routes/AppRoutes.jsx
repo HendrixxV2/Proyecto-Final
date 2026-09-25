@@ -8,7 +8,7 @@ import PrivateRoute from './PrivateRoute';
 import RoleRoute from './RoleRoute';
 import { PATHS } from './paths';
 import { ROLES } from '@/Utils/constants';
-import PageLoader from '@/Components/common/PageLoader';
+import PageLoader from '@/Components/Common/PageLoader';
 import NotFound from '@/Pages/NotFound';
 
 const Inicio = lazy(() => import('@/Pages/public/Inicio'));

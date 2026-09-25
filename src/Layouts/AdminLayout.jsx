@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import Sidebar from '@/Components/common/Sidebar';
-import Topbar from '@/Components/common/Topbar';
+import Sidebar from '@/Components/Common/Sidebar';
+import Topbar from '@/Components/Common/Topbar';
 
 export default function AdminLayout() {
   const [collapsed, setCollapsed] = useState(false);

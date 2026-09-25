@@ -15,7 +15,16 @@ import { usuariosService }   from './usuariosService';
 import { weatherService }    from './weatherService';
 import { formatFecha, formatColones, formatHora, formatRangoHoras } from '@/utils/format';
 
-const AI_ENDPOINT = import.meta.env?.VITE_AI_ENDPOINT ?? '';
+const readViteEnv = (key, fallback = '') => {
+  try {
+    const env = Function('return import.meta.env')();
+    return env?.[key] ?? fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+const AI_ENDPOINT = readViteEnv('VITE_AI_ENDPOINT');
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
 /*                       UTILIDADES DE LENGUAJE NATURAL                      */

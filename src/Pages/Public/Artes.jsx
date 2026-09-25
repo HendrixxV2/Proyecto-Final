@@ -1,8 +1,8 @@
 import { useFetch } from '@/Hooks/useFetch';
 import { contenidoService } from '@/Services/contenidoService';
-import SectionTitle from '@/Components/common/SectionTitle';
-import EventRecommender from '@/Components/ai/EventRecommender';
-import { Skeleton } from '@/Components/ui/Skeleton';
+import SectionTitle from '@/Components/Common/SectionTitle';
+import EventRecommender from '@/Components/AI/EventRecommender';
+import { Skeleton } from '@/Components/UI/Skeleton';
 
 const DISCIPLINAS = [
   { key: 'teatro', titulo: 'Teatro', descripcion: 'Temporadas profesionales, teatro comunitario y formación escénica.' },

@@ -45,7 +45,8 @@ export const weatherService = {
     const params = new URLSearchParams({
       latitude: lat,
       longitude: lon,
-      current: 'temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m',
+      current: 'temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m',
+      hourly: 'temperature_2m,precipitation_probability,weather_code',
       daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
       timezone: 'America/Costa_Rica',
       forecast_days: days,
@@ -63,14 +64,26 @@ export const weatherService = {
       min: Math.round(data.daily.temperature_2m_min[i]),
       lluvia: data.daily.precipitation_probability_max[i],
     }));
+    const horaActual = data.hourly.time.findIndex((hora) => hora >= data.current.time);
+    const horario = data.hourly.time.slice(Math.max(horaActual, 0), Math.max(horaActual, 0) + 6).map((hora, i) => {
+      const index = Math.max(horaActual, 0) + i;
+      return {
+        hora: hora.slice(11, 16),
+        temperatura: Math.round(data.hourly.temperature_2m[index]),
+        lluvia: data.hourly.precipitation_probability[index] ?? 0,
+        ...describeWeatherCode(data.hourly.weather_code[index]),
+      };
+    });
 
     return {
       actual: {
         temperatura: Math.round(data.current.temperature_2m),
+        sensacion: Math.round(data.current.apparent_temperature ?? data.current.temperature_2m),
         humedad: data.current.relative_humidity_2m,
         viento: Math.round(data.current.wind_speed_10m),
         ...describeWeatherCode(data.current.weather_code),
       },
+      horario,
       diario: daily,
       actualizadoEn: new Date().toISOString(),
     };

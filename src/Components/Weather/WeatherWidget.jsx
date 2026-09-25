@@ -8,6 +8,7 @@ import {
   Droplets,
   RefreshCw,
   Sun,
+  Thermometer,
   Wind,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -88,6 +89,10 @@ export default function WeatherWidget({ className }) {
           <p className="text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400">{t('weather.title')}</p>
           <p className="mt-1 font-display text-3xl font-bold text-ink-900 dark:text-ink-50">{actual.temperatura}°C</p>
           <p className="text-sm text-ink-600 dark:text-ink-300">{actual.texto}</p>
+          <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-ink-500 dark:text-ink-400">
+            <Thermometer aria-hidden="true" className="h-3.5 w-3.5" />
+            {t('weather.feelsLike')} {actual.sensacion}°C
+          </p>
         </div>
         <WeatherScene animation={animation} Icon={WeatherIcon} />
       </header>
@@ -104,6 +109,25 @@ export default function WeatherWidget({ className }) {
           <dd>{actual.viento} km/h {t('weather.wind')}</dd>
         </div>
       </dl>
+
+      <section className="mt-5 border-t border-ink-100 pt-4 dark:border-ink-700" aria-label={t('weather.nextHours')}>
+        <h3 className="text-sm font-semibold text-ink-800 dark:text-ink-100">{t('weather.nextHours')}</h3>
+        <ul className="mt-3 flex snap-x gap-2 overflow-x-auto pb-2" aria-label={t('weather.nextHours')}>
+          {data.horario.map((hour, index) => {
+            const HourIcon = WEATHER_ICONS[hour.icono] ?? Cloud;
+            return (
+              <li key={hour.hora} className="min-w-[4.25rem] flex-1 snap-start rounded-xl border border-ink-100 bg-ink-50 px-2 py-2.5 text-center dark:border-ink-700 dark:bg-ink-900/50">
+                <span className="block text-[10px] font-medium text-ink-500 dark:text-ink-400">{hour.hora}</span>
+                <HourIcon aria-hidden="true" className="mx-auto my-2 h-4 w-4 text-cielo-600 dark:text-cielo-300" />
+                <span className="block text-sm font-bold text-ink-900 dark:text-ink-50">{hour.temperatura}°</span>
+                <span className="mt-1 inline-flex items-center gap-0.5 text-[10px] text-cielo-700 dark:text-cielo-300">
+                  <Droplets aria-hidden="true" className="h-3 w-3" />{hour.lluvia}%
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
       <div className="mt-5 flex items-center justify-between">
         <h3 className="text-sm font-semibold text-ink-800 dark:text-ink-100">{t('weather.forecast')}</h3>

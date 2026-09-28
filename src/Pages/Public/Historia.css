@@ -1,0 +1,436 @@
+.historia-page {
+  --historia-ink: #2d2140;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  color: #fffaf4;
+  background:
+    radial-gradient(ellipse at 50% 32%, rgb(116 61 142 / 0.66), transparent 52%),
+    linear-gradient(135deg, #582d78 0%, #492660 48%, #302044 100%);
+}
+
+.historia-page__photo {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  opacity: 0.13;
+  background: url('/Ferrocarril.jpeg') center 42% / cover no-repeat;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.historia-page__frame {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.historia-page__frame::before,
+.historia-page__frame::after {
+  position: absolute;
+  content: '';
+  pointer-events: none;
+}
+
+.historia-page__frame::before {
+  inset: 0.85rem;
+  border: 1px solid rgb(255 214 111 / 0.24);
+}
+
+.historia-page__frame::after {
+  inset: 1.1rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.historia-flourish {
+  position: absolute;
+  display: grid;
+  width: 9rem;
+  height: 9rem;
+  color: #39c8c6;
+  opacity: 0.9;
+}
+
+.historia-flourish svg {
+  position: absolute;
+  stroke-width: 1.6;
+  filter: drop-shadow(0 4px 8px rgb(25 15 41 / 0.3));
+}
+
+.historia-flourish svg:first-child {
+  top: 0.6rem;
+  left: 0.6rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  color: #31c6c4;
+}
+
+.historia-flourish svg:nth-child(2) {
+  top: 2.2rem;
+  left: 4.25rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  color: #ff8c38;
+}
+
+.historia-flourish svg:last-child {
+  top: 4.3rem;
+  left: 2.65rem;
+  width: 3.3rem;
+  height: 3.3rem;
+  color: #ff6684;
+}
+
+.historia-flourish--top-left { top: 0; left: 0; }
+.historia-flourish--top-right { top: 0; right: 0; transform: scaleX(-1); }
+.historia-flourish--bottom-left { bottom: 0; left: 0; transform: scaleY(-1); }
+.historia-flourish--bottom-right { right: 0; bottom: 0; transform: scale(-1); }
+
+.historia-content {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 3rem, 76rem);
+  margin-inline: auto;
+  padding: 5.75rem 0 5rem;
+}
+
+.historia-heading {
+  max-width: 54rem;
+  margin-inline: auto;
+  text-align: center;
+  animation: historia-rise 700ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.historia-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0;
+  color: #ffcd68;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.historia-eyebrow svg {
+  width: 1rem;
+  height: 1rem;
+  color: #44d0c9;
+}
+
+.historia-heading h1 {
+  margin: 1rem 0 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.historia-heading__description {
+  max-width: 39rem;
+  margin: 1.15rem auto 0;
+  color: rgb(255 250 244 / 0.78);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.historia-heading__rule {
+  display: grid;
+  width: 7rem;
+  height: 1px;
+  margin: 1.6rem auto 0;
+  place-items: center;
+  background: rgb(255 205 104 / 0.54);
+}
+
+.historia-heading__rule span {
+  width: 0.55rem;
+  height: 0.55rem;
+  transform: rotate(45deg);
+  background: #ffcd68;
+}
+
+.historia-journey {
+  margin-top: 3.25rem;
+}
+
+.historia-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.historia-kicker {
+  margin: 0;
+  color: #ffcd68;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.historia-kicker span { padding-inline: 0.4rem; color: #44d0c9; }
+
+.historia-section-heading h2 {
+  max-width: 45rem;
+  margin: 0.5rem 0 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.65rem;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.historia-chapter-count {
+  flex: none;
+  padding-bottom: 0.2rem;
+  color: rgb(255 250 244 / 0.68);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.historia-tabs {
+  display: grid;
+  grid-auto-columns: minmax(12rem, 1fr);
+  grid-auto-flow: column;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.25rem 0.1rem 0.9rem;
+  scrollbar-color: rgb(255 205 104 / 0.6) rgb(255 255 255 / 0.1);
+  scrollbar-width: thin;
+}
+
+.historia-tab {
+  display: flex;
+  min-height: 8.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 0.65rem;
+  color: #fffaf4;
+  text-align: left;
+  background: rgb(34 22 50 / 0.38);
+  cursor: pointer;
+  transition: transform 220ms ease, background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.historia-tab:hover { transform: translateY(-4px); border-color: rgb(255 205 104 / 0.65); background: rgb(34 22 50 / 0.64); }
+.historia-tab--active { border-color: #ffcd68; background: #fff8e9; color: var(--historia-ink); box-shadow: 0 10px 26px rgb(24 13 37 / 0.2); }
+
+.historia-tab__topline {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  color: #44d0c9;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.historia-tab__topline svg { width: 1.25rem; height: 1.25rem; stroke-width: 1.7; }
+.historia-tab--active .historia-tab__topline { color: #9a4c28; }
+
+.historia-tab strong {
+  display: -webkit-box;
+  overflow: hidden;
+  width: 100%;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.historia-tab__period { color: rgb(255 250 244 / 0.7); font-size: 0.72rem; }
+.historia-tab--active .historia-tab__period { color: #6b5d70; }
+
+.historia-feature {
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  min-height: 24rem;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: 0.9rem;
+  color: var(--historia-ink);
+  background: #fff9ee;
+  box-shadow: 0 24px 54px rgb(23 12 34 / 0.27);
+  animation: historia-rise 420ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.historia-feature__image-wrap { position: relative; min-height: 24rem; overflow: hidden; background: #332444; }
+
+.historia-feature__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 650ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.historia-feature:hover .historia-feature__image { transform: scale(1.035); }
+
+.historia-feature__image-wrap::after {
+  position: absolute;
+  inset: 35% 0 0;
+  content: '';
+  background: linear-gradient(transparent, rgb(22 14 31 / 0.52));
+}
+
+.historia-feature__date {
+  position: absolute;
+  z-index: 1;
+  bottom: 1.25rem;
+  left: 1.35rem;
+  color: white;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 0.45);
+}
+
+.historia-feature__image-mark {
+  position: absolute;
+  z-index: 1;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 0.55);
+  border-radius: 50%;
+  color: white;
+  background: rgb(47 29 66 / 0.46);
+  backdrop-filter: blur(6px);
+}
+
+.historia-feature__image-mark svg { width: 1.4rem; height: 1.4rem; }
+
+.historia-feature__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+}
+
+.historia-feature__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  color: #805037;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.historia-feature__label span { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #e76854; }
+
+.historia-feature__copy h2 {
+  margin: 0.8rem 0 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.historia-feature__body { margin: 1rem 0 0; color: #5c5262; font-size: 0.94rem; line-height: 1.75; }
+
+.historia-feature__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.2rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid #b7573f;
+  color: #8e422f;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 180ms ease, gap 180ms ease;
+}
+
+.historia-feature__link:hover { gap: 0.8rem; color: #562660; }
+.historia-feature__link svg { width: 1rem; height: 1rem; }
+
+.historia-feature__index {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.7rem;
+  margin: auto 0 0;
+  padding-top: 1.25rem;
+  color: #786d7d;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.historia-feature__index span { height: 1px; flex: 1; background: #d9cbd2; }
+
+.historia-archive { margin-top: 1.5rem; }
+.historia-loading { display: grid; gap: 0.8rem; padding: 1.25rem; border: 1px solid rgb(255 255 255 / 0.17); border-radius: 0.75rem; background: rgb(32 22 45 / 0.35); }
+.historia-archive > div[role='status'] { color: var(--historia-ink); }
+
+.historia-quote {
+  position: relative;
+  max-width: 57rem;
+  margin: 4rem auto 0;
+  padding: 2rem 2.5rem;
+  border-top: 1px solid rgb(255 205 104 / 0.52);
+  border-bottom: 1px solid rgb(255 205 104 / 0.52);
+  color: #fff5e6;
+  text-align: center;
+}
+
+.historia-quote > svg { width: 1.3rem; height: 1.3rem; margin: 0 auto 0.7rem; color: #44d0c9; }
+.historia-quote p { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 1.35rem; line-height: 1.45; text-wrap: balance; }
+.historia-quote footer { margin-top: 0.85rem; color: #ffcd68; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
+
+.historia-map { margin-top: 4rem; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.3); border-radius: 0.75rem; }
+
+@keyframes historia-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+  .historia-content { width: min(100% - 2.25rem, 76rem); padding: 4.25rem 0 3.5rem; }
+  .historia-page__frame::before { inset: 0.45rem; }
+  .historia-page__frame::after { inset: 0.65rem; }
+  .historia-flourish { transform: scale(0.62); transform-origin: top left; opacity: 0.5; }
+  .historia-flourish--top-right { transform: scale(-0.62, 0.62); transform-origin: top right; }
+  .historia-flourish--bottom-left { transform: scale(0.62, -0.62); transform-origin: bottom left; }
+  .historia-flourish--bottom-right { transform: scale(-0.62); transform-origin: bottom right; }
+  .historia-heading h1 { font-size: 2.65rem; }
+  .historia-journey { margin-top: 2.5rem; }
+  .historia-section-heading { align-items: flex-start; flex-direction: column; gap: 0.5rem; }
+  .historia-section-heading h2 { font-size: 1.45rem; }
+  .historia-tabs { grid-auto-columns: minmax(10.5rem, 72vw); margin-right: -0.4rem; }
+  .historia-tab { min-height: 7.5rem; }
+  .historia-feature { grid-template-columns: 1fr; }
+  .historia-feature__image-wrap { min-height: 16rem; aspect-ratio: 16 / 10; }
+  .historia-feature__copy { min-height: 19rem; padding: 1.45rem; }
+  .historia-feature__body { font-size: 0.9rem; }
+  .historia-quote { margin-top: 3rem; padding: 1.5rem 0.5rem; }
+  .historia-quote p { font-size: 1.15rem; }
+  .historia-map { margin-top: 3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .historia-heading,
+  .historia-feature { animation: none; }
+
+  .historia-tab,
+  .historia-feature__image,
+  .historia-feature__link { transition: none; }
+}

@@ -1,12 +1,13 @@
-import { Coffee, ExternalLink } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { BookOpen, ExternalLink, Flower2, Landmark, MapPinned, Sparkles, TrainFront } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
 import { useLanguage } from '@/Hooks/useLanguage';
 import { contenidoService } from '@/Services/contenidoService';
-import SectionTitle from '@/Components/Common/SectionTitle';
 import { Skeleton } from '@/Components/UI/Skeleton';
 import ErrorState from '@/Components/UI/ErrorState';
 import EmptyState from '@/Components/UI/EmptyState';
 import OrotinaMap from '@/Components/Common/OrotinaMap';
+import './Historia.css';
 
 const HISTORY_COPY = {
   es: {
@@ -21,6 +22,12 @@ const HISTORY_COPY = {
     railwayArticleText: 'Antes del ferrocarril, boyeros, campesinos y pioneros abrieron las rutas hacia las llanuras de Santo Domingo. Cuando el tren llegó en 1903, la estación se convirtió en un centro social y comercial: conectó cosechas y minerales con los puertos, atrajo nuevos pobladores y dejó una huella que ADEPPCO trabaja por conservar.',
     railwayArticleLink: 'Leer artículo completo en ADEPPCO',
     chapter: 'Capítulo',
+    chaptersLabel: 'Elige un capítulo para recorrer la memoria del cantón',
+    originTag: 'Raíces indígenas',
+    railwayTag: 'Ferrocarril al Pacífico',
+    communityTag: 'Caminos de encuentro',
+    archiveTag: 'Archivo local',
+    openArticle: 'Leer historia completa',
     originTitle: 'El nombre del cantón',
     originText: 'La palabra Orotina proviene directamente del nombre del cacique o rey indígena Orotina (o Gurutina), quien gobernaba las tierras desde la ensenada de Tivives hacia el interior durante los primeros contactos con los conquistadores españoles en 1522. Esa raíz política y territorial no es solo un nombre: es una huella de soberanía, navegación y asentamiento que aún acompaña la memoria del cantón.',
     extraTitle: 'Un pueblo de confluencias',
@@ -38,6 +45,12 @@ const HISTORY_COPY = {
     railwayArticleText: 'Before the railway, farmers, ox-cart drivers and pioneers opened routes into the Santo Domingo Plains. When the train arrived in 1903, the station became a social and commercial center, connecting crops and minerals to the ports, attracting new residents and leaving a legacy that ADEPPCO works to preserve.',
     railwayArticleLink: 'Read the full article at ADEPPCO',
     chapter: 'Chapter',
+    chaptersLabel: 'Choose a chapter to explore the canton’s memory',
+    originTag: 'Indigenous roots',
+    railwayTag: 'Pacific Railway',
+    communityTag: 'Crossroads',
+    archiveTag: 'Local archive',
+    openArticle: 'Read the full story',
     originTitle: 'The name of the canton',
     originText: 'The word Orotina comes directly from the name of the indigenous cacique or king Orotina (or Gurutina), who ruled the lands from the Tivives inlet to the interior during the first contacts with Spanish conquistadors in 1522. That political and territorial root is more than a name: it is a trace of sovereignty, navigation and settlement that still accompanies the canton’s memory.',
     extraTitle: 'A town of confluences',
@@ -55,6 +68,12 @@ const HISTORY_COPY = {
     railwayArticleText: '在鐵路出現以前，農民、牛車夫與先驅者開闢了通往聖多明哥平原的道路。火車於 1903 年抵達後，車站成為社會與商業中心，連結農作物、礦產與港口，也吸引新居民，留下 ADEPPCO 持續保存的文化記憶。',
     railwayArticleLink: '在 ADEPPCO 閱讀完整文章',
     chapter: '章節',
+    chaptersLabel: '選擇章節，探索縣份的記憶',
+    originTag: '原住民根源',
+    railwayTag: '太平洋鐵路',
+    communityTag: '交會之路',
+    archiveTag: '地方檔案',
+    openArticle: '閱讀完整故事',
     originTitle: '縣名由來',
     originText: '「Orotina」一詞直接源自原住民首領或國王 Orotina（或 Gurutina）之名，他在 1522 年與西班牙征服者首次接觸時，統治著從 Tivives 海灣延伸至內陸的土地。這個政治與地域的根源不只是名稱，而是一種主權、航行與定居的痕跡，至今仍陪伴著該縣的記憶。',
     extraTitle: '交匯之地',
@@ -73,121 +92,174 @@ export default function Historia() {
   const { data, loading, error, refetch } = useFetch(() => contenidoService.bySeccion('historia'), []);
   const { language } = useLanguage();
   const copy = HISTORY_COPY[language] ?? HISTORY_COPY.es;
+  const [activeChapter, setActiveChapter] = useState('railway');
+  const chapterTabRefs = useRef([]);
+  const chapters = [
+    {
+      id: 'origin',
+      period: '1522',
+      label: copy.originTag,
+      title: copy.originTitle,
+      body: copy.originText,
+      image: '/orotina.jpeg',
+      Icon: Landmark,
+    },
+    {
+      id: 'railway',
+      period: '1903',
+      label: copy.railwayTag,
+      title: copy.railwayTitle,
+      body: copy.railwayText,
+      image: '/rielDeOrotina.jpeg',
+      Icon: TrainFront,
+    },
+    {
+      id: 'community',
+      period: language === 'en' ? 'Then & now' : language === 'zh' ? '昔日與今日' : 'Ayer y hoy',
+      label: copy.communityTag,
+      title: copy.extraTitle,
+      body: copy.extraText,
+      image: '/estacion de Orotina.jpeg',
+      Icon: MapPinned,
+    },
+    ...(data ?? []).map((block, index) => {
+      const localized = getLocalizedBlock(block, language);
+      return {
+        id: `archive-${block.id}`,
+        period: `${copy.chapter} ${index + 1}`,
+        label: copy.archiveTag,
+        title: localized.title,
+        body: localized.body,
+        image: ['/Ferrocarril.jpeg', '/Orotina_Pavilion._Costa_Rica.jpeg', '/ferropacifico.jpeg'][index % 3],
+        Icon: BookOpen,
+      };
+    }),
+  ];
+  const selectedIndex = Math.max(0, chapters.findIndex((chapter) => chapter.id === activeChapter));
+  const selectedChapter = chapters[selectedIndex];
+
+  const handleChapterKeyDown = (event, index) => {
+    let nextIndex = index;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % chapters.length;
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + chapters.length) % chapters.length;
+    else if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = chapters.length - 1;
+    else return;
+
+    event.preventDefault();
+    setActiveChapter(chapters[nextIndex].id);
+    chapterTabRefs.current[nextIndex]?.focus();
+  };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionTitle
-        eyebrow={copy.eyebrow}
-        title={copy.title}
-        description={copy.description}
-      />
+    <div className="historia-page">
+      <div className="historia-page__photo" aria-hidden="true" />
+      <div className="historia-page__frame" aria-hidden="true">
+        <div className="historia-flourish historia-flourish--top-left"><Flower2 /><Sparkles /><Flower2 /></div>
+        <div className="historia-flourish historia-flourish--top-right"><Flower2 /><Sparkles /><Flower2 /></div>
+        <div className="historia-flourish historia-flourish--bottom-left"><Flower2 /><Sparkles /><Flower2 /></div>
+        <div className="historia-flourish historia-flourish--bottom-right"><Flower2 /><Sparkles /><Flower2 /></div>
+      </div>
 
-      <article className="relative mt-10 overflow-hidden rounded-sm border-2 border-naranja-700/60 bg-[#f6e8c5] p-1 text-ink-900 shadow-[0_8px_24px_rgb(92_63_0_/_0.16)] dark:border-naranja-400/50 dark:bg-naranja-900/80 dark:text-ink-50">
-        <div className="border border-naranja-600/50 px-5 py-7 sm:px-10 sm:py-9">
-          <div className="flex items-center justify-center gap-3 text-naranja-700 dark:text-naranja-200">
-            <span aria-hidden="true" className="h-px w-12 bg-current sm:w-20" />
-            <Coffee aria-hidden="true" className="h-5 w-5" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.28em]">Memoria ferroviaria</span>
-            <Coffee aria-hidden="true" className="h-5 w-5" />
-            <span aria-hidden="true" className="h-px w-12 bg-current sm:w-20" />
-          </div>
-          <h2 className="mt-5 text-center font-display text-2xl font-bold text-naranja-900 dark:text-naranja-100 sm:text-3xl">{copy.railwayTitle}</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-center font-display text-base leading-relaxed text-ink-700 dark:text-ink-100 sm:text-lg">{copy.railwayText}</p>
-          <div className="mx-auto mt-6 flex max-w-xs items-center justify-center gap-2 text-naranja-700/70 dark:text-naranja-200/70">
-            <span className="h-px flex-1 bg-current" />
-            <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-current" />
-            <span className="h-px flex-1 bg-current" />
-          </div>
-        </div>
-      </article>
+      <div className="historia-content">
+        <header className="historia-heading">
+          <p className="historia-eyebrow"><Flower2 aria-hidden="true" />{copy.eyebrow}<Flower2 aria-hidden="true" /></p>
+          <h1>{copy.title}</h1>
+          <p className="historia-heading__description">{copy.description}</p>
+          <span className="historia-heading__rule" aria-hidden="true"><span /></span>
+        </header>
 
-      <article className="relative mt-6 overflow-hidden rounded-2xl border border-ink-200 bg-ink-900 text-ink-50 shadow-soft dark:border-ink-700 dark:bg-ink-800">
-        <img
-          src="/rielDeOrotina.jpeg"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover opacity-25"
-        />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-ink-900/95 via-ink-900/85 to-ink-900/45" />
-        <div className="relative flex flex-col gap-5 p-6 sm:flex-row sm:items-start sm:justify-between sm:p-8">
-          <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-naranja-300">Artículo histórico · ADEPPCO</p>
-            <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">{copy.railwayArticleTitle}</h2>
-            <p className="mt-4 text-sm leading-relaxed text-ink-200 sm:text-base">{copy.railwayArticleText}</p>
+        <section className="historia-journey" aria-labelledby="historia-journey-title">
+          <div className="historia-section-heading">
+            <div>
+              <p className="historia-kicker">01 <span>/</span> {copy.eyebrow}</p>
+              <h2 id="historia-journey-title">{copy.chaptersLabel}</h2>
+            </div>
+            <span className="historia-chapter-count">{String(chapters.length).padStart(2, '0')} {language === 'en' ? 'chapters' : language === 'zh' ? '章節' : 'capítulos'}</span>
           </div>
-          <a
-            href="https://adeppco.com/2025/10/07/el-tren-que-cambio-la-historia-de-orotina/"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-naranja-400/60 px-4 py-2.5 text-sm font-semibold text-naranja-200 transition hover:border-naranja-300 hover:bg-naranja-400/10"
+
+          <div className="historia-tabs" role="tablist" aria-label={copy.chaptersLabel}>
+            {chapters.map((chapter, index) => {
+              const ChapterIcon = chapter.Icon;
+              const isActive = selectedIndex === index;
+              return (
+                <button
+                  key={chapter.id}
+                  ref={(element) => { chapterTabRefs.current[index] = element; }}
+                  id={`historia-tab-${index}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls="historia-panel"
+                  tabIndex={isActive ? 0 : -1}
+                  className={`historia-tab${isActive ? ' historia-tab--active' : ''}`}
+                  onClick={() => setActiveChapter(chapter.id)}
+                  onKeyDown={(event) => handleChapterKeyDown(event, index)}
+                >
+                  <span className="historia-tab__topline">
+                    <ChapterIcon aria-hidden="true" />
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                  </span>
+                  <strong>{chapter.title}</strong>
+                  <span className="historia-tab__period">{chapter.period}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div
+            key={selectedChapter.id}
+            id="historia-panel"
+            role="tabpanel"
+            aria-labelledby={`historia-tab-${selectedIndex}`}
+            tabIndex={0}
+            className="historia-feature"
           >
-            {copy.railwayArticleLink}
-            <ExternalLink aria-hidden="true" className="h-4 w-4" />
-          </a>
-        </div>
-      </article>
+            <div className="historia-feature__image-wrap">
+              <img src={selectedChapter.image} alt={selectedChapter.title} className="historia-feature__image" />
+              <span className="historia-feature__date">{selectedChapter.period}</span>
+              <span className="historia-feature__image-mark" aria-hidden="true"><Flower2 /></span>
+            </div>
+            <div className="historia-feature__copy">
+              <p className="historia-feature__label"><span />{selectedChapter.label}</p>
+              <h2>{selectedChapter.title}</h2>
+              <p className="historia-feature__body">{selectedChapter.body}</p>
+              {selectedChapter.id === 'railway' && (
+                <a
+                  href="https://adeppco.com/2025/10/07/el-tren-que-cambio-la-historia-de-orotina/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="historia-feature__link"
+                >
+                  {copy.openArticle}<ExternalLink aria-hidden="true" />
+                </a>
+              )}
+              <p className="historia-feature__index">{copy.chapter} {String(selectedIndex + 1).padStart(2, '0')} <span /> {selectedChapter.period}</p>
+            </div>
+          </div>
+        </section>
 
-      <div className="mt-10 space-y-10">
-        {loading && (
-          <>
-            <Skeleton className="h-6 w-2/3" />
-            <Skeleton className="h-40 w-full rounded-2xl" />
-          </>
-        )}
+        <section className="historia-archive" aria-label={copy.archiveTag}>
+          {loading && (
+            <div className="historia-loading" aria-label={copy.loadingTitle}>
+              <Skeleton className="h-6 w-2/3" />
+              <Skeleton className="h-40 w-full rounded-xl" />
+            </div>
+          )}
+          {error && !loading && <ErrorState onRetry={refetch} />}
+          {!loading && !error && data?.length === 0 && (
+            <EmptyState title={copy.loadingTitle} description={copy.loadingDesc} />
+          )}
+        </section>
 
-        {error && !loading && <ErrorState onRetry={refetch} />}
+        <blockquote className="historia-quote">
+          <Sparkles aria-hidden="true" />
+          <p>“Luis Ferrero Acosta dejó en su obra el testimonio de un pueblo que aprendió a mirar el mundo desde el riel.”</p>
+          <footer>Centro Cultural Orotinense</footer>
+        </blockquote>
 
-        {!loading && !error && data?.length === 0 && (
-          <EmptyState title={copy.loadingTitle} description={copy.loadingDesc} />
-        )}
-
-        {!loading &&
-          data?.map((bloque, index) => (
-            <article key={bloque.id} className="relative border-l-2 border-brand-200 pl-6 dark:border-brand-800">
-              <span
-                aria-hidden="true"
-                className="absolute -left-[7px] top-1 h-3 w-3 rounded-full bg-brand-500"
-              />
-              <p className="text-xs font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">
-                {copy.chapter} {index + 1}
-              </p>
-              <h2 className="mt-1 font-display text-2xl font-bold text-ink-900 dark:text-ink-50">{getLocalizedBlock(bloque, language).title}</h2>
-              <p className="mt-3 whitespace-pre-line text-base leading-relaxed text-ink-700 dark:text-ink-200">{getLocalizedBlock(bloque, language).body}</p>
-            </article>
-          ))}
+        <div className="historia-map"><OrotinaMap /></div>
       </div>
-
-      <div className="mt-14 rounded-[2rem] border border-brand-200 bg-gradient-to-br from-brand-50 via-amber-50 to-jade-50 p-6 shadow-soft dark:border-brand-800 dark:from-brand-950/30 dark:via-ink-800 dark:to-jade-950/30">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-300">{copy.originTitle}</p>
-        <p className="mt-4 text-base leading-relaxed text-ink-700 dark:text-ink-200">{copy.originText}</p>
-      </div>
-
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        <div className="rounded-2xl border border-ink-200 bg-white p-5 shadow-soft dark:border-ink-700 dark:bg-ink-800">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-jade-700 dark:text-jade-300">{copy.extraTitle}</p>
-          <p className="mt-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{copy.extraText}</p>
-        </div>
-
-        <div className="rounded-2xl border border-ink-200 bg-gradient-to-br from-ink-900 to-brand-900 p-5 text-ink-50 shadow-soft">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-200">{language === 'en' ? 'Legacy' : language === 'zh' ? '遺產' : 'Legado'}</p>
-          <p className="mt-3 text-sm leading-relaxed text-ink-100/90">
-            {language === 'en'
-              ? 'Orotina lives on in its toponyms, songs, trade routes and the memory of those who turned the railway into a horizon of social life.'
-              : language === 'zh'
-                ? '奧羅蒂納的故事仍保存在地名、歌謠、貿易路線與那些把鐵路轉化為社會生活視野的人們的記憶中。'
-                : 'Orotina vive en sus topónimos, canciones, rutas de comercio y en la memoria de quienes transformaron el ferrocarril en horizonte de vida social.'}
-          </p>
-        </div>
-      </div>
-
-      <blockquote className="mt-14 rounded-2xl bg-jade-700 p-8 text-jade-50">
-        <p className="font-display text-xl leading-snug sm:text-2xl">
-          “Luis Ferrero Acosta dejó en su obra el testimonio de un pueblo que aprendió a mirar el mundo desde el riel.”
-        </p>
-        <footer className="mt-3 text-xs text-jade-200">Centro Cultural Orotinense</footer>
-      </blockquote>
-
-      <OrotinaMap />
     </div>
   );
 }

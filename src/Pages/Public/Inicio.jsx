@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CalendarDays, Landmark, Palette, Ticket, TrainFront } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CalendarDays, Expand, ExternalLink, Landmark, Palette, Ticket, TrainFront, X } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
 import { eventosService } from '@/Services/eventosService';
 import { noticiasService } from '@/Services/noticiasService';
@@ -29,6 +30,7 @@ const GALERIA_DANZA = [
 ];
 
 const GALERIA_BANDA = [
+  { src: '/bandaOrotina1.jpeg', alt: 'Banda Comunal de Orotina durante una presentación', caption: 'Orgullo comunal' },
   { src: '/bandaOrotina2.jpeg', alt: 'Músicos de la Banda Comunal de Orotina en presentación', caption: 'Música en comunidad' },
   { src: '/bandaOrotina3.jpeg', alt: 'Presentación de la Banda Comunal de Orotina', caption: 'Ritmo y movimiento' },
   { src: '/bandaOrotina4.jpeg', alt: 'Integrantes de la banda representando a Orotina', caption: 'Representación cantonal' },
@@ -44,6 +46,11 @@ export default function Inicio() {
   const { t } = useLanguage();
   const { reducedMotion } = useA11y();
   const [imagenActiva, setImagenActiva] = useState(0);
+  const [imagenBandaActiva, setImagenBandaActiva] = useState(null);
+  const visorAbierto = imagenBandaActiva !== null;
+  const visorRef = useRef(null);
+  const cerrarVisorRef = useRef(null);
+  const focoAnteriorRef = useRef(null);
   const { data: eventos, loading: cargandoEventos } = useFetch(() => eventosService.listPublicados(), []);
   const { data: noticias, loading: cargandoNoticias } = useFetch(() => noticiasService.latest(3), []);
 
@@ -56,6 +63,43 @@ export default function Inicio() {
 
     return () => window.clearInterval(intervalo);
   }, [reducedMotion]);
+
+  useEffect(() => {
+    if (!visorAbierto) return undefined;
+
+    const overflowAnterior = document.body.style.overflow;
+    focoAnteriorRef.current = document.activeElement;
+    document.body.style.overflow = 'hidden';
+    cerrarVisorRef.current?.focus();
+    const manejarTeclado = (event) => {
+      if (event.key === 'Escape') setImagenBandaActiva(null);
+      if (event.key === 'ArrowRight') {
+        setImagenBandaActiva((indice) => (indice + 1) % GALERIA_BANDA.length);
+      }
+      if (event.key === 'ArrowLeft') {
+        setImagenBandaActiva((indice) => (indice - 1 + GALERIA_BANDA.length) % GALERIA_BANDA.length);
+      }
+      if (event.key === 'Tab' && visorRef.current) {
+        const controles = visorRef.current.querySelectorAll('button');
+        const primero = controles[0];
+        const ultimo = controles[controles.length - 1];
+        if (event.shiftKey && document.activeElement === primero) {
+          event.preventDefault();
+          ultimo.focus();
+        } else if (!event.shiftKey && document.activeElement === ultimo) {
+          event.preventDefault();
+          primero.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', manejarTeclado);
+    return () => {
+      document.removeEventListener('keydown', manejarTeclado);
+      document.body.style.overflow = overflowAnterior;
+      focoAnteriorRef.current?.focus?.();
+    };
+  }, [visorAbierto]);
 
   return (
     <>
@@ -257,15 +301,23 @@ export default function Inicio() {
       <section className="bg-white py-14 dark:bg-ink-800/40 sm:py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8">
           <div className="order-2 grid grid-cols-2 gap-3 sm:gap-4 lg:order-1">
-            {GALERIA_BANDA.map((imagen) => (
+            {GALERIA_BANDA.map((imagen, index) => (
               <figure key={imagen.src} className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-ink-200 dark:bg-ink-700">
+                <button
+                  type="button"
+                  onClick={() => setImagenBandaActiva(index)}
+                  aria-label={`Ver ${imagen.caption} en pantalla completa`}
+                  className="absolute inset-0 z-10 flex h-full w-full items-start justify-end p-3 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-white"
+                >
+                  <Expand aria-hidden="true" className="h-5 w-5 rounded-sm bg-ink-950/60 p-0.5 opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100" />
+                </button>
                 <img
                   src={imagen.src}
                   alt={imagen.alt}
                   loading="lazy"
                   className="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-105"
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 to-transparent px-3 pb-3 pt-10 text-xs font-semibold text-white sm:px-4 sm:pb-4 sm:text-sm">
+                <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 to-transparent px-3 pb-3 pt-10 text-xs font-semibold text-white sm:px-4 sm:pb-4 sm:text-sm">
                   {imagen.caption}
                 </figcaption>
               </figure>
@@ -274,16 +326,79 @@ export default function Inicio() {
 
           <div className="order-1 lg:order-2">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-jade-700 dark:text-jade-300">Trayectoria viva</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-ink-900 dark:text-ink-50 sm:text-4xl">Banda Municipal Cantonal de Orotina</h2>
+            <h2 className="mt-3 font-display text-3xl font-bold text-ink-900 dark:text-ink-50 sm:text-4xl">Banda Comunal de Orotina</h2>
             <p className="mt-5 text-base leading-7 text-ink-700 dark:text-ink-300">
               Conocida como Banda Comunal de Orotina (BCO), la agrupación lleva el nombre del cantón a celebraciones y festivales. Su participación en el Festival de la Luz 2025 y su papel como banda anfitriona del Festival de Reyes 2026 reflejan una presencia activa en la vida cultural de Orotina y en encuentros de alcance nacional.
             </p>
             <p className="mt-4 text-sm leading-6 text-ink-600 dark:text-ink-400">
               Con formato de banda de marcha, combina interpretación musical, coordinación y movimiento. Cada presentación pone en escena el trabajo colectivo de sus integrantes y acerca la música a públicos de todas las edades.
             </p>
+            <a
+              href="https://www.facebook.com/BCOMarchingBand/?locale=es_LA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-jade-700 underline decoration-jade-400 underline-offset-4 transition hover:text-jade-900 dark:text-jade-300 dark:hover:text-jade-100"
+            >
+              Facebook de la Banda Comunal de Orotina
+              <ExternalLink aria-hidden="true" className="h-4 w-4" />
+            </a>
           </div>
         </div>
       </section>
+
+      {imagenBandaActiva !== null && createPortal(
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8"
+          ref={visorRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Galería de la Banda Comunal de Orotina"
+          onClick={() => setImagenBandaActiva(null)}
+        >
+          <button
+            type="button"
+            ref={cerrarVisorRef}
+            onClick={() => setImagenBandaActiva(null)}
+            aria-label="Cerrar pantalla completa"
+            className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white sm:right-6 sm:top-6"
+          >
+            <X aria-hidden="true" className="h-6 w-6" />
+          </button>
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              setImagenBandaActiva((indice) => (indice - 1 + GALERIA_BANDA.length) % GALERIA_BANDA.length);
+            }}
+            aria-label="Imagen anterior"
+            className="absolute left-2 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white sm:left-6"
+          >
+            <ArrowLeft aria-hidden="true" className="h-6 w-6" />
+          </button>
+          <figure className="flex max-h-full max-w-full flex-col items-center gap-3" onClick={(event) => event.stopPropagation()}>
+            <img
+              src={GALERIA_BANDA[imagenBandaActiva].src}
+              alt={GALERIA_BANDA[imagenBandaActiva].alt}
+              className="max-h-[calc(100dvh-8rem)] max-w-full object-contain"
+            />
+            <figcaption className="text-center text-sm font-medium text-white sm:text-base">
+              {GALERIA_BANDA[imagenBandaActiva].caption} · {imagenBandaActiva + 1} / {GALERIA_BANDA.length}
+            </figcaption>
+          </figure>
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              setImagenBandaActiva((indice) => (indice + 1) % GALERIA_BANDA.length);
+            }}
+            aria-label="Imagen siguiente"
+            className="absolute right-2 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white sm:right-6"
+          >
+            <ArrowRight aria-hidden="true" className="h-6 w-6" />
+          </button>
+        </div>,
+        document.body,
+      )}
 
       {/* RECOMENDACIONES IA */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">

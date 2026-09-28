@@ -220,6 +220,10 @@ export default function Inicio() {
             <p className="mt-4 text-sm leading-6 text-ink-600 dark:text-ink-400">
               Cada baile es una invitación a conocer y mantener viva la identidad local, con espacio para que nuevas generaciones se acerquen al folclore.
             </p>
+            <Button as={Link} to={PATHS.artes} variant="outline" className="mt-6 border-brand-300 bg-white/70">
+              Teatro · Baile · Canto
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Button>
           </div>
 
           <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4">

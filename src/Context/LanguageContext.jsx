@@ -17,7 +17,7 @@ export function LanguageProvider({ children }) {
   }, [setLanguage]);
 
   const value = useMemo(
-    () => ({ language, setLanguage: updateLanguage, t: (key) => getTranslation(language, key) }),
+    () => ({ language, setLanguage: updateLanguage, t: (key, variables) => getTranslation(language, key, variables) }),
     [language, updateLanguage],
   );
 

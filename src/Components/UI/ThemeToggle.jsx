@@ -1,23 +1,26 @@
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/Hooks/useTheme';
 import { cn } from '@/Utils/cn';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 const OPCIONES = [
-  { id: 'light', label: 'Claro', Icon: Sun },
-  { id: 'dark', label: 'Oscuro', Icon: Moon },
+  { id: 'light', key: 'lightTheme', Icon: Sun },
+  { id: 'dark', key: 'darkTheme', Icon: Moon },
 ];
 
 export default function ThemeToggle({ compact = false }) {
   const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
 
   return (
     <div
       role="radiogroup"
-      aria-label="Tema de la interfaz"
+      aria-label={t('ui.theme')}
       className="inline-flex items-center gap-1 rounded-xl border border-ink-200 bg-white p-1 dark:border-ink-700 dark:bg-ink-800"
     >
-      {OPCIONES.map(({ id, label, Icon }) => {
+      {OPCIONES.map(({ id, key, Icon }) => {
         const activo = theme === id;
+        const label = t(`ui.${key}`);
         return (
           <button
             key={id}

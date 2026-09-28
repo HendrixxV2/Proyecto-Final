@@ -29,7 +29,7 @@ export default function AccessibilityPanel() {
             <h2 className="font-display text-base font-bold text-ink-900 dark:text-ink-50">{t('accessibility.preferences')}</h2>
             <p className="mt-1 text-xs text-ink-500 dark:text-ink-300">{t('accessibility.saved')}</p>
           </div>
-          <button type="button" onClick={reset} aria-label="Restablecer accesibilidad" className="rounded-lg p-2 text-ink-500 hover:bg-ink-100 dark:hover:bg-ink-700">
+          <button type="button" onClick={reset} aria-label={t('accessibility.reset')} className="rounded-lg p-2 text-ink-500 hover:bg-ink-100 dark:hover:bg-ink-700">
             <RotateCcw aria-hidden="true" className="h-4 w-4" />
           </button>
         </div>

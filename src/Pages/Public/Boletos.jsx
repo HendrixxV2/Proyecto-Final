@@ -13,6 +13,7 @@ import Modal from '@/Components/UI/Modal';
 import { SkeletonCard } from '@/Components/UI/Skeleton';
 import EmptyState from '@/Components/UI/EmptyState';
 import { formatColones, formatFecha, formatHora } from '@/Utils/format';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 const COLUMNAS_BUTACA = 4;
 const nombreButaca = (indice) =>
@@ -21,6 +22,7 @@ const nombreButaca = (indice) =>
 export default function Boletos() {
   const { user, isAuthenticated } = useAuth();
   const toast = useToast();
+  const { t } = useLanguage();
   const [procesando, setProcesando] = useState(null);
   const [eventoSeleccionado, setEventoSeleccionado] = useState(null);
   const [butacasSeleccionadas, setButacasSeleccionadas] = useState([]);
@@ -41,7 +43,7 @@ export default function Boletos() {
     const evento = eventoSeleccionado;
     if (!evento) return;
     if (!isAuthenticated) {
-      toast.info('Inicia sesión', 'Debes ingresar para reservar boletos.');
+      toast.info(t('tickets.signIn'), t('tickets.signInDescription'));
       return;
     }
 
@@ -49,14 +51,14 @@ export default function Boletos() {
     try {
       const reservados = await boletosService.reservar(evento.id, user.id, evento.precio, butacasSeleccionadas);
       toast.success(
-        reservados.length === 1 ? 'Boleto reservado' : 'Boletos reservados',
-        `${reservados.length} ${reservados.length === 1 ? 'entrada' : 'entradas'} para "${evento.titulo}".`,
+        reservados.length === 1 ? t('tickets.reserved') : t('tickets.reservedPlural'),
+        `${reservados.length} ${reservados.length === 1 ? t('tickets.ticketUnit') : t('tickets.ticketUnitPlural')} para "${evento.titulo}".`,
       );
       setEventoSeleccionado(null);
       setButacasSeleccionadas([]);
       await Promise.all([refetch(), refetchBoletos()]);
     } catch (err) {
-      toast.error('No se pudo completar la reserva', err.message);
+      toast.error(t('tickets.reservationError'), err.message);
     } finally {
       setProcesando(null);
     }
@@ -105,30 +107,30 @@ export default function Boletos() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <SectionTitle
-        eyebrow="Entradas"
-        title="Boletería cultural"
-        description="Elige una actividad, revisa sus cupos y reserva tus entradas en línea."
+        eyebrow={t('tickets.eyebrow')}
+        title={t('tickets.title')}
+        description={t('tickets.description')}
       />
 
       <div className="mt-8 grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
         <div className="relative">
           <Search aria-hidden="true" className="pointer-events-none absolute left-3.5 top-[38px] h-4 w-4 text-ink-400" />
           <Input
-            label="Buscar actividades"
-            placeholder="Teatro, conciertos, talleres..."
+            label={t('tickets.search')}
+            placeholder={t('tickets.searchPlaceholder')}
             value={busqueda}
             onChange={(event) => setBusqueda(event.target.value)}
             className="pl-10"
           />
         </div>
         <label className="block text-sm font-medium text-ink-800 dark:text-ink-200">
-          Categoría
+          {t('tickets.category')}
           <select
             value={categoria}
             onChange={(event) => setCategoria(event.target.value)}
             className="mt-1.5 h-11 w-full rounded-xl border border-ink-300 bg-white px-3.5 text-sm text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40 dark:border-ink-600 dark:bg-ink-800 dark:text-ink-100"
           >
-            <option value="todas">Todas las actividades</option>
+            <option value="todas">{t('tickets.all')}</option>
             {categorias.map((item) => <option key={item} value={item}>{item}</option>)}
           </select>
         </label>
@@ -150,7 +152,7 @@ export default function Boletos() {
                 <article className="flex h-full flex-col rounded-xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800">
                   <div className="flex items-start justify-between gap-3">
                     <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">{evento.categoria}</p>
-                    <Badge tone={evento.precio > 0 ? 'info' : 'success'}>{evento.precio > 0 ? formatColones(evento.precio) : 'Gratuito'}</Badge>
+                    <Badge tone={evento.precio > 0 ? 'info' : 'success'}>{evento.precio > 0 ? formatColones(evento.precio) : t('tickets.free')}</Badge>
                   </div>
 
                   <h3 className="mt-2 font-display text-lg font-semibold text-ink-900 dark:text-ink-50">{evento.titulo}</h3>
@@ -162,15 +164,15 @@ export default function Boletos() {
                   </div>
                   <p className="mt-2 text-xs text-ink-500 dark:text-ink-400">
                     {cargandoBoletos
-                      ? 'Consultando disponibilidad...'
+                      ? t('tickets.checking')
                       : disponibles > 0
-                        ? `${disponibles} ${disponibles === 1 ? 'entrada disponible' : 'entradas disponibles'}`
-                        : 'Entradas agotadas'}
-                    {evento.aforo ? ` · Aforo ${evento.aforo}` : ''}
+                        ? t(disponibles === 1 ? 'tickets.available' : 'tickets.availablePlural', { count: disponibles })
+                        : t('tickets.soldOut')}
+                    {evento.aforo ? ` · ${t('tickets.category')} ${evento.aforo}` : ''}
                   </p>
                   {boletosPropios.length > 0 && (
                     <p className="mt-1 text-xs font-medium text-jade-700 dark:text-jade-300">
-                      Ya reservaste {boletosPropios.length} {boletosPropios.length === 1 ? 'entrada' : 'entradas'}
+                      {t('tickets.alreadyBooked', { count: boletosPropios.length, unit: boletosPropios.length === 1 ? t('tickets.ticketUnit') : t('tickets.ticketUnitPlural') })}
                     </p>
                   )}
 
@@ -181,7 +183,7 @@ export default function Boletos() {
                     variant={!cargandoBoletos && disponibles === 0 ? 'outline' : 'primary'}
                   >
                     <Ticket aria-hidden="true" className="h-4 w-4" />
-                    {cargandoBoletos ? 'Consultando cupos' : disponibles === 0 ? 'Agotado' : 'Elegir entradas'}
+                    {cargandoBoletos ? t('tickets.checkingSeats') : disponibles === 0 ? t('tickets.soldOutShort') : t('tickets.choose')}
                   </Button>
                 </article>
               </li>
@@ -192,19 +194,19 @@ export default function Boletos() {
 
       {!loading && !eventos?.length && (
         <div className="mt-8">
-          <EmptyState icon={Ticket} title="Sin actividades disponibles" description="Vuelve pronto para descubrir la programación cultural." />
+          <EmptyState icon={Ticket} title={t('tickets.noActivities')} description={t('tickets.noActivitiesDescription')} />
         </div>
       )}
 
       {!loading && eventos?.length > 0 && eventosFiltrados.length === 0 && (
         <div className="mt-8">
-          <EmptyState icon={Search} title="No encontramos actividades" description="Prueba otra búsqueda o categoría." />
+          <EmptyState icon={Search} title={t('tickets.noResults')} description={t('tickets.noResultsDescription')} />
         </div>
       )}
 
       {isAuthenticated && misBoletos?.length > 0 && (
         <section className="mt-14 border-t border-ink-200 pt-8 dark:border-ink-700" aria-labelledby="mis-entradas-title">
-          <h2 id="mis-entradas-title" className="font-display text-xl font-semibold text-ink-900 dark:text-ink-50">Tus entradas</h2>
+          <h2 id="mis-entradas-title" className="font-display text-xl font-semibold text-ink-900 dark:text-ink-50">{t('tickets.yourTickets')}</h2>
           <ul className="mt-4 divide-y divide-ink-200 dark:divide-ink-700">
             {misBoletos.map((boleto) => {
               const evento = eventos?.find((item) => String(item.id) === String(boleto.eventoId));
@@ -213,7 +215,7 @@ export default function Boletos() {
                   <div>
                     <p className="text-sm font-medium text-ink-900 dark:text-ink-100">{evento?.titulo ?? `Actividad #${boleto.eventoId}`}</p>
                     <p className="mt-0.5 font-mono text-xs text-ink-500 dark:text-ink-400">
-                      {boleto.codigo}{boleto.asiento ? ` · Butaca ${boleto.asiento}` : ''}
+                      {boleto.codigo}{boleto.asiento ? ` · ${t('tickets.seat')} ${boleto.asiento}` : ''}
                     </p>
                   </div>
                   <Badge tone={boleto.estado === 'pagado' ? 'success' : 'warning'}>{boleto.estado}</Badge>
@@ -227,14 +229,14 @@ export default function Boletos() {
       <Modal
         open={Boolean(eventoSeleccionado)}
         onClose={cerrarSelector}
-        title="Elige tus butacas"
+        title={t('tickets.chooseSeats')}
         description={eventoSeleccionado?.titulo}
         size="lg"
         footer={(
           <>
-            <Button variant="outline" onClick={cerrarSelector} disabled={Boolean(procesando)}>Volver</Button>
+            <Button variant="outline" onClick={cerrarSelector} disabled={Boolean(procesando)}>{t('tickets.back')}</Button>
             <Button onClick={reservar} loading={procesando === eventoSeleccionado?.id} disabled={butacasSeleccionadas.length === 0}>
-              {total > 0 ? 'Reservar entradas' : 'Confirmar reserva'}
+              {total > 0 ? t('tickets.reserve') : t('tickets.confirm')}
             </Button>
           </>
         )}
@@ -243,14 +245,14 @@ export default function Boletos() {
           <div className="space-y-5">
             <div className="flex items-center justify-between gap-4 text-sm">
               <span className="text-ink-600 dark:text-ink-300">{formatFecha(eventoSeleccionado.fecha)} · {formatHora(eventoSeleccionado.horaInicio)}</span>
-              <span className="font-medium text-ink-900 dark:text-ink-100">{eventoSeleccionado.precio > 0 ? `${formatColones(eventoSeleccionado.precio)} por entrada` : 'Entrada gratuita'}</span>
+              <span className="font-medium text-ink-900 dark:text-ink-100">{eventoSeleccionado.precio > 0 ? `${formatColones(eventoSeleccionado.precio)} ${t('tickets.perTicket')}` : t('tickets.freeTicket')}</span>
             </div>
             <div>
               <div className="mx-auto max-w-sm rounded-t-[50%] border-b-4 border-cielo-300 bg-cielo-700 px-4 py-2 text-center text-xs font-semibold tracking-wide text-white shadow-[0_8px_24px_-12px_rgba(0,114,178,0.9)]">
-                PANTALLA
+                {t('tickets.screen')}
               </div>
               <div className="mt-4 rounded-lg bg-ink-900 p-4 text-ink-100 sm:p-5">
-                <div className="max-h-64 space-y-3 overflow-y-auto" aria-label="Mapa de butacas">
+                <div className="max-h-64 space-y-3 overflow-y-auto" aria-label={t('tickets.seatsMap')}>
                   {filasSala.map((fila) => (
                     <div key={fila} className="grid grid-cols-[1rem_repeat(2,minmax(0,1fr))_1.25rem_repeat(2,minmax(0,1fr))] items-center gap-2">
                       <span className="text-center text-xs font-semibold text-ink-300">{fila}</span>

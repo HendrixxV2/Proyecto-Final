@@ -1,23 +1,25 @@
 import { AArrowDown, AArrowUp, RotateCcw } from 'lucide-react';
 import { useA11y } from '@/Hooks/useA11y';
+import { useLanguage } from '@/Hooks/useLanguage';
 import { FONT_SCALES } from '@/Utils/constants';
 
 export default function FontSizeControl() {
   const { fontScale, setFontScale, increaseFont, decreaseFont, reset } = useA11y();
+  const { t } = useLanguage();
 
   return (
-    <div className="flex items-center gap-1" role="group" aria-label="Tamaño del texto">
+    <div className="flex items-center gap-1" role="group" aria-label={t('ui.textSize')}>
       <button
         type="button"
         onClick={decreaseFont}
-        aria-label="Reducir tamaño del texto"
+        aria-label={t('ui.decreaseText')}
         className="rounded-lg p-1.5 text-ink-600 transition hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-700"
       >
         <AArrowDown aria-hidden="true" className="h-4 w-4" />
       </button>
 
       <span className="sr-only" aria-live="polite">
-        Tamaño de texto: {FONT_SCALES.find((f) => f.id === fontScale)?.title}
+        {t('ui.textSize')}: {FONT_SCALES.find((f) => f.id === fontScale)?.title}
       </span>
 
       <div className="flex gap-0.5">
@@ -43,7 +45,7 @@ export default function FontSizeControl() {
       <button
         type="button"
         onClick={increaseFont}
-        aria-label="Aumentar tamaño del texto"
+        aria-label={t('ui.increaseText')}
         className="rounded-lg p-1.5 text-ink-600 transition hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-700"
       >
         <AArrowUp aria-hidden="true" className="h-4 w-4" />
@@ -52,7 +54,7 @@ export default function FontSizeControl() {
       <button
         type="button"
         onClick={reset}
-        aria-label="Restablecer preferencias de accesibilidad"
+        aria-label={t('ui.resetAccessibility')}
         className="rounded-lg p-1.5 text-ink-500 transition hover:bg-ink-100 dark:hover:bg-ink-700"
       >
         <RotateCcw aria-hidden="true" className="h-3.5 w-3.5" />

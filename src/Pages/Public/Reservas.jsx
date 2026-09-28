@@ -12,19 +12,21 @@ import Input from '@/Components/UI/Input';
 import Select from '@/Components/UI/Select';
 import Textarea from '@/Components/UI/Textarea';
 import { validateForm, required, isFutureDate, rangoHorarioValido } from '@/Utils/validators';
-
-const rules = {
-  espacioId: [required('Selecciona un espacio.')],
-  fecha: [required('Selecciona una fecha.'), (v) => (!isFutureDate(v) ? 'La fecha debe ser hoy o posterior.' : null)],
-  horaInicio: [required('Indica la hora de inicio.')],
-  horaFin: [required('Indica la hora de fin.')],
-  motivo: [required('Describe el motivo de la reserva.'), (v) => (String(v).trim().length < 10 ? 'Describe el motivo con al menos 10 caracteres.' : null)],
-};
+import { useLanguage } from '@/Hooks/useLanguage';
 
 export default function Reservas() {
   const [params] = useSearchParams();
   const { user, isAuthenticated } = useAuth();
   const toast = useToast();
+  const { t } = useLanguage();
+
+  const rules = {
+    espacioId: [required(t('booking.selectSpace'))],
+    fecha: [required(t('booking.selectDate')), (v) => (!isFutureDate(v) ? t('booking.futureDate') : null)],
+    horaInicio: [required(t('booking.indicateStart'))],
+    horaFin: [required(t('booking.indicateEnd'))],
+    motivo: [required(t('booking.describeReason')), (v) => (String(v).trim().length < 10 ? t('booking.minReason') : null)],
+  };
 
   const { data: espacios, loading: cargandoEspacios } = useFetch(() => espaciosService.list({ activo: true }), []);
 
@@ -49,17 +51,17 @@ export default function Reservas() {
 
     const { errors: vErrors, isValid } = validateForm(form, rules);
     if (!rangoHorarioValido(form.horaInicio, form.horaFin)) {
-      vErrors.horaFin = 'La hora de fin debe ser posterior a la hora de inicio.';
+      vErrors.horaFin = t('booking.endAfterStart');
     }
 
     if (!isValid || Object.keys(vErrors).length) {
       setErrors(vErrors);
-      toast.warning('Revisa el formulario', 'Hay campos que necesitan corrección.');
+      toast.warning(t('booking.invalidForm'), t('booking.invalidFormDescription'));
       return;
     }
 
     if (!isAuthenticated) {
-      toast.info('Inicia sesión para continuar', 'Necesitamos identificarte para gestionar tu reserva.');
+      toast.info(t('booking.loginToast'), t('booking.loginToastDescription'));
       return;
     }
 
@@ -70,11 +72,11 @@ export default function Reservas() {
         espacioId: Number(form.espacioId),
         usuarioId: user.id,
       });
-      toast.success('Solicitud enviada', 'Revisaremos tu reserva y te notificaremos por correo.');
+      toast.success(t('booking.sent'), t('booking.sentDescription'));
       setExito(true);
       setForm({ espacioId: '', fecha: '', horaInicio: '', horaFin: '', motivo: '' });
     } catch (err) {
-      toast.error('No se pudo enviar la solicitud', err.message);
+      toast.error(t('booking.sendError'), err.message);
       setErrors({ horaInicio: err.message });
     } finally {
       setEnviando(false);
@@ -84,28 +86,28 @@ export default function Reservas() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
       <SectionTitle
-        eyebrow="Solicitudes"
-        title="Reservar un espacio"
-        description="Completa el formulario y el equipo administrativo validará la disponibilidad del espacio."
+        eyebrow={t('booking.eyebrow')}
+        title={t('booking.title')}
+        description={t('booking.description')}
       />
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
         <form onSubmit={handleSubmit} noValidate className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 dark:border-ink-700 dark:bg-ink-800">
           <Select
-            label="Espacio"
+            label={t('booking.space')}
             required
-            placeholder={cargandoEspacios ? 'Cargando espacios…' : 'Selecciona un espacio'}
+            placeholder={cargandoEspacios ? t('booking.loadingSpaces') : t('booking.selectSpace')}
             value={form.espacioId}
             onChange={setField('espacioId')}
             error={errors.espacioId}
             options={(espacios ?? []).map((e) => ({
               value: String(e.id),
-              label: `${e.nombre} · ${e.capacidad} personas`,
+              label: `${e.nombre} · ${t('booking.people').replace('{count}', e.capacidad)}`,
             }))}
           />
 
           <Input
-            label="Fecha"
+            label={t('booking.date')}
             type="date"
             required
             value={form.fecha}
@@ -115,28 +117,28 @@ export default function Reservas() {
           />
 
           <div className="grid gap-5 sm:grid-cols-2">
-            <Input label="Hora de inicio" type="time" required value={form.horaInicio} onChange={setField('horaInicio')} error={errors.horaInicio} />
-            <Input label="Hora de fin" type="time" required value={form.horaFin} onChange={setField('horaFin')} error={errors.horaFin} />
+            <Input label={t('booking.startTime')} type="time" required value={form.horaInicio} onChange={setField('horaInicio')} error={errors.horaInicio} />
+            <Input label={t('booking.endTime')} type="time" required value={form.horaFin} onChange={setField('horaFin')} error={errors.horaFin} />
           </div>
 
           <Textarea
-            label="Motivo de la reserva"
+            label={t('booking.reason')}
             required
             value={form.motivo}
             onChange={setField('motivo')}
             error={errors.motivo}
-            placeholder="Ej.: Ensayo del grupo de danza juvenil de Orotina"
+            placeholder={t('booking.reasonPlaceholder')}
           />
 
           {!isAuthenticated && (
             <p role="status" className="rounded-xl bg-amber-50 p-3 text-xs text-amber-900 dark:bg-amber-950/50 dark:text-amber-100">
-              Debes iniciar sesión para enviar una solicitud de reserva.
+              {t('booking.loginRequired')}
             </p>
           )}
 
           <Button type="submit" size="lg" loading={enviando} className="w-full">
             <CalendarCheck aria-hidden="true" className="h-4 w-4" />
-            Enviar solicitud
+            {t('booking.submit')}
           </Button>
         </form>
 
@@ -144,20 +146,20 @@ export default function Reservas() {
           {exito && (
             <div role="status" className="rounded-2xl border border-jade-300 bg-jade-50 p-5 dark:border-jade-700 dark:bg-jade-900/40">
               <CheckCircle2 aria-hidden="true" className="h-6 w-6 text-jade-600 dark:text-jade-300" />
-              <h3 className="mt-2 font-display text-base font-bold text-jade-900 dark:text-jade-100">¡Solicitud registrada!</h3>
+              <h3 className="mt-2 font-display text-base font-bold text-jade-900 dark:text-jade-100">{t('booking.successTitle')}</h3>
               <p className="mt-1 text-sm text-jade-800 dark:text-jade-200">
-                Puedes revisar el estado de tu reserva en la sección “Mis reservas”.
+                {t('booking.successDescription')}
               </p>
             </div>
           )}
 
           <div className="rounded-2xl border border-ink-200 bg-white p-5 text-sm text-ink-600 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-300">
-            <h3 className="font-display text-base font-bold text-ink-900 dark:text-ink-50">Antes de reservar</h3>
+            <h3 className="font-display text-base font-bold text-ink-900 dark:text-ink-50">{t('booking.beforeTitle')}</h3>
             <ul className="mt-3 list-disc space-y-2 pl-5">
-              <li>Las reservas se confirman en un plazo máximo de 48 horas hábiles.</li>
-              <li>El pago de la tarifa se realiza en la recepción del centro.</li>
-              <li>Cancelaciones con menos de 72 horas de anticipación tienen recargo del 25%.</li>
-              <li>Los espacios accesibles están señalizados en la ficha de cada sala.</li>
+              <li>{t('booking.beforeOne')}</li>
+              <li>{t('booking.beforeTwo')}</li>
+              <li>{t('booking.beforeThree')}</li>
+              <li>{t('booking.beforeFour')}</li>
             </ul>
           </div>
         </aside>

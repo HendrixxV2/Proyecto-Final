@@ -206,6 +206,20 @@
       "aforo": 12,
       "precio": 5000,
       "publicado": true
+    },
+    {
+      "id": 8,
+      "titulo": "PRUEBA · Compra y selección de butacas",
+      "categoria": "cine",
+      "espacioId": 1,
+      "fecha": "2026-10-20",
+      "horaInicio": "19:00",
+      "horaFin": "21:00",
+      "descripcion": "Evento ficticio para probar la selección de butacas y la reserva de entradas.",
+      "imagen": "/assets/eventos/prueba-butacas.jpg",
+      "aforo": 12,
+      "precio": 3500,
+      "publicado": true
     }
   ],
   "reservas": [
@@ -230,6 +244,17 @@
       "motivo": "Taller de pintura infantil",
       "estado": "cancelada",
       "creadoEn": "2025-07-02T09:05:00.000Z"
+    },
+    {
+      "espacioId": 4,
+      "fecha": "2026-10-07",
+      "horaInicio": "09:30",
+      "horaFin": "11:30",
+      "motivo": "Ensayo coro infantil.",
+      "usuarioId": 4,
+      "estado": "pendiente",
+      "creadoEn": "2026-09-28T16:37:04.481Z",
+      "id": 3
     }
   ],
   "boletos": [
@@ -578,6 +603,114 @@
       "codigo": "QA-CIENCIA-C4",
       "asiento": "C4",
       "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 40,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-A1",
+      "asiento": "A1",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 41,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-A2",
+      "asiento": "A2",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 42,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-A3",
+      "asiento": "A3",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 43,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-A4",
+      "asiento": "A4",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 44,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-B1",
+      "asiento": "B1",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 45,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-B2",
+      "asiento": "B2",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 46,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-B3",
+      "asiento": "B3",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 47,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-B4",
+      "asiento": "B4",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 48,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-C1",
+      "asiento": "C1",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 49,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-C2",
+      "asiento": "C2",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 50,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-C3",
+      "asiento": "C3",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 51,
+      "eventoId": 8,
+      "codigo": "QA-COMPRA-C4",
+      "asiento": "C4",
+      "precio": 3500,
       "estado": "disponible",
       "usuarioId": null
     }

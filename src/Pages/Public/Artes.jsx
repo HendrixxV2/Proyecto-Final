@@ -5,9 +5,9 @@ import EventRecommender from '@/Components/AI/EventRecommender';
 import { Skeleton } from '@/Components/UI/Skeleton';
 
 const DISCIPLINAS = [
-  { key: 'teatro', titulo: 'Teatro', descripcion: 'Temporadas profesionales, teatro comunitario y formación escénica.', imagen: '/grupoTeatro.jpeg', alt: 'Grupo de teatro del Centro Cultural Orotinense' },
-  { key: 'baile', titulo: 'Baile', descripcion: 'Danza folclórica costarricense, contemporánea y proyectos juveniles.', imagen: '/grupoBaile.jpeg', alt: 'Grupo de baile del Centro Cultural Orotinense' },
-  { key: 'canto', titulo: 'Canto', descripcion: 'Coro infantil, técnica vocal y repertorio del Pacífico Central.', imagen: '/grupoCanto.jpeg', alt: 'Grupo de canto del Centro Cultural Orotinense' },
+  { key: 'teatro', titulo: 'Teatro', descripcion: 'Temporadas profesionales, teatro comunitario y formación escénica.', imagen: '/grupoTeatro.jpeg', alt: 'Grupo de teatro del Centro Cultural Orotinense', inicio: '5 de octubre de 2026', fecha: '2026-10-05' },
+  { key: 'baile', titulo: 'Baile', descripcion: 'Danza folclórica costarricense, contemporánea y proyectos juveniles.', imagen: '/grupoBaile.jpeg', alt: 'Grupo de baile del Centro Cultural Orotinense', inicio: '12 de octubre de 2026', fecha: '2026-10-12' },
+  { key: 'canto', titulo: 'Canto', descripcion: 'Coro infantil, técnica vocal y repertorio del Pacífico Central.', imagen: '/grupoCanto.jpeg', alt: 'Grupo de canto del Centro Cultural Orotinense', inicio: '19 de octubre de 2026', fecha: '2026-10-19' },
 ];
 
 export default function Artes() {
@@ -22,20 +22,32 @@ export default function Artes() {
       />
 
       <div className="mt-10 space-y-14">
-        {DISCIPLINAS.map((d) => {
+        {DISCIPLINAS.map((d, index) => {
           const bloques = (data ?? []).filter((b) => b.seccion === d.key);
           return (
             <section key={d.key} aria-labelledby={`titulo-${d.key}`}>
-              <div className="grid items-start gap-6 lg:grid-cols-[minmax(14rem,0.36fr)_minmax(0,1fr)]">
-                <figure className="overflow-hidden rounded-2xl border border-ink-200 bg-ink-100 shadow-sm dark:border-ink-700 dark:bg-ink-800">
-                  <img src={d.imagen} alt={d.alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+              <div className="grid items-start gap-6 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1fr)]">
+                <figure className={`group relative isolate overflow-hidden rounded-2xl border border-ink-200 bg-ink-100 shadow-sm dark:border-ink-700 dark:bg-ink-800 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                  <img
+                    src={d.imagen}
+                    alt={d.alt}
+                    loading="lazy"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <span aria-hidden="true" className="absolute bottom-3 left-3 rounded-md bg-ink-950/75 px-2.5 py-1 font-mono text-xs font-semibold text-white backdrop-blur-sm">
+                    {String(index + 1).padStart(2, '0')} / {String(DISCIPLINAS.length).padStart(2, '0')}
+                  </span>
                 </figure>
 
-                <div>
+                <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
                   <h2 id={`titulo-${d.key}`} className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50">
                     {d.titulo}
                   </h2>
                   <p className="mt-2 max-w-2xl text-sm text-ink-600 dark:text-ink-300">{d.descripcion}</p>
+                  <p className="mt-3 text-sm text-ink-600 dark:text-ink-300">
+                    <span className="font-semibold text-ink-800 dark:text-ink-100">Fecha ilustrativa de inicio: </span>
+                    <time dateTime={d.fecha}>{d.inicio}</time>
+                  </p>
 
                   <div className="mt-5 grid gap-4 md:grid-cols-2">
                     {loading

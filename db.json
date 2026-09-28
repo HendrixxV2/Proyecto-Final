@@ -164,6 +164,48 @@
       "aforo": 120,
       "precio": 0,
       "publicado": true
+    },
+    {
+      "id": 5,
+      "titulo": "QA · Cine de la Estación: El último vagón",
+      "categoria": "cine",
+      "espacioId": 1,
+      "fecha": "2026-10-10",
+      "horaInicio": "19:00",
+      "horaFin": "21:00",
+      "descripcion": "Función de prueba con entradas numeradas, butacas ocupadas y selección de asientos.",
+      "imagen": "/assets/eventos/cine-estacion.jpg",
+      "aforo": 12,
+      "precio": 3500,
+      "publicado": true
+    },
+    {
+      "id": 6,
+      "titulo": "QA · Muestra de cortos de Orotina",
+      "categoria": "cine",
+      "espacioId": 1,
+      "fecha": "2026-10-11",
+      "horaInicio": "17:30",
+      "horaFin": "19:00",
+      "descripcion": "Proyección gratuita para probar reservas sin costo y estados de butaca.",
+      "imagen": "/assets/eventos/cortos-orotina.jpg",
+      "aforo": 12,
+      "precio": 0,
+      "publicado": true
+    },
+    {
+      "id": 7,
+      "titulo": "QA · Noche de ciencia ficción",
+      "categoria": "cine",
+      "espacioId": 1,
+      "fecha": "2026-10-16",
+      "horaInicio": "20:00",
+      "horaFin": "22:00",
+      "descripcion": "Función de prueba con aforo completo disponible y precio regular.",
+      "imagen": "/assets/eventos/ciencia-ficcion.jpg",
+      "aforo": 12,
+      "precio": 5000,
+      "publicado": true
     }
   ],
   "reservas": [
@@ -214,6 +256,330 @@
       "precio": 0,
       "estado": "reservado",
       "usuarioId": 3
+    },
+    {
+      "id": 4,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-A1",
+      "asiento": "A1",
+      "precio": 3500,
+      "estado": "pagado",
+      "usuarioId": 2
+    },
+    {
+      "id": 5,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-A2",
+      "asiento": "A2",
+      "precio": 3500,
+      "estado": "reservado",
+      "usuarioId": 3
+    },
+    {
+      "id": 6,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-A3",
+      "asiento": "A3",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 7,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-A4",
+      "asiento": "A4",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 8,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-B1",
+      "asiento": "B1",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 9,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-B2",
+      "asiento": "B2",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 10,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-B3",
+      "asiento": "B3",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 11,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-B4",
+      "precio": 3500,
+      "asiento": "B4",
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 12,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-C1",
+      "asiento": "C1",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 13,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-C2",
+      "asiento": "C2",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 14,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-C3",
+      "asiento": "C3",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 15,
+      "eventoId": 5,
+      "codigo": "QA-ESTACION-C4",
+      "asiento": "C4",
+      "precio": 3500,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 16,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-A1",
+      "asiento": "A1",
+      "precio": 0,
+      "estado": "pagado",
+      "usuarioId": 4
+    },
+    {
+      "id": 17,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-A2",
+      "asiento": "A2",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 18,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-A3",
+      "asiento": "A3",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 19,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-A4",
+      "asiento": "A4",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 20,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-B1",
+      "asiento": "B1",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 21,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-B2",
+      "asiento": "B2",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 22,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-B3",
+      "asiento": "B3",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 23,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-B4",
+      "asiento": "B4",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 24,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-C1",
+      "asiento": "C1",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 25,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-C2",
+      "asiento": "C2",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 26,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-C3",
+      "asiento": "C3",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 27,
+      "eventoId": 6,
+      "codigo": "QA-CORTOS-C4",
+      "asiento": "C4",
+      "precio": 0,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 28,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-A1",
+      "asiento": "A1",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 29,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-A2",
+      "asiento": "A2",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 30,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-A3",
+      "asiento": "A3",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 31,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-A4",
+      "asiento": "A4",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 32,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-B1",
+      "asiento": "B1",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 33,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-B2",
+      "asiento": "B2",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 34,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-B3",
+      "asiento": "B3",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 35,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-B4",
+      "asiento": "B4",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 36,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-C1",
+      "asiento": "C1",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 37,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-C2",
+      "asiento": "C2",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 38,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-C3",
+      "asiento": "C3",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
+    },
+    {
+      "id": 39,
+      "eventoId": 7,
+      "codigo": "QA-CIENCIA-C4",
+      "asiento": "C4",
+      "precio": 5000,
+      "estado": "disponible",
+      "usuarioId": null
     }
   ],
   "noticias": [

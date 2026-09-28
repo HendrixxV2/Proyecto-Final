@@ -12,22 +12,59 @@ export const boletosService = {
 
   listByUsuario: (usuarioId) => api.get(`/boletos?usuarioId=${usuarioId}`),
 
+  listDisponibles: () => api.get(`/boletos?estado=${ESTADOS_BOLETO.DISPONIBLE}`),
+
   listDisponiblesPorEvento: (eventoId) =>
     api.get(`/boletos?eventoId=${eventoId}&estado=${ESTADOS_BOLETO.DISPONIBLE}`),
 
-  async reservar(eventoId, usuarioId, precio) {
+  async reservar(eventoId, usuarioId, precio, seleccion = 1) {
+    const esSeleccionDeButacas = Array.isArray(seleccion);
+    const cantidadSolicitada = esSeleccionDeButacas ? seleccion.length : Number(seleccion);
+    if (!Number.isInteger(cantidadSolicitada) || cantidadSolicitada < 1) {
+      throw new Error('La cantidad de boletos debe ser al menos 1.');
+    }
+
     const disponibles = await boletosService.listDisponiblesPorEvento(eventoId);
 
-    if (disponibles.length === 0) {
-      const error = new Error('No hay boletos disponibles para este evento.');
+    if (disponibles.length < cantidadSolicitada) {
+      const error = new Error(
+        disponibles.length === 0
+          ? 'No hay boletos disponibles para este evento.'
+          : `Solo quedan ${disponibles.length} boletos disponibles.`,
+      );
       error.status = 409;
       throw error;
     }
 
-    return api.patch(`/boletos/${disponibles[0].id}`, {
-      estado: ESTADOS_BOLETO.RESERVADO,
-      usuarioId,
-    });
+    let boletosAReservar = disponibles.slice(0, cantidadSolicitada);
+    if (esSeleccionDeButacas) {
+      const idsSeleccionados = seleccion.map(({ id }) => String(id));
+      if (new Set(idsSeleccionados).size !== idsSeleccionados.length) {
+        throw new Error('No puedes seleccionar la misma butaca más de una vez.');
+      }
+
+      boletosAReservar = idsSeleccionados.map((id) =>
+        disponibles.find((boleto) => String(boleto.id) === id),
+      );
+      if (boletosAReservar.some((boleto) => !boleto)) {
+        const error = new Error('Una o más butacas ya no están disponibles. Actualiza la selección.');
+        error.status = 409;
+        throw error;
+      }
+    }
+
+    const reservados = [];
+    for (const boleto of boletosAReservar) {
+      const butaca = esSeleccionDeButacas
+        ? seleccion.find(({ id }) => String(id) === String(boleto.id))?.asiento
+        : undefined;
+      reservados.push(await api.patch(`/boletos/${boleto.id}`, {
+        estado: ESTADOS_BOLETO.RESERVADO,
+        usuarioId,
+        ...(butaca ? { asiento: butaca } : {}),
+      }));
+    }
+    return reservados;
   },
 
   async emitir(eventoId, precio = 0) {

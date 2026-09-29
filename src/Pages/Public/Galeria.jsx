@@ -106,36 +106,6 @@ export default function Galeria() {
         </span>
         </button>
 
-        <section className="mt-12" aria-labelledby="galeria-interior-title">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300">Archivo interior</p>
-              <h2 id="galeria-interior-title" className="mt-2 font-display text-2xl font-bold text-ink-900 dark:text-ink-50">Postales de la memoria</h2>
-            </div>
-            <span className="hidden font-mono text-xs uppercase tracking-[0.16em] text-ink-500 sm:block dark:text-ink-400">04 fotografías</span>
-          </div>
-
-          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {FOTOS_ARCHIVO.map((foto, indice) => (
-              <li key={foto.src}>
-                <button
-                  type="button"
-                  onClick={() => setIndiceActivo(indice)}
-                  className="galeria-photo-card group w-full text-left"
-                  aria-label={`Abrir fotografía ${indice + 1}: ${foto.titulo}`}
-                >
-                  <span className="galeria-photo-card__image relative block overflow-hidden rounded-xl">
-                    <img src={foto.src} alt="" loading="lazy" className="h-full w-full object-cover" />
-                    <span aria-hidden="true" className="galeria-photo-card__film absolute inset-0" />
-                    <span className="absolute bottom-3 left-3 rounded-full bg-stone-950/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-stone-100">{String(indice + 1).padStart(2, '0')}</span>
-                  </span>
-                  <span className="mt-3 block font-display text-base font-semibold text-ink-900 transition-colors group-hover:text-amber-700 dark:text-ink-50 dark:group-hover:text-amber-300">{foto.titulo}</span>
-                  <span className="mt-1 block text-sm leading-6 text-ink-600 dark:text-ink-300">{foto.descripcion}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </section>
       </div>
 
       <Modal
@@ -149,6 +119,7 @@ export default function Galeria() {
           <>
             <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-xl bg-[#171512]">
               <img src={fotoActiva.src} alt={fotoActiva.titulo} className="h-full w-full object-contain" />
+              <span aria-hidden="true" className="galeria-film-overlay absolute inset-0" />
               <button
                 type="button"
                 onClick={retroceder}

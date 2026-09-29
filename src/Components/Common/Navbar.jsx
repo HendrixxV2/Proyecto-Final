@@ -52,14 +52,14 @@ export default function Navbar() {
   return (
     <header className={cn('sticky top-0 z-40 border-b border-ink-200/70 bg-ink-50/95 shadow-sm backdrop-blur-xl transition-all duration-300 dark:border-ink-700/70 dark:bg-ink-900/95', scrolled && 'shadow-md')}>
       <nav aria-label={t('common.mainNavigation')} className={cn('mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 sm:gap-4 sm:px-6 lg:px-8 xl:grid-rows-[auto_auto] xl:gap-x-6 xl:gap-y-1', scrolled ? 'min-h-12 py-1 xl:grid-cols-[auto_minmax(0,1fr)] xl:gap-y-0' : 'min-h-16 py-2 xl:grid-cols-[auto_minmax(0,1fr)]')}>
-        <Link to={PATHS.home} className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3" aria-label={t('common.home')}>
+        <Link to={PATHS.home} className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3" aria-label="Centro Cultural Orotinense Luis Ferrero Acosta">
           <span className={cn('relative grid shrink-0 place-items-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-ink-200/70 transition-all duration-300 dark:ring-ink-700', scrolled ? 'h-8 w-8' : 'h-10 w-10 sm:h-11 sm:w-11')}>
             <Landmark aria-hidden="true" className="h-5 w-5 text-brand-500 sm:h-6 sm:w-6" />
             <img
               src="/logoOrotina.jpeg"
               alt=""
               onError={(event) => { event.currentTarget.style.display = 'none'; }}
-              className={cn('absolute scale-[1.24] object-cover object-center', scrolled ? 'h-8 w-8' : 'h-10 w-10 sm:h-11 sm:w-11')}
+              className={cn('absolute object-contain object-center', scrolled ? 'h-8 w-8' : 'h-10 w-10 sm:h-11 sm:w-11')}
             />
           </span>
           <span className={cn('min-w-0 max-w-[13rem] font-brand text-[11px] font-bold leading-[1.1] text-ink-900 transition-all duration-300 sm:max-w-[15rem] sm:text-sm dark:text-ink-50', scrolled && 'sm:text-xs')}>

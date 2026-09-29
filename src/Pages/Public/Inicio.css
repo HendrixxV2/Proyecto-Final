@@ -1,0 +1,76 @@
+.inicio-fondo-imagen {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  animation: inicio-fondo-deriva 28s ease-in-out infinite alternate;
+}
+
+.inicio-carrusel-fondo {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+.inicio-carrusel-fondo--final {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+}
+
+.inicio-carrusel-imagen {
+  will-change: opacity, transform;
+}
+
+.inicio-carrusel-imagen--activa {
+  animation: inicio-imagen-respiracion 12s ease-in-out infinite alternate;
+}
+
+.inicio-galeria-marco {
+  border: 1px solid rgb(255 255 255 / 0.38);
+  box-shadow: 0 16px 34px rgb(20 24 28 / 0.2);
+  transition: border-color 450ms ease, box-shadow 650ms ease;
+}
+
+.inicio-galeria-marco:hover {
+  border-color: rgb(255 255 255 / 0.75);
+  box-shadow: 0 24px 48px rgb(20 24 28 / 0.3);
+}
+
+.inicio-galeria-foto {
+  transition: transform 850ms cubic-bezier(0.2, 0.75, 0.25, 1), filter 850ms ease;
+}
+
+.inicio-galeria-marco:hover .inicio-galeria-foto {
+  filter: saturate(1.08) brightness(1.04);
+}
+
+.inicio-imagen-ampliada {
+  border-radius: 0.75rem;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 0.38);
+  animation: inicio-imagen-entrada 420ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+@keyframes inicio-fondo-deriva {
+  from { transform: scale(1.05) translate3d(-0.35%, -0.25%, 0); }
+  to { transform: scale(1.1) translate3d(0.35%, 0.25%, 0); }
+}
+
+@keyframes inicio-imagen-respiracion {
+  from { transform: scale(1.035); }
+  to { transform: scale(1.105) translate3d(-0.4%, -0.25%, 0); }
+}
+
+@keyframes inicio-imagen-entrada {
+  from { opacity: 0; transform: scale(0.985); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inicio-fondo-imagen,
+  .inicio-carrusel-imagen--activa,
+  .inicio-imagen-ampliada {
+    animation: none;
+  }
+
+  .inicio-galeria-marco,
+  .inicio-galeria-foto {
+    transition: none;
+  }
+}

@@ -14,6 +14,7 @@ import { formatFecha } from '@/Utils/format';
 import { PATHS } from '@/Routes/paths';
 import { useLanguage } from '@/Hooks/useLanguage';
 import { useA11y } from '@/Hooks/useA11y';
+import './Inicio.css';
 
 const ACCESOS = [
   { to: PATHS.calendario, key: 'calendar', Icon: CalendarDays, tone: 'bg-brand-500' },
@@ -143,13 +144,13 @@ export default function Inicio() {
     <>
       {/* HERO */}
       <section className="relative isolate min-h-[clamp(38rem,78vh,52rem)] overflow-hidden bg-brand-700 text-white">
-        <div aria-hidden="true" className="absolute inset-0">
+        <div aria-hidden="true" className="inicio-carrusel-fondo inicio-carrusel-fondo--final absolute inset-0">
           {IMAGENES_INICIO.map((imagen, index) => (
             <img
               key={imagen.src}
               src={imagen.src}
               alt=""
-              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${imagenActiva === index ? 'opacity-40' : 'opacity-0'}`}
+              className={`inicio-carrusel-imagen absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1600ms] ${imagenActiva === index ? 'inicio-carrusel-imagen--activa opacity-40' : 'opacity-0'}`}
             />
           ))}
         </div>
@@ -227,7 +228,7 @@ export default function Inicio() {
 
       {/* ACCESOS RÁPIDOS */}
       <section className="relative isolate overflow-hidden bg-cian-900 py-12 text-white sm:py-14">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/vistaAerea.jpeg')" }} />
+        <div aria-hidden="true" className="inicio-fondo-imagen absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/vistaAerea.jpeg')" }} />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-cian-950/95 via-cian-900/90 to-jade-900/75" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.72fr)] lg:items-center">
@@ -264,13 +265,13 @@ export default function Inicio() {
 
       {/* PRÓXIMOS EVENTOS */}
       <section className="relative isolate overflow-hidden bg-white py-14 dark:bg-ink-900">
-        <div aria-hidden="true" className="absolute inset-0">
+        <div aria-hidden="true" className="inicio-carrusel-fondo absolute inset-0">
           {IMAGENES_EVENTOS.map((imagen, index) => (
             <img
               key={imagen.src}
               src={imagen.src}
               alt=""
-              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${imagenEventoActiva === index ? 'opacity-70' : 'opacity-0'}`}
+              className={`inicio-carrusel-imagen absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1600ms] ${imagenEventoActiva === index ? 'inicio-carrusel-imagen--activa opacity-70' : 'opacity-0'}`}
             />
           ))}
         </div>
@@ -328,7 +329,7 @@ export default function Inicio() {
 
       {/* AGRUPACIONES CULTURALES */}
       <section className="relative isolate overflow-hidden bg-gold-50 py-14 dark:bg-ink-900 sm:py-20">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/grupoFolclorico.png')" }} />
+        <div aria-hidden="true" className="inicio-fondo-imagen absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/grupoFolclorico.png')" }} />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-gold-50/85 via-gold-50/80 to-orange-100/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/80" />
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16 lg:px-8">
           <div>
@@ -348,12 +349,12 @@ export default function Inicio() {
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             {GALERIA_DANZA.map((imagen, index) => (
-              <figure key={imagen.src} className={`group relative overflow-hidden rounded-lg bg-ink-200 dark:bg-ink-700 ${index === 0 ? 'col-span-2 aspect-[16/9]' : 'aspect-[4/3]'}`}>
+              <figure key={imagen.src} className={`inicio-galeria-marco group relative overflow-hidden rounded-2xl bg-ink-200 dark:bg-ink-700 ${index === 0 ? 'col-span-2 aspect-[16/9]' : 'aspect-[4/3]'}`}>
                 <img
                   src={imagen.src}
                   alt={imagen.alt}
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition duration-500 ease-out group-hover:scale-105"
+                  className="inicio-galeria-foto absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
                 />
                 <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 to-transparent px-3 pb-3 pt-10 text-xs font-semibold text-white sm:px-4 sm:pb-4 sm:text-sm">
                   {imagen.caption}
@@ -365,12 +366,12 @@ export default function Inicio() {
       </section>
 
       <section className="relative isolate overflow-hidden bg-white py-14 dark:bg-ink-800/40 sm:py-20">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-50" style={{ backgroundImage: "url('/trayectoriaViva.jpeg')" }} />
+        <div aria-hidden="true" className="inicio-fondo-imagen absolute inset-0 bg-cover bg-center opacity-50" style={{ backgroundImage: "url('/trayectoriaViva.jpeg')" }} />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/50 via-white/40 to-jade-50/25 dark:from-ink-900/70 dark:via-ink-900/55 dark:to-jade-950/40" />
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8">
           <div className="order-2 grid grid-cols-2 gap-3 sm:gap-4 lg:order-1">
             {GALERIA_BANDA.map((imagen, index) => (
-              <figure key={imagen.src} className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-ink-200 dark:bg-ink-700">
+              <figure key={imagen.src} className="inicio-galeria-marco group relative aspect-[4/3] overflow-hidden rounded-2xl bg-ink-200 dark:bg-ink-700">
                 <button
                   type="button"
                   onClick={() => setImagenBandaActiva(index)}
@@ -383,7 +384,7 @@ export default function Inicio() {
                   src={imagen.src}
                   alt={imagen.alt}
                   loading="lazy"
-                  className="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-105"
+                  className="inicio-galeria-foto h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
                 />
                 <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 to-transparent px-3 pb-3 pt-10 text-xs font-semibold text-white sm:px-4 sm:pb-4 sm:text-sm">
                   {imagen.caption}
@@ -445,9 +446,10 @@ export default function Inicio() {
           </button>
           <figure className="flex max-h-full max-w-full flex-col items-center gap-3" onClick={(event) => event.stopPropagation()}>
             <img
+              key={GALERIA_BANDA[imagenBandaActiva].src}
               src={GALERIA_BANDA[imagenBandaActiva].src}
               alt={GALERIA_BANDA[imagenBandaActiva].alt}
-              className="max-h-[calc(100dvh-8rem)] max-w-full object-contain"
+              className="inicio-imagen-ampliada max-h-[calc(100dvh-8rem)] max-w-full object-contain"
             />
             <figcaption className="text-center text-sm font-medium text-white sm:text-base">
               {GALERIA_BANDA[imagenBandaActiva].caption} · {imagenBandaActiva + 1} / {GALERIA_BANDA.length}
@@ -469,43 +471,45 @@ export default function Inicio() {
       )}
 
       {/* RECOMENDACIONES IA */}
-      <section className="relative isolate mx-auto max-w-7xl overflow-hidden px-4 py-14 sm:px-6 lg:px-8">
-        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem]">
+      <section className="relative isolate overflow-hidden bg-ink-50 py-14 dark:bg-ink-900 sm:py-20">
+        <div aria-hidden="true" className="inicio-carrusel-fondo absolute inset-0">
           {IMAGENES_RECOMENDADAS.map((imagen, index) => (
             <img
               key={imagen.src}
               src={imagen.src}
               alt=""
-              className={`absolute inset-0 h-full w-full rounded-[2rem] object-cover object-center transition-opacity duration-1000 ${imagenRecomendadaActiva === index ? 'opacity-75' : 'opacity-0'}`}
+              className={`inicio-carrusel-imagen absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1600ms] ${imagenRecomendadaActiva === index ? 'inicio-carrusel-imagen--activa opacity-75' : 'opacity-0'}`}
             />
           ))}
         </div>
-        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-white/50 via-white/45 to-gold-50/35 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/80" />
-        <SectionTitle
-          eyebrow={t('home.ai')}
-          title={t('home.recommended')}
-          description={t('home.recommendedDescription')}
-        />
-        <div className="mt-8">
-          <EventRecommender limite={3} />
-        </div>
-        <div role="group" aria-label="Imágenes de recomendaciones" className="relative z-10 mt-6 flex justify-center gap-2">
-          {IMAGENES_RECOMENDADAS.map((imagen, index) => (
-            <button
-              key={imagen.src}
-              type="button"
-              onClick={() => setImagenRecomendadaActiva(index)}
-              aria-label={`Mostrar imagen: ${imagen.alt}`}
-              aria-pressed={imagenRecomendadaActiva === index}
-              className={`h-2.5 rounded-full transition-all ${imagenRecomendadaActiva === index ? 'w-8 bg-brand-700 dark:bg-gold-400' : 'w-2.5 bg-brand-300 hover:bg-brand-500 dark:bg-ink-500'}`}
-            />
-          ))}
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/65 via-white/55 to-gold-50/45 dark:from-ink-900/90 dark:via-ink-900/82 dark:to-brand-950/70" />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionTitle
+            eyebrow={t('home.ai')}
+            title={t('home.recommended')}
+            description={t('home.recommendedDescription')}
+          />
+          <div className="mt-8">
+            <EventRecommender limite={3} />
+          </div>
+          <div role="group" aria-label="Imágenes de recomendaciones" className="mt-6 flex justify-center gap-2">
+            {IMAGENES_RECOMENDADAS.map((imagen, index) => (
+              <button
+                key={imagen.src}
+                type="button"
+                onClick={() => setImagenRecomendadaActiva(index)}
+                aria-label={`Mostrar imagen: ${imagen.alt}`}
+                aria-pressed={imagenRecomendadaActiva === index}
+                className={`h-2.5 rounded-full transition-all ${imagenRecomendadaActiva === index ? 'w-8 bg-brand-700 dark:bg-gold-400' : 'w-2.5 bg-brand-300 hover:bg-brand-500 dark:bg-ink-500'}`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
       {/* NOTICIAS */}
       <section className="relative isolate overflow-hidden bg-white py-14 dark:bg-ink-800/40">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-55" style={{ backgroundImage: "url('/Iglesia_San_Mateo_Alajuela_Costa_Rica.jpg.jpg')" }} />
+        <div aria-hidden="true" className="inicio-fondo-imagen absolute inset-0 bg-cover bg-center opacity-55" style={{ backgroundImage: "url('/Iglesia_San_Mateo_Alajuela_Costa_Rica.jpg.jpg')" }} />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/40 via-white/35 to-cian-50/25 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-cian-950/80" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle eyebrow={t('home.current')} title={t('home.centerNews')} />
@@ -523,10 +527,10 @@ export default function Inicio() {
       </section>
 
       {/* HISTORIA CTA */}
-      <section className="relative isolate mx-auto max-w-7xl overflow-hidden px-4 py-16 sm:px-6 lg:px-8">
-        <div aria-hidden="true" className="absolute inset-0 rounded-2xl bg-cover bg-center opacity-50" style={{ backgroundImage: "url('/rielDeOrotina.jpeg')" }} />
-        <div aria-hidden="true" className="absolute inset-0 rounded-2xl bg-gradient-to-br from-jade-950/85 via-jade-800/75 to-brand-900/70" />
-        <div className="relative z-10 grid items-center gap-8 rounded-2xl p-8 text-white sm:p-12 lg:grid-cols-2">
+      <section className="relative isolate overflow-hidden bg-jade-950 py-16 text-white sm:py-24">
+        <div aria-hidden="true" className="inicio-fondo-imagen absolute inset-0 bg-cover bg-center opacity-60" style={{ backgroundImage: "url('/rielDeOrotina.jpeg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-jade-950/90 via-jade-900/80 to-brand-950/70" />
+        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
             <Palette aria-hidden="true" className="h-8 w-8 text-jade-200" />
             <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">{t('home.legacy')}</h2>

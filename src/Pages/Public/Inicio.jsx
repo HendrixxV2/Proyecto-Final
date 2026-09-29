@@ -248,11 +248,11 @@ export default function Inicio() {
               key={imagen.src}
               src={imagen.src}
               alt=""
-              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${imagenEventoActiva === index ? 'opacity-40' : 'opacity-0'}`}
+              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${imagenEventoActiva === index ? 'opacity-70' : 'opacity-0'}`}
             />
           ))}
         </div>
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/80 to-brand-50/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/78" />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/55 via-white/45 to-brand-50/30 dark:from-ink-900/75 dark:via-ink-900/65 dark:to-brand-950/50" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle
             eyebrow={t('home.agenda')}
@@ -343,8 +343,8 @@ export default function Inicio() {
       </section>
 
       <section className="relative isolate overflow-hidden bg-white py-14 dark:bg-ink-800/40 sm:py-20">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/Ferrocarril.jpeg')" }} />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/80 to-jade-50/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-jade-950/80" />
+        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-50" style={{ backgroundImage: "url('/trayectoriaViva.jpeg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/50 via-white/40 to-jade-50/25 dark:from-ink-900/70 dark:via-ink-900/55 dark:to-jade-950/40" />
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8">
           <div className="order-2 grid grid-cols-2 gap-3 sm:gap-4 lg:order-1">
             {GALERIA_BANDA.map((imagen, index) => (

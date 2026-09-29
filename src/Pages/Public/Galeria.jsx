@@ -4,6 +4,7 @@ import { contenidoService } from '@/Services/contenidoService';
 import SectionTitle from '@/Components/Common/SectionTitle';
 import Modal from '@/Components/UI/Modal';
 import { ArrowLeft, ArrowRight, Images } from 'lucide-react';
+import './Galeria.css';
 
 const FOTOS_ARCHIVO = [
   {
@@ -54,19 +55,20 @@ export default function Galeria() {
   const retroceder = () => setIndiceActivo((indice) => (indice - 1 + FOTOS_ARCHIVO.length) % FOTOS_ARCHIVO.length);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionTitle
-        eyebrow="Archivo fotográfico"
-        title="Galería Ferrocarril"
-        description="Imágenes, planos y objetos que documentan la vida del Ferrocarril al Pacífico en Orotina."
-      />
+    <div className="galeria-page">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <SectionTitle
+          eyebrow="Archivo fotográfico"
+          title="Galería Ferrocarril"
+          description="Imágenes, planos y objetos que documentan la vida del Ferrocarril al Pacífico en Orotina."
+        />
 
-      <button
-        type="button"
-        onClick={() => setIndiceActivo(0)}
-        className="group mt-10 grid w-full overflow-hidden rounded-2xl border border-amber-900/20 bg-[#201d19] text-left shadow-xl shadow-stone-950/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-offset-4 md:min-h-[25rem] md:grid-cols-[1.15fr_0.85fr]"
-        aria-label="Abrir presentación de fotografías del Ferrocarril al Pacífico"
-      >
+        <button
+          type="button"
+          onClick={() => setIndiceActivo(0)}
+          className="group mt-10 grid w-full overflow-hidden rounded-2xl border border-amber-900/20 bg-[#201d19] text-left shadow-xl shadow-stone-950/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-offset-4 md:min-h-[25rem] md:grid-cols-[1.15fr_0.85fr]"
+          aria-label="Abrir presentación de fotografías del Ferrocarril al Pacífico"
+        >
         <span className="relative block min-h-64 overflow-hidden bg-stone-800 md:min-h-full">
           <img
             src="/rielDeOrotina.jpeg"
@@ -102,7 +104,8 @@ export default function Galeria() {
             </span>
           </span>
         </span>
-      </button>
+        </button>
+      </div>
 
       <Modal
         open={indiceActivo !== null}

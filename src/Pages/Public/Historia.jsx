@@ -101,7 +101,7 @@ export default function Historia() {
       label: copy.originTag,
       title: copy.originTitle,
       body: copy.originText,
-      image: '/orotina.jpeg',
+      image: '/gurutina.jpeg',
       Icon: Landmark,
     },
     {
@@ -110,7 +110,7 @@ export default function Historia() {
       label: copy.railwayTag,
       title: copy.railwayTitle,
       body: copy.railwayText,
-      image: '/rielDeOrotina.jpeg',
+      image: '/ferrorotina.jpeg',
       Icon: TrainFront,
     },
     {
@@ -119,7 +119,7 @@ export default function Historia() {
       label: copy.communityTag,
       title: copy.extraTitle,
       body: copy.extraText,
-      image: '/estacion de Orotina.jpeg',
+      image: '/confluencias.jpeg',
       Icon: MapPinned,
     },
     ...(data ?? []).map((block, index) => {
@@ -130,7 +130,9 @@ export default function Historia() {
         label: copy.archiveTag,
         title: localized.title,
         body: localized.body,
-        image: ['/Ferrocarril.jpeg', '/Orotina_Pavilion._Costa_Rica.jpeg', '/ferropacifico.jpeg'][index % 3],
+        image: block.titulo === 'Orotina y el Ferrocarril al Pacífico'
+          ? '/imgCarga138.jpeg'
+          : ['/Ferrocarril.jpeg', '/Orotina_Pavilion._Costa_Rica.jpeg', '/ferropacifico.jpeg'][index % 3],
         Icon: BookOpen,
       };
     }),

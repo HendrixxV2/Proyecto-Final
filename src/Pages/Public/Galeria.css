@@ -1,0 +1,16 @@
+.galeria-page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #f7f5ef;
+}
+
+.galeria-page::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: url('/galeriaFerrocarril.jpeg') center 42% / cover no-repeat;
+  content: '';
+  opacity: 0.14;
+  pointer-events: none;
+}

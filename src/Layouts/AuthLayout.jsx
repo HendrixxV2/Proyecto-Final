@@ -50,7 +50,7 @@ export default function AuthLayout() {
       </aside>
 
       <main id="contenido-principal" className="flex items-center justify-center bg-ink-50 px-6 py-12 dark:bg-ink-900">
-        <div key={pathname} className={`page-transition w-full ${pathname === PATHS.login ? 'max-w-sm' : 'max-w-md'}`}>
+        <div key={pathname} className={`page-transition w-full ${pathname === PATHS.login ? 'max-w-xs' : 'max-w-md'}`}>
           <Outlet />
         </div>
       </main>

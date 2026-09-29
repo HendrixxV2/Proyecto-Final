@@ -59,7 +59,7 @@ export default function Navbar() {
               src="/logoOrotina.jpeg"
               alt=""
               onError={(event) => { event.currentTarget.style.display = 'none'; }}
-              className={cn('absolute object-contain object-center', scrolled ? 'h-8 w-8' : 'h-10 w-10 sm:h-11 sm:w-11')}
+              className="absolute left-1/2 top-1/2 h-[150%] w-[150%] max-w-none -translate-x-1/2 -translate-y-1/2 rounded-full object-cover object-center"
             />
           </span>
           <span className={cn('min-w-0 max-w-[13rem] font-brand text-[11px] font-bold leading-[1.1] text-ink-900 transition-all duration-300 sm:max-w-[15rem] sm:text-sm dark:text-ink-50', scrolled && 'sm:text-xs')}>

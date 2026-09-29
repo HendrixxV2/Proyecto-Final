@@ -49,12 +49,12 @@ export default function Login() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-bold text-ink-900 dark:text-ink-50">{t('auth.loginTitle')}</h1>
+      <h1 className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50">{t('auth.loginTitle')}</h1>
       <p className="mt-2 text-sm text-ink-600 dark:text-ink-300">
         {t('auth.loginDescription')}
       </p>
 
-      <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-5">
+      <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-4">
         <Input
           label={t('auth.email')}
           type="email"
@@ -82,14 +82,14 @@ export default function Login() {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-ink-600 dark:text-ink-300">
+      <p className="mt-5 text-center text-sm text-ink-600 dark:text-ink-300">
         {t('auth.noAccount')}{' '}
         <Link to={PATHS.registro} className="font-semibold text-brand-600 hover:underline dark:text-brand-300">
           {t('auth.register')}
         </Link>
       </p>
 
-      <div className="mt-8 rounded-xl border border-dashed border-ink-300 p-4 text-xs text-ink-500 dark:border-ink-600 dark:text-ink-400">
+      <div className="mt-6 rounded-lg border border-dashed border-ink-300 p-3 text-xs text-ink-500 dark:border-ink-600 dark:text-ink-400">
         <p className="font-semibold">{t('auth.demoAccounts')}</p>
         <p className="mt-1">{t('auth.adminAccount')}</p>
         <p>{t('auth.userAccount')}</p>

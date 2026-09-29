@@ -1,0 +1,45 @@
+.programas-page__backdrop {
+  animation: programas-drift 24s ease-in-out infinite alternate;
+  transform: scale(1.05);
+  transform-origin: center;
+}
+
+.programa-info-card {
+  background: rgb(255 255 255 / 0.72);
+  box-shadow: 0 8px 22px rgb(38 51 46 / 0.08);
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.programa-info-card:hover {
+  border-color: rgb(33 150 129 / 0.5);
+  box-shadow: 0 14px 28px rgb(38 51 46 / 0.14);
+  transform: translateY(-0.25rem);
+}
+
+.dark .programa-info-card {
+  background: rgb(30 36 35 / 0.7);
+}
+
+@keyframes programas-drift {
+  from {
+    background-position: 46% 48%;
+    transform: scale(1.05) translate3d(-0.35%, -0.25%, 0);
+  }
+
+  to {
+    background-position: 54% 52%;
+    transform: scale(1.1) translate3d(0.35%, 0.25%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .programas-page__backdrop,
+  .programa-info-card {
+    animation: none;
+    transition: none;
+  }
+
+  .programa-info-card:hover {
+    transform: none;
+  }
+}

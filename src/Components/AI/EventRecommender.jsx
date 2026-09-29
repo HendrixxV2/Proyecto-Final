@@ -15,7 +15,7 @@ export default function EventRecommender({ categoria, limite = 3 }) {
     async function load() {
       try {
         setLoading(true);
-        const eventos = await aiService.recomendar({ limite });
+        const eventos = await aiService.recomendar({ categoriasPreferidas: categoria ? [categoria] : [], limite });
         let filtered = eventos;
 
         if (categoria) {

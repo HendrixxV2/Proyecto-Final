@@ -3,6 +3,7 @@ import { contenidoService } from '@/Services/contenidoService';
 import SectionTitle from '@/Components/Common/SectionTitle';
 import EventRecommender from '@/Components/AI/EventRecommender';
 import { Skeleton } from '@/Components/UI/Skeleton';
+import './Artes.css';
 
 const DISCIPLINAS = [
   { key: 'teatro', titulo: 'Teatro', descripcion: 'Temporadas profesionales, teatro comunitario y formación escénica.', imagen: '/grupoTeatro.jpeg', alt: 'Grupo de teatro del Centro Cultural Orotinense', inicio: '5 de octubre de 2026', fecha: '2026-10-05' },
@@ -14,11 +15,11 @@ export default function Artes() {
   const { data, loading } = useFetch(() => contenidoService.list(), []);
 
   return (
-    <div className="relative isolate overflow-hidden bg-ink-50 dark:bg-ink-900">
+    <div className="programas-page relative isolate overflow-hidden bg-ink-50 dark:bg-ink-900">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.14]"
-        style={{ backgroundImage: "url('/vista200.jpeg')" }}
+        className="programas-page__backdrop pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.2]"
+        style={{ backgroundImage: "url('/fondoProgramas.jpeg')" }}
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-50/90 via-ink-50/80 to-ink-50/95 dark:from-ink-900/90 dark:via-ink-900/85 dark:to-ink-900/95" />
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -60,7 +61,7 @@ export default function Artes() {
                     {loading
                       ? Array.from({ length: 2 }).map((_, i) => <Skeleton key={i} className="h-32 w-full rounded-2xl" />)
                       : bloques.map((b) => (
-                          <article key={b.id} className="rounded-2xl border border-ink-200 p-5 dark:border-ink-700">
+                            <article key={b.id} className="programa-info-card rounded-2xl border border-ink-200 p-5 dark:border-ink-700">
                             <h3 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50">{b.titulo}</h3>
                             <p className="mt-1.5 text-sm text-ink-600 dark:text-ink-300">{b.cuerpo}</p>
                           </article>

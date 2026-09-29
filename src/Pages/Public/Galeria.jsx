@@ -66,7 +66,7 @@ export default function Galeria() {
         <button
           type="button"
           onClick={() => setIndiceActivo(0)}
-          className="group mt-10 grid w-full overflow-hidden rounded-2xl border border-amber-900/20 bg-[#201d19] text-left shadow-xl shadow-stone-950/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-offset-4 md:min-h-[25rem] md:grid-cols-[1.15fr_0.85fr]"
+          className={`group mt-10 grid w-full overflow-hidden rounded-2xl border border-amber-900/20 bg-[#201d19] text-left shadow-xl shadow-stone-950/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-offset-4 md:min-h-[25rem] md:grid-cols-[1.15fr_0.85fr] ${pieza?.titulo === 'Estación de Orotina, circa 1952' ? 'galeria-feature--weathered' : ''}`}
           aria-label="Abrir presentación de fotografías del Ferrocarril al Pacífico"
         >
         <span className="relative block min-h-64 overflow-hidden bg-stone-800 md:min-h-full">
@@ -105,6 +105,37 @@ export default function Galeria() {
           </span>
         </span>
         </button>
+
+        <section className="mt-12" aria-labelledby="galeria-interior-title">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300">Archivo interior</p>
+              <h2 id="galeria-interior-title" className="mt-2 font-display text-2xl font-bold text-ink-900 dark:text-ink-50">Postales de la memoria</h2>
+            </div>
+            <span className="hidden font-mono text-xs uppercase tracking-[0.16em] text-ink-500 sm:block dark:text-ink-400">04 fotografías</span>
+          </div>
+
+          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {FOTOS_ARCHIVO.map((foto, indice) => (
+              <li key={foto.src}>
+                <button
+                  type="button"
+                  onClick={() => setIndiceActivo(indice)}
+                  className="galeria-photo-card group w-full text-left"
+                  aria-label={`Abrir fotografía ${indice + 1}: ${foto.titulo}`}
+                >
+                  <span className="galeria-photo-card__image relative block overflow-hidden rounded-xl">
+                    <img src={foto.src} alt="" loading="lazy" className="h-full w-full object-cover" />
+                    <span aria-hidden="true" className="galeria-photo-card__film absolute inset-0" />
+                    <span className="absolute bottom-3 left-3 rounded-full bg-stone-950/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-stone-100">{String(indice + 1).padStart(2, '0')}</span>
+                  </span>
+                  <span className="mt-3 block font-display text-base font-semibold text-ink-900 transition-colors group-hover:text-amber-700 dark:text-ink-50 dark:group-hover:text-amber-300">{foto.titulo}</span>
+                  <span className="mt-1 block text-sm leading-6 text-ink-600 dark:text-ink-300">{foto.descripcion}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
 
       <Modal

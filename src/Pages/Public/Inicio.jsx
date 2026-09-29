@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ArrowUp, CalendarDays, Expand, ExternalLink, Landmark, Palette, Ticket, TrainFront, X } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
 import { eventosService } from '@/Services/eventosService';
-import { noticiasService } from '@/Services/noticiasService';
 import Button from '@/Components/UI/Button';
 import SectionTitle from '@/Components/Common/SectionTitle';
 import { SkeletonCard } from '@/Components/UI/Skeleton';
@@ -65,7 +64,6 @@ export default function Inicio() {
   const cerrarVisorRef = useRef(null);
   const focoAnteriorRef = useRef(null);
   const { data: eventos, loading: cargandoEventos } = useFetch(() => eventosService.listPublicados(), []);
-  const { data: noticias, loading: cargandoNoticias } = useFetch(() => noticiasService.latest(3), []);
 
   useEffect(() => {
     if (reducedMotion) return undefined;
@@ -511,33 +509,16 @@ export default function Inicio() {
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/40 via-white/35 to-cian-50/25 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-cian-950/80" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle eyebrow={t('home.current')} title={t('home.centerNews')} />
-
-          <ul className="mt-8 grid gap-5 lg:grid-cols-3">
-            {cargandoNoticias
-              ? Array.from({ length: 3 }).map((_, i) => <li key={i}><SkeletonCard /></li>)
-              : (noticias ?? []).map((n) => (
-                  <li key={n.id}>
-                    <article className="tarjeta-cultural flex h-full flex-col p-5">
-                      {n.imagen && (
-                        <img src={n.imagen} alt={n.titulo} loading="lazy" className="mb-4 aspect-[16/9] w-full rounded-lg object-cover" />
-                      )}
-                      <p className="text-xs text-white/70">{formatFecha(n.fecha)}</p>
-                      <h3 className="mt-2 font-display text-lg font-semibold text-white">{n.titulo}</h3>
-                      <p className="mt-2 flex-1 text-sm text-white/75">{n.resumen}</p>
-                      <Link
-                        to={PATHS.noticiaDetalle(n.id)}
-                        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-cian-200 hover:underline"
-                      >
-                        Leer más <ArrowRight aria-hidden="true" className="h-4 w-4" />
-                      </Link>
-                    </article>
-                  </li>
-                ))}
-          </ul>
-
-          <div className="mt-8">
-            <Button as={Link} to={PATHS.noticias} variant="outline">{t('home.allNews')}</Button>
-          </div>
+          <Link
+            to={PATHS.noticias}
+            className="group mt-8 flex items-center justify-between gap-6 rounded-2xl border border-white/30 bg-ink-900/65 px-6 py-7 text-white shadow-lg backdrop-blur-sm transition hover:bg-ink-900/80 focus:outline-none focus:ring-2 focus:ring-gold-300 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-ink-800"
+          >
+            <span>
+              <span className="block font-display text-xl font-semibold">{t('home.allNews')}</span>
+              <span className="mt-1 block text-sm text-white/75">Comunicados, convocatorias y novedades del centro.</span>
+            </span>
+            <ArrowRight aria-hidden="true" className="h-6 w-6 shrink-0 text-gold-300 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </section>
 

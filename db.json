@@ -720,21 +720,53 @@
       "id": 1,
       "titulo": "El Centro de Arte reabre la Galería Ferrocarril",
       "resumen": "Tras seis meses de restauración, la galería vuelve a abrir con una muestra sobre el Ferrocarril al Pacífico.",
-      "contenido": "La Galería Ferrocarril reabre sus puertas luego de un proceso de restauración que recuperó la estructura original de madera de 1928. La muestra inaugural reúne 48 fotografías, planos y objetos donados por familias orotinenses. El proyecto fue financiado con fondos municipales y aportes de la comunidad. Se espera recibir más de 3.000 visitantes durante el trimestre.",
+      "contenido": "La Galería Ferrocarril reabrió sus puertas el 22 de agosto de 2026, luego de un proceso de restauración que recuperó la estructura original de madera de 1928. La muestra inaugural reúne fotografías, planos y objetos donados por familias orotinenses. El proyecto fue financiado con fondos municipales y aportes de la comunidad.",
       "autor": "Prensa CACO",
-      "fecha": "2025-06-28",
+      "fecha": "2026-08-22",
       "categoria": "institucional",
-      "imagen": "/assets/noticias/galeria.jpg"
+      "imagen": "/galeriaFerrocarril.jpeg"
     },
     {
       "id": 2,
       "titulo": "Convocatoria abierta para el Festival de Baile Folclórico",
-      "resumen": "Grupos de todo el Pacífico Central podrán inscribirse hasta el 10 de julio.",
-      "contenido": "La convocatoria está dirigida a grupos de danza folclórica de la Región Pacífico Central. La inscripción es gratuita y se realiza en la recepción del centro o mediante el formulario en línea. Se seleccionarán doce agrupaciones que se presentarán en la Explanada del Ferrocarril.",
+      "resumen": "Grupos del Pacífico Central pueden inscribirse hasta el 10 de octubre para participar en la muestra del 24 de octubre.",
+      "contenido": "La convocatoria está dirigida a grupos de danza folclórica de la Región Pacífico Central. La inscripción es gratuita y estará abierta hasta el 10 de octubre de 2026 en la recepción del centro. La muestra se realizará el 24 de octubre en la Explanada del Ferrocarril.",
       "autor": "Coordinación Cultural",
-      "fecha": "2025-06-15",
+      "fecha": "2026-09-18",
       "categoria": "convocatoria",
-      "imagen": "/assets/noticias/baile.jpg"
+      "imagen": "/grupoFolclorico.png"
+    },
+    {
+      "id": 3,
+      "titulo": "147 Aniversario de la escuela Primo Vargas",
+      "resumen": "Orotina celebra la historia de su escuela y el legado de Primo Vargas Valverde, una memoria compartida por generaciones.",
+      "contenido": "El 147 aniversario de la Escuela Primo Vargas reúne recuerdos que atraviesan generaciones. Para muchas familias de Orotina, sus aulas y patios forman parte de una historia común: los primeros días de clases, las amistades, los actos cívicos y las voces de docentes que dejaron huella.\n\nLa escuela lleva el nombre de Primo Vargas Valverde, recordado como pionero y benefactor de Orotina. Su aporte al desarrollo de la comunidad permanece en la memoria local. La fecha exacta de su nacimiento no está documentada en las referencias consultadas; falleció en Orotina el 5 de julio de 1910.\n\nEstas fotografías evocan tanto su figura como la importancia de la escuela en la vida cotidiana. Cada generación recibe un espacio construido también con los recuerdos de quienes estudiaron antes: una nostalgia familiar que ayuda a comprender por qué cuidar la educación y la historia local sigue siendo importante.",
+      "autor": "Prensa CACO",
+      "fecha": "2026-09-27",
+      "categoria": "memoria local",
+      "imagen": "/escuela-primo-vargas.jpg",
+      "biografia": {
+        "nacimiento": "Siglo XIX",
+        "defuncion": "1910",
+        "nota": "No se encontró un año exacto de nacimiento en las referencias históricas consultadas; el fallecimiento está registrado el 5 de julio de 1910."
+      },
+      "galeria": [
+        {
+          "src": "/bustoPrimoVargas.jpeg",
+          "alt": "Busto de Primo Vargas Valverde",
+          "pie": "El busto recuerda a Primo Vargas Valverde y su legado para Orotina."
+        },
+        {
+          "src": "/escPrimoV.jpeg",
+          "alt": "Edificio de la Escuela Primo Vargas",
+          "pie": "La escuela, escenario de aprendizajes y recuerdos compartidos."
+        },
+        {
+          "src": "/escPrimoV2.jpeg",
+          "alt": "Otra vista de la Escuela Primo Vargas",
+          "pie": "Sus espacios enlazan la experiencia de estudiantes de distintas generaciones."
+        }
+      ]
     }
   ],
   "contenido": [

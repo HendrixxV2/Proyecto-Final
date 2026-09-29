@@ -14,12 +14,19 @@ export default function Artes() {
   const { data, loading } = useFetch(() => contenidoService.list(), []);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionTitle
-        eyebrow="Programas permanentes"
-        title="Teatro · Baile · Canto"
-        description="Tres ejes de formación y creación que sostienen la vida artística del centro."
+    <div className="relative isolate overflow-hidden bg-ink-50 dark:bg-ink-900">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.14]"
+        style={{ backgroundImage: "url('/vista200.jpeg')" }}
       />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-50/90 via-ink-50/80 to-ink-50/95 dark:from-ink-900/90 dark:via-ink-900/85 dark:to-ink-900/95" />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <SectionTitle
+          eyebrow="Programas permanentes"
+          title="Teatro · Baile · Canto"
+          description="Tres ejes de formación y creación que sostienen la vida artística del centro."
+        />
 
       <div className="mt-10 space-y-14">
         {DISCIPLINAS.map((d, index) => {
@@ -71,6 +78,7 @@ export default function Artes() {
             </section>
           );
         })}
+      </div>
       </div>
     </div>
   );

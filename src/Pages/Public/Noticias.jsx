@@ -33,6 +33,9 @@ export default function Noticias() {
           {data.map((n) => (
             <li key={n.id}>
               <article className="flex h-full flex-col rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800">
+                {n.imagen && (
+                  <img src={n.imagen} alt={n.titulo} loading="lazy" className="mb-4 aspect-[16/9] w-full rounded-lg object-cover" />
+                )}
                 <p className="text-xs text-ink-500 dark:text-ink-400">
                   {formatFecha(n.fecha)} · {n.autor}
                 </p>

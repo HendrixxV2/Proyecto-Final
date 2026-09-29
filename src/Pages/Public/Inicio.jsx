@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, CalendarDays, Expand, ExternalLink, Landmark, Palette, Ticket, TrainFront, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUp, CalendarDays, Expand, ExternalLink, Landmark, Palette, Ticket, TrainFront, X } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
 import { eventosService } from '@/Services/eventosService';
 import { noticiasService } from '@/Services/noticiasService';
@@ -59,6 +59,7 @@ export default function Inicio() {
   const [imagenEventoActiva, setImagenEventoActiva] = useState(0);
   const [imagenRecomendadaActiva, setImagenRecomendadaActiva] = useState(0);
   const [imagenBandaActiva, setImagenBandaActiva] = useState(null);
+  const [mostrarBotonArriba, setMostrarBotonArriba] = useState(false);
   const visorAbierto = imagenBandaActiva !== null;
   const visorRef = useRef(null);
   const cerrarVisorRef = useRef(null);
@@ -75,6 +76,13 @@ export default function Inicio() {
 
     return () => window.clearInterval(intervalo);
   }, [reducedMotion]);
+
+  useEffect(() => {
+    const actualizarVisibilidad = () => setMostrarBotonArriba(window.scrollY > 320);
+    actualizarVisibilidad();
+    window.addEventListener('scroll', actualizarVisibilidad, { passive: true });
+    return () => window.removeEventListener('scroll', actualizarVisibilidad);
+  }, []);
 
   useEffect(() => {
     if (reducedMotion) return undefined;
@@ -510,6 +518,9 @@ export default function Inicio() {
               : (noticias ?? []).map((n) => (
                   <li key={n.id}>
                     <article className="tarjeta-cultural flex h-full flex-col p-5">
+                      {n.imagen && (
+                        <img src={n.imagen} alt={n.titulo} loading="lazy" className="mb-4 aspect-[16/9] w-full rounded-lg object-cover" />
+                      )}
                       <p className="text-xs text-white/70">{formatFecha(n.fecha)}</p>
                       <h3 className="mt-2 font-display text-lg font-semibold text-white">{n.titulo}</h3>
                       <p className="mt-2 flex-1 text-sm text-white/75">{n.resumen}</p>
@@ -562,6 +573,16 @@ export default function Inicio() {
           </ul>
         </div>
       </section>
+      {mostrarBotonArriba && !visorAbierto && (
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' })}
+          aria-label="Volver arriba"
+          className="fixed bottom-5 right-5 z-40 grid h-12 w-12 place-items-center rounded-full border border-white/20 bg-ink-900 text-white shadow-lg shadow-ink-950/25 transition hover:-translate-y-1 hover:bg-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 sm:bottom-7 sm:right-7"
+        >
+          <ArrowUp aria-hidden="true" className="h-5 w-5" />
+        </button>
+      )}
     </>
   );
 }

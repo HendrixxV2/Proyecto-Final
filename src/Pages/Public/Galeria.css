@@ -14,3 +14,12 @@
   opacity: 0.14;
   pointer-events: none;
 }
+
+.dark .galeria-page {
+  background: #111918;
+}
+
+.dark .galeria-page::before {
+  filter: brightness(0.35) saturate(0.8);
+  opacity: 0.22;
+}

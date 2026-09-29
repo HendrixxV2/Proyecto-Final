@@ -30,6 +30,12 @@ export default function NoticiaDetalle() {
         </p>
       </header>
 
+      {noticia.imagen && (
+        <figure className="mt-6 overflow-hidden rounded-xl">
+          <img src={noticia.imagen} alt={noticia.titulo} className="max-h-[32rem] w-full object-cover" />
+        </figure>
+      )}
+
       <div className="mt-6">
         <NewsSummary noticia={noticia} />
       </div>
@@ -39,6 +45,33 @@ export default function NoticiaDetalle() {
           <p key={i}>{parrafo}</p>
         ))}
       </div>
+
+      {noticia.galeria && (
+        <section aria-label="Memoria de la Escuela Primo Vargas" className="mt-10">
+          <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+            <h2 className="font-display text-xl font-bold text-ink-900 dark:text-ink-50">Una memoria que pasa de generación en generación</h2>
+            <dl className="flex gap-4 rounded-lg border border-ink-200 bg-white/80 px-4 py-3 text-sm dark:border-ink-700 dark:bg-ink-800/80">
+              <div>
+                <dt className="text-xs text-ink-500 dark:text-ink-400">Nacimiento</dt>
+                <dd className="font-semibold text-ink-900 dark:text-ink-50">{noticia.biografia.nacimiento}</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-ink-500 dark:text-ink-400">Defunción</dt>
+                <dd className="font-semibold text-ink-900 dark:text-ink-50">{noticia.biografia.defuncion}</dd>
+              </div>
+            </dl>
+          </div>
+          <p className="mb-5 text-xs text-ink-500 dark:text-ink-400">{noticia.biografia.nota}</p>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {noticia.galeria.map((imagen) => (
+              <figure key={imagen.src} className="overflow-hidden rounded-xl border border-ink-200 bg-white dark:border-ink-700 dark:bg-ink-800">
+                <img src={imagen.src} alt={imagen.alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+                <figcaption className="p-3 text-sm text-ink-600 dark:text-ink-300">{imagen.pie}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
     </article>
   );
 }

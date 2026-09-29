@@ -47,11 +47,17 @@ const IMAGENES_EVENTOS = [
   { src: '/proximoEvento.jpeg', alt: 'Próximo evento cultural' },
 ];
 
+const IMAGENES_RECOMENDADAS = [
+  { src: '/orotinaVive.jpeg', alt: 'Orotina vive' },
+  { src: '/orotinaNoche.jpeg', alt: 'Orotina de noche' },
+];
+
 export default function Inicio() {
   const { t } = useLanguage();
   const { reducedMotion } = useA11y();
   const [imagenActiva, setImagenActiva] = useState(0);
   const [imagenEventoActiva, setImagenEventoActiva] = useState(0);
+  const [imagenRecomendadaActiva, setImagenRecomendadaActiva] = useState(0);
   const [imagenBandaActiva, setImagenBandaActiva] = useState(null);
   const visorAbierto = imagenBandaActiva !== null;
   const visorRef = useRef(null);
@@ -75,6 +81,16 @@ export default function Inicio() {
 
     const intervalo = window.setInterval(() => {
       setImagenEventoActiva((actual) => (actual + 1) % IMAGENES_EVENTOS.length);
+    }, 6000);
+
+    return () => window.clearInterval(intervalo);
+  }, [reducedMotion]);
+
+  useEffect(() => {
+    if (reducedMotion) return undefined;
+
+    const intervalo = window.setInterval(() => {
+      setImagenRecomendadaActiva((actual) => (actual + 1) % IMAGENES_RECOMENDADAS.length);
     }, 6000);
 
     return () => window.clearInterval(intervalo);
@@ -306,7 +322,7 @@ export default function Inicio() {
 
       {/* AGRUPACIONES CULTURALES */}
       <section className="relative isolate overflow-hidden bg-gold-50 py-14 dark:bg-ink-900 sm:py-20">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/danzaOrotina.jpeg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/grupoFolclorico.png')" }} />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-gold-50/85 via-gold-50/80 to-orange-100/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/80" />
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16 lg:px-8">
           <div>
@@ -448,7 +464,16 @@ export default function Inicio() {
 
       {/* RECOMENDACIONES IA */}
       <section className="relative isolate mx-auto max-w-7xl overflow-hidden px-4 py-14 sm:px-6 lg:px-8">
-        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem] bg-cover bg-center opacity-35" style={{ backgroundImage: "url('/gurutina.jpeg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem]">
+          {IMAGENES_RECOMENDADAS.map((imagen, index) => (
+            <img
+              key={imagen.src}
+              src={imagen.src}
+              alt=""
+              className={`absolute inset-0 h-full w-full rounded-[2rem] object-cover object-center transition-opacity duration-1000 ${imagenRecomendadaActiva === index ? 'opacity-35' : 'opacity-0'}`}
+            />
+          ))}
+        </div>
         <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-white/85 via-white/80 to-gold-50/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/80" />
         <SectionTitle
           eyebrow={t('home.ai')}
@@ -457,6 +482,18 @@ export default function Inicio() {
         />
         <div className="mt-8">
           <EventRecommender limite={3} />
+        </div>
+        <div role="group" aria-label="Imágenes de recomendaciones" className="relative z-10 mt-6 flex justify-center gap-2">
+          {IMAGENES_RECOMENDADAS.map((imagen, index) => (
+            <button
+              key={imagen.src}
+              type="button"
+              onClick={() => setImagenRecomendadaActiva(index)}
+              aria-label={`Mostrar imagen: ${imagen.alt}`}
+              aria-pressed={imagenRecomendadaActiva === index}
+              className={`h-2.5 rounded-full transition-all ${imagenRecomendadaActiva === index ? 'w-8 bg-brand-700 dark:bg-gold-400' : 'w-2.5 bg-brand-300 hover:bg-brand-500 dark:bg-ink-500'}`}
+            />
+          ))}
         </div>
       </section>
 

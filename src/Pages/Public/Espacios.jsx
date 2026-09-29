@@ -38,20 +38,20 @@ export default function Espacios() {
         <ul className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {espacios.map((espacio) => (
             <li key={espacio.id}>
-              <article className="flex h-full flex-col rounded-2xl border border-ink-200 bg-white p-5 shadow-soft dark:border-ink-700 dark:bg-ink-800">
+              <article className="tarjeta-cultural flex h-full flex-col p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-jade-300">
                       {espacio.tipo ?? 'Espacio'}
                     </p>
-                    <h2 className="mt-2 font-display text-xl font-semibold text-ink-900 dark:text-ink-50">
+                    <h2 className="mt-2 font-display text-xl font-semibold text-white">
                       {espacio.nombre}
                     </h2>
                   </div>
-                  <MapPinned aria-hidden="true" className="h-5 w-5 text-brand-500" />
+                  <MapPinned aria-hidden="true" className="h-5 w-5 text-cian-200" />
                 </div>
 
-                <p className="mt-4 line-clamp-3 text-sm text-ink-600 dark:text-ink-300">
+                <p className="mt-4 line-clamp-3 text-sm text-white/75">
                   {espacio.descripcion}
                 </p>
 
@@ -60,7 +60,7 @@ export default function Espacios() {
                   <Badge tone="brand">{formatColones(espacio.precioHora ?? 0)} / hora</Badge>
                 </div>
 
-                <div className="mt-5 flex items-center justify-between text-sm text-ink-500 dark:text-ink-400">
+                <div className="mt-5 flex items-center justify-between text-sm text-white/75">
                   <span>{espacio.ubicacion ?? 'Ubicación por confirmar'}</span>
                 </div>
 

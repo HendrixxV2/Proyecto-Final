@@ -60,25 +60,25 @@ export default function EventRecommender({ categoria, limite = 3 }) {
     <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
       {items.map((evento) => (
         <li key={evento.id}>
-          <article className="flex h-full flex-col rounded-2xl border border-ink-200 bg-white p-5 shadow-soft dark:border-ink-700 dark:bg-ink-800">
+          <article className="tarjeta-cultural flex h-full flex-col p-5">
             <div className="flex items-center justify-between gap-3">
-              <span className="inline-flex items-center gap-2 rounded-full bg-jade-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-jade-700 dark:bg-jade-900/40 dark:text-jade-300">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-jade-100">
                 <Sparkles aria-hidden="true" className="h-3.5 w-3.5" />
                 Recomendado
               </span>
-              <span className="text-[11px] font-medium text-ink-500 dark:text-ink-400">{evento.categoria}</span>
+              <span className="text-[11px] font-medium text-white/75">{evento.categoria}</span>
             </div>
 
-            <h3 className="mt-4 font-display text-lg font-semibold text-ink-900 dark:text-ink-50">{evento.titulo}</h3>
-            <p className="mt-2 flex-1 text-sm text-ink-600 dark:text-ink-300">{evento.descripcion}</p>
+            <h3 className="mt-4 font-display text-lg font-semibold text-white">{evento.titulo}</h3>
+            <p className="mt-2 flex-1 text-sm text-white/75">{evento.descripcion}</p>
 
-            <p className="mt-4 text-xs font-medium text-ink-500 dark:text-ink-400">
+            <p className="mt-4 text-xs font-medium text-white/75">
               {formatFecha(evento.fecha, "d 'de' MMMM")} · {evento.horaInicio}
             </p>
 
             <Link
               to={PATHS.calendario}
-              className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:underline dark:text-brand-300"
+              className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-cian-200 hover:underline"
             >
               Ver programa <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </Link>

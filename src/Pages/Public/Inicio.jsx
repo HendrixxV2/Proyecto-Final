@@ -236,14 +236,14 @@ export default function Inicio() {
                   <li key={to}>
                     <Link
                       to={to}
-                      className="group flex h-full min-h-36 flex-col rounded-2xl border border-white/15 bg-white p-3 transition hover:-translate-y-1 hover:border-white/40 hover:shadow-xl sm:min-h-44 sm:p-5 dark:bg-ink-800"
+                      className="tarjeta-cultural group flex h-full min-h-36 flex-col p-3 sm:min-h-44 sm:p-5"
                     >
                       <span className={`grid h-9 w-9 place-items-center rounded-xl text-white sm:h-11 sm:w-11 ${tone}`}>
                         <Icon aria-hidden="true" className="h-5 w-5" />
                       </span>
-                      <span className="mt-3 font-display text-sm font-semibold text-ink-900 sm:mt-4 sm:text-base dark:text-ink-50">{t(`home.access.${key}.0`)}</span>
-                      <span className="mt-1 text-xs text-ink-500 sm:text-sm dark:text-ink-400">{t(`home.access.${key}.1`)}</span>
-                      <span className="mt-auto pt-4 inline-flex items-center gap-1 text-xs font-semibold text-brand-600 dark:text-brand-300">
+                      <span className="mt-3 font-display text-sm font-semibold text-white sm:mt-4 sm:text-base">{t(`home.access.${key}.0`)}</span>
+                      <span className="mt-1 text-xs text-white/75 sm:text-sm">{t(`home.access.${key}.1`)}</span>
+                      <span className="mt-auto inline-flex items-center gap-1 pt-4 text-xs font-semibold text-cian-200">
                         {t('common.explore')} <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                       </span>
                     </Link>
@@ -285,13 +285,13 @@ export default function Inicio() {
               <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {(eventos ?? []).slice(0, 4).map((e) => (
                   <li key={e.id}>
-                    <article className="flex h-full flex-col rounded-2xl border border-ink-200 bg-ink-50 p-5 transition hover:shadow-soft dark:border-ink-700 dark:bg-ink-800">
-                      <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">
+                    <article className="tarjeta-cultural flex h-full flex-col p-5">
+                      <p className="text-[11px] font-semibold uppercase tracking-wide text-jade-300">
                         {e.categoria}
                       </p>
-                      <h3 className="mt-2 font-display text-base font-semibold text-ink-900 dark:text-ink-50">{e.titulo}</h3>
-                      <p className="mt-1 flex-1 text-sm text-ink-500 dark:text-ink-400">{e.descripcion}</p>
-                      <p className="mt-4 text-xs font-medium text-ink-600 dark:text-ink-300">
+                      <h3 className="mt-2 font-display text-base font-semibold text-white">{e.titulo}</h3>
+                      <p className="mt-1 flex-1 text-sm text-white/75">{e.descripcion}</p>
+                      <p className="mt-4 text-xs font-medium text-white/75">
                         {formatFecha(e.fecha, "d 'de' MMMM")} · {e.horaInicio}
                       </p>
                     </article>
@@ -470,11 +470,11 @@ export default function Inicio() {
               key={imagen.src}
               src={imagen.src}
               alt=""
-              className={`absolute inset-0 h-full w-full rounded-[2rem] object-cover object-center transition-opacity duration-1000 ${imagenRecomendadaActiva === index ? 'opacity-35' : 'opacity-0'}`}
+              className={`absolute inset-0 h-full w-full rounded-[2rem] object-cover object-center transition-opacity duration-1000 ${imagenRecomendadaActiva === index ? 'opacity-75' : 'opacity-0'}`}
             />
           ))}
         </div>
-        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-white/85 via-white/80 to-gold-50/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/80" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-white/50 via-white/45 to-gold-50/35 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/80" />
         <SectionTitle
           eyebrow={t('home.ai')}
           title={t('home.recommended')}
@@ -499,8 +499,8 @@ export default function Inicio() {
 
       {/* NOTICIAS */}
       <section className="relative isolate overflow-hidden bg-white py-14 dark:bg-ink-800/40">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/Iglesia_San_Mateo_Alajuela_Costa_Rica.jpg.jpg')" }} />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/80 to-cian-50/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-cian-950/80" />
+        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-55" style={{ backgroundImage: "url('/Iglesia_San_Mateo_Alajuela_Costa_Rica.jpg.jpg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/40 via-white/35 to-cian-50/25 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-cian-950/80" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle eyebrow={t('home.current')} title={t('home.centerNews')} />
 
@@ -509,13 +509,13 @@ export default function Inicio() {
               ? Array.from({ length: 3 }).map((_, i) => <li key={i}><SkeletonCard /></li>)
               : (noticias ?? []).map((n) => (
                   <li key={n.id}>
-                    <article className="flex h-full flex-col rounded-2xl border border-ink-200 p-5 dark:border-ink-700">
-                      <p className="text-xs text-ink-500 dark:text-ink-400">{formatFecha(n.fecha)}</p>
-                      <h3 className="mt-2 font-display text-lg font-semibold text-ink-900 dark:text-ink-50">{n.titulo}</h3>
-                      <p className="mt-2 flex-1 text-sm text-ink-600 dark:text-ink-300">{n.resumen}</p>
+                    <article className="tarjeta-cultural flex h-full flex-col p-5">
+                      <p className="text-xs text-white/70">{formatFecha(n.fecha)}</p>
+                      <h3 className="mt-2 font-display text-lg font-semibold text-white">{n.titulo}</h3>
+                      <p className="mt-2 flex-1 text-sm text-white/75">{n.resumen}</p>
                       <Link
                         to={PATHS.noticiaDetalle(n.id)}
-                        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:underline dark:text-brand-300"
+                        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-cian-200 hover:underline"
                       >
                         Leer más <ArrowRight aria-hidden="true" className="h-4 w-4" />
                       </Link>

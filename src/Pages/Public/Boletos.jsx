@@ -152,20 +152,20 @@ export default function Boletos() {
             const disponibles = disponiblesPorEvento(evento.id);
             return (
               <li key={evento.id}>
-                <article className="flex h-full flex-col rounded-xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800">
+                <article className="tarjeta-cultural flex h-full flex-col p-5">
                   <div className="flex items-start justify-between gap-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">{evento.categoria}</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-wide text-jade-300">{evento.categoria}</p>
                     <Badge tone={evento.precio > 0 ? 'info' : 'success'}>{evento.precio > 0 ? formatColones(evento.precio) : t('tickets.free')}</Badge>
                   </div>
 
-                  <h3 className="mt-2 font-display text-lg font-semibold text-ink-900 dark:text-ink-50">{evento.titulo}</h3>
-                  <p className="mt-1.5 flex-1 text-sm text-ink-500 dark:text-ink-400">{evento.descripcion}</p>
+                  <h3 className="mt-2 font-display text-lg font-semibold text-white">{evento.titulo}</h3>
+                  <p className="mt-1.5 flex-1 text-sm text-white/75">{evento.descripcion}</p>
 
-                  <div className="mt-4 flex items-center gap-2 text-xs text-ink-600 dark:text-ink-300">
+                  <div className="mt-4 flex items-center gap-2 text-xs text-white/80">
                     <CalendarDays aria-hidden="true" className="h-4 w-4 shrink-0" />
                     <span>{formatFecha(evento.fecha)} · {formatHora(evento.horaInicio)}</span>
                   </div>
-                  <p className="mt-2 text-xs text-ink-500 dark:text-ink-400">
+                  <p className="mt-2 text-xs text-white/75">
                     {cargandoBoletos
                       ? t('tickets.checking')
                       : disponibles > 0
@@ -174,7 +174,7 @@ export default function Boletos() {
                     {evento.aforo ? ` · ${t('tickets.category')} ${evento.aforo}` : ''}
                   </p>
                   {boletosPropios.length > 0 && (
-                    <p className="mt-1 text-xs font-medium text-jade-700 dark:text-jade-300">
+                    <p className="mt-1 text-xs font-medium text-jade-200">
                       {t('tickets.alreadyBooked', { count: boletosPropios.length, unit: boletosPropios.length === 1 ? t('tickets.ticketUnit') : t('tickets.ticketUnitPlural') })}
                     </p>
                   )}

@@ -26,13 +26,13 @@ export default function Artes() {
           const bloques = (data ?? []).filter((b) => b.seccion === d.key);
           return (
             <section key={d.key} aria-labelledby={`titulo-${d.key}`}>
-              <div className="grid items-start gap-6 lg:grid-cols-[minmax(18rem,0.55fr)_minmax(0,1fr)]">
-                <figure className={`group relative isolate overflow-hidden rounded-2xl border border-ink-200 bg-ink-100 shadow-sm dark:border-ink-700 dark:bg-ink-800 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+              <div className="grid items-start gap-6 lg:items-center lg:grid-cols-[minmax(18rem,0.7fr)_minmax(0,1.3fr)] lg:gap-8 xl:items-stretch xl:grid-cols-[minmax(22rem,0.85fr)_minmax(0,1.15fr)] xl:gap-12">
+                <figure className={`group relative isolate overflow-hidden rounded-2xl border border-ink-200 bg-ink-100 shadow-sm dark:border-ink-700 dark:bg-ink-800 xl:min-h-[32rem] ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                   <img
                     src={d.imagen}
                     alt={d.alt}
                     loading="lazy"
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 xl:absolute xl:inset-0 xl:h-full xl:aspect-auto"
                   />
                   <span aria-hidden="true" className="absolute bottom-3 left-3 rounded-md bg-ink-950/75 px-2.5 py-1 font-mono text-xs font-semibold text-white backdrop-blur-sm">
                     {String(index + 1).padStart(2, '0')} / {String(DISCIPLINAS.length).padStart(2, '0')}

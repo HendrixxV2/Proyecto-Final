@@ -12,7 +12,10 @@ export default function Noticias() {
   const { data, loading } = useFetch(() => noticiasService.list({ _sort: 'fecha', _order: 'desc' }), []);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="relative isolate overflow-hidden bg-ink-50 dark:bg-ink-900">
+      <div aria-hidden="true" className="absolute inset-0 bg-center opacity-[0.36]" style={{ backgroundImage: "url('/fondoNoticias.jpeg')", backgroundSize: '100% 100%' }} />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/80 to-jade-50/70 dark:from-ink-900/95 dark:via-ink-900/90 dark:to-jade-950/85" />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <SectionTitle eyebrow="Sala de prensa" title="Noticias" description="Comunicados, convocatorias y novedades del centro." />
 
       {loading && (
@@ -46,6 +49,7 @@ export default function Noticias() {
           ))}
         </ul>
       )}
+      </div>
     </div>
   );
 }

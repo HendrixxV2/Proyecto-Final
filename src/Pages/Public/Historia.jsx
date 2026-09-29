@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { BookOpen, ExternalLink, Flower2, Landmark, MapPinned, Sparkles, TrainFront } from 'lucide-react';
+import Modal from '@/Components/UI/Modal';
 import { useFetch } from '@/Hooks/useFetch';
 import { useLanguage } from '@/Hooks/useLanguage';
 import { contenidoService } from '@/Services/contenidoService';
@@ -32,6 +33,15 @@ const HISTORY_COPY = {
     originText: 'La palabra Orotina proviene directamente del nombre del cacique o rey indígena Orotina (o Gurutina), quien gobernaba las tierras desde la ensenada de Tivives hacia el interior durante los primeros contactos con los conquistadores españoles en 1522. Esa raíz política y territorial no es solo un nombre: es una huella de soberanía, navegación y asentamiento que aún acompaña la memoria del cantón.',
     extraTitle: 'Un pueblo de confluencias',
     extraText: 'Antes de consolidarse como cantón, Orotina se configuró como un punto de encuentro entre comunidades indígenas, caminos de paso, comercio costero y la expansión del ferrocarril. La mezcla de robores, caminos de tierra, estaciones y redes de vida cotidiana dio forma a un territorio donde la memoria no se guarda solo en documentos, sino también en los nombres de las calles, la música, la cocina y la forma de habitar el paisaje.',
+    dedicationKicker: 'Una vida dedicada a la cultura',
+    dedicationTitle: 'Luis Ferrero Acosta',
+    dedicationYears: 'Orotina, 1930 — San José, 2005',
+    dedicationText: 'Nacido en Orotina, Luis Ferrero Acosta dedicó su vida a investigar, escribir y acercar la cultura a la sociedad costarricense. Ensayista, humanista, periodista cultural, tipógrafo y curador, publicó más de cien libros sobre antropología, historia del arte y literatura. Impulsó la edición de clásicos nacionales, la formación de lectores y la protección del patrimonio. En 1987 recibió el Premio Nacional de Cultura Magón. Su legado honra una convicción: el arte y la memoria costarricenses merecen ser conocidos, estudiados y compartidos.',
+    dedicationGalleryTitle: 'Imágenes de su legado',
+    dedicationGalleryAlt: 'Retrato de Luis Ferrero Acosta',
+    dedicationGalleryCreditAlt: 'Retrato de Luis Ferrero Acosta realizado por el artista nacional Mario Maffioli',
+    dedicationGalleryCredit: 'Retrato por el artista nacional Mario Maffioli',
+    expandImage: 'Ampliar imagen',
   },
   en: {
     eyebrow: 'Memory and heritage',
@@ -55,6 +65,15 @@ const HISTORY_COPY = {
     originText: 'The word Orotina comes directly from the name of the indigenous cacique or king Orotina (or Gurutina), who ruled the lands from the Tivives inlet to the interior during the first contacts with Spanish conquistadors in 1522. That political and territorial root is more than a name: it is a trace of sovereignty, navigation and settlement that still accompanies the canton’s memory.',
     extraTitle: 'A town of confluences',
     extraText: 'Before becoming a canton, Orotina emerged as a meeting point between Indigenous communities, transit routes, coastal trade and the expansion of the railway. The mix of oak groves, dirt roads, stations and everyday life shaped a territory where memory is kept not only in documents, but also in street names, music, food and the way of inhabiting the landscape.',
+    dedicationKicker: 'A life devoted to culture',
+    dedicationTitle: 'Luis Ferrero Acosta',
+    dedicationYears: 'Orotina, 1930 — San José, 2005',
+    dedicationText: 'Born in Orotina, Luis Ferrero Acosta devoted his life to researching, writing and bringing culture closer to Costa Rican society. An essayist, humanist, cultural journalist, typographer and curator, he published more than one hundred books on anthropology, art history and literature. He championed editions of national classics, literacy and heritage preservation. In 1987 he received the Magón National Culture Award. His legacy honors a conviction: Costa Rican art and memory deserve to be known, studied and shared.',
+    dedicationGalleryTitle: 'Images of his legacy',
+    dedicationGalleryAlt: 'Portrait of Luis Ferrero Acosta',
+    dedicationGalleryCreditAlt: 'Portrait of Luis Ferrero Acosta by national artist Mario Maffioli',
+    dedicationGalleryCredit: 'Portrait by national artist Mario Maffioli',
+    expandImage: 'Enlarge image',
   },
   zh: {
     eyebrow: '記憶與遺產',
@@ -78,8 +97,25 @@ const HISTORY_COPY = {
     originText: '「Orotina」一詞直接源自原住民首領或國王 Orotina（或 Gurutina）之名，他在 1522 年與西班牙征服者首次接觸時，統治著從 Tivives 海灣延伸至內陸的土地。這個政治與地域的根源不只是名稱，而是一種主權、航行與定居的痕跡，至今仍陪伴著該縣的記憶。',
     extraTitle: '交匯之地',
     extraText: '在成為縣份之前，奧羅蒂納曾是原住民社群、交通路線、沿海貿易與鐵路擴展交會之地。橡樹林、土路、車站與日常生活的交織，塑造出一個不僅存在於文件中的記憶，也藏在街道名稱、音樂、飲食與風景居住方式中的地域。',
+    dedicationKicker: '獻身文化的一生',
+    dedicationTitle: 'Luis Ferrero Acosta',
+    dedicationYears: '奧羅蒂納，1930 — 聖荷西，2005',
+    dedicationText: 'Luis Ferrero Acosta 出生於奧羅蒂納，一生致力於研究、寫作，並讓哥斯大黎加社會更親近文化。他是散文家、人文主義者、文化記者、排版師與策展人，出版了一百多本關於人類學、藝術史與文學的著作。他推動哥斯大黎加經典作品的出版、閱讀教育與文化遺產保存，並於 1987 年獲頒 Magón 國家文化獎。他的遺產彰顯一個信念：哥斯大黎加的藝術與記憶值得被認識、研究與分享。',
+    dedicationGalleryTitle: '他的文化遺產影像',
+    dedicationGalleryAlt: 'Luis Ferrero Acosta 的肖像',
+    dedicationGalleryCreditAlt: '由哥斯大黎加藝術家 Mario Maffioli 創作的 Luis Ferrero Acosta 肖像',
+    dedicationGalleryCredit: '肖像作品：哥斯大黎加藝術家 Mario Maffioli',
+    expandImage: '放大圖片',
   },
 };
+
+const FERRERO_IMAGES = [
+  'ferreAcosta.jpeg',
+  'fotoFerrero.jpeg',
+  'LFACOS.jpeg',
+  'luFerreroAcosta.jpeg',
+  'retratoLuisFA.jpg',
+];
 
 function getLocalizedBlock(block, language) {
   return {
@@ -93,6 +129,7 @@ export default function Historia() {
   const { language } = useLanguage();
   const copy = HISTORY_COPY[language] ?? HISTORY_COPY.es;
   const [activeChapter, setActiveChapter] = useState('railway');
+  const [expandedFerreroImage, setExpandedFerreroImage] = useState(null);
   const chapterTabRefs = useRef([]);
   const chapters = [
     {
@@ -253,6 +290,62 @@ export default function Historia() {
             <EmptyState title={copy.loadingTitle} description={copy.loadingDesc} />
           )}
         </section>
+
+        <section className="historia-dedication" aria-labelledby="historia-dedication-title">
+          <div className="historia-dedication__copy">
+            <p className="historia-dedication__kicker"><Sparkles aria-hidden="true" />{copy.dedicationKicker}</p>
+            <h2 id="historia-dedication-title">{copy.dedicationTitle}</h2>
+            <p className="historia-dedication__years">{copy.dedicationYears}</p>
+            <p className="historia-dedication__body">{copy.dedicationText}</p>
+          </div>
+
+          <div className="historia-dedication__gallery" role="group" aria-label={copy.dedicationGalleryTitle}>
+            <h3>{copy.dedicationGalleryTitle}</h3>
+            <div className="historia-dedication__images">
+              {FERRERO_IMAGES.map((image, index) => (
+                <figure key={image}>
+                  <button
+                    type="button"
+                    className="historia-dedication__image-button"
+                    onClick={() => setExpandedFerreroImage(index)}
+                    aria-label={`${copy.expandImage}: ${index === FERRERO_IMAGES.length - 1 ? copy.dedicationGalleryCreditAlt : `${copy.dedicationGalleryAlt} ${index + 1}`}`}
+                  >
+                    <img
+                      src={`/${image}`}
+                      alt={index === FERRERO_IMAGES.length - 1 ? copy.dedicationGalleryCreditAlt : `${copy.dedicationGalleryAlt} ${index + 1}`}
+                      loading="lazy"
+                    />
+                  </button>
+                  {index === FERRERO_IMAGES.length - 1 && (
+                    <figcaption>{copy.dedicationGalleryCredit}</figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <Modal
+          open={expandedFerreroImage !== null}
+          onClose={() => setExpandedFerreroImage(null)}
+          title={copy.dedicationTitle}
+          description={expandedFerreroImage === null
+            ? undefined
+            : expandedFerreroImage === FERRERO_IMAGES.length - 1
+              ? copy.dedicationGalleryCreditAlt
+              : `${copy.dedicationGalleryAlt} ${expandedFerreroImage + 1}`}
+          size="lg"
+        >
+          {expandedFerreroImage !== null && (
+            <img
+              src={`/${FERRERO_IMAGES[expandedFerreroImage]}`}
+              alt={expandedFerreroImage === FERRERO_IMAGES.length - 1
+                ? copy.dedicationGalleryCreditAlt
+                : `${copy.dedicationGalleryAlt} ${expandedFerreroImage + 1}`}
+              className="historia-dedication__expanded-image"
+            />
+          )}
+        </Modal>
 
         <blockquote className="historia-quote">
           <Sparkles aria-hidden="true" />

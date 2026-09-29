@@ -14,8 +14,9 @@ export default function PublicLayout() {
   }, [pathname]);
 
   useEffect(() => {
-    const sections = document.querySelectorAll('#contenido-principal section, #contenido-principal article');
-    if (!sections.length) return undefined;
+    const content = document.querySelector('#contenido-principal');
+    if (!content) return undefined;
+    const selector = '#contenido-principal section, #contenido-principal article';
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -29,8 +30,26 @@ export default function PublicLayout() {
       { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
     );
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    const observe = (element) => {
+      if (!element.classList.contains('is-visible')) observer.observe(element);
+    };
+    content.querySelectorAll(selector).forEach(observe);
+
+    const mutations = new MutationObserver((records) => {
+      records.forEach(({ addedNodes }) => {
+        addedNodes.forEach((node) => {
+          if (node.nodeType !== Node.ELEMENT_NODE) return;
+          if (node.matches(selector)) observe(node);
+          node.querySelectorAll(selector).forEach(observe);
+        });
+      });
+    });
+    mutations.observe(content, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutations.disconnect();
+    };
   }, [pathname]);
 
   return (

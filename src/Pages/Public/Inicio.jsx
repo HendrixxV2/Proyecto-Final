@@ -248,11 +248,11 @@ export default function Inicio() {
               key={imagen.src}
               src={imagen.src}
               alt=""
-              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${imagenEventoActiva === index ? 'opacity-25' : 'opacity-0'}`}
+              className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${imagenEventoActiva === index ? 'opacity-40' : 'opacity-0'}`}
             />
           ))}
         </div>
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/90 to-brand-50/75 dark:from-ink-900/96 dark:via-ink-900/92 dark:to-brand-950/80" />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/80 to-brand-50/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/78" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle
             eyebrow={t('home.agenda')}
@@ -306,8 +306,8 @@ export default function Inicio() {
 
       {/* AGRUPACIONES CULTURALES */}
       <section className="relative isolate overflow-hidden bg-gold-50 py-14 dark:bg-ink-900 sm:py-20">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-15" style={{ backgroundImage: "url('/danzaOrotina.jpeg')" }} />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-gold-50/95 via-gold-50/90 to-orange-100/80 dark:from-ink-900/96 dark:via-ink-900/92 dark:to-brand-950/80" />
+        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/danzaOrotina.jpeg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-gold-50/85 via-gold-50/80 to-orange-100/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/80" />
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16 lg:px-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700 dark:text-gold-400">Tradición en movimiento</p>
@@ -324,14 +324,14 @@ export default function Inicio() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             {GALERIA_DANZA.map((imagen, index) => (
-              <figure key={imagen.src} className={`group relative min-h-36 overflow-hidden rounded-lg bg-ink-200 dark:bg-ink-700 ${index === 0 ? 'row-span-2' : ''}`}>
+              <figure key={imagen.src} className={`group relative overflow-hidden rounded-lg bg-ink-200 dark:bg-ink-700 ${index === 0 ? 'col-span-2 aspect-[16/9]' : 'aspect-[4/3]'}`}>
                 <img
                   src={imagen.src}
                   alt={imagen.alt}
                   loading="lazy"
-                  className={`h-full w-full object-cover transition duration-500 ease-out group-hover:scale-105 ${index === 0 ? 'absolute inset-0' : 'aspect-square'}`}
+                  className="absolute inset-0 h-full w-full object-cover transition duration-500 ease-out group-hover:scale-105"
                 />
                 <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 to-transparent px-3 pb-3 pt-10 text-xs font-semibold text-white sm:px-4 sm:pb-4 sm:text-sm">
                   {imagen.caption}
@@ -343,8 +343,8 @@ export default function Inicio() {
       </section>
 
       <section className="relative isolate overflow-hidden bg-white py-14 dark:bg-ink-800/40 sm:py-20">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-10" style={{ backgroundImage: "url('/Ferrocarril.jpeg')" }} />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/90 to-jade-50/75 dark:from-ink-900/96 dark:via-ink-900/92 dark:to-jade-950/80" />
+        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/Ferrocarril.jpeg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/80 to-jade-50/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-jade-950/80" />
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8">
           <div className="order-2 grid grid-cols-2 gap-3 sm:gap-4 lg:order-1">
             {GALERIA_BANDA.map((imagen, index) => (
@@ -448,8 +448,8 @@ export default function Inicio() {
 
       {/* RECOMENDACIONES IA */}
       <section className="relative isolate mx-auto max-w-7xl overflow-hidden px-4 py-14 sm:px-6 lg:px-8">
-        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem] bg-cover bg-center opacity-20" style={{ backgroundImage: "url('/gurutina.jpeg')" }} />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-white/95 via-white/90 to-gold-50/70 dark:from-ink-900/96 dark:via-ink-900/92 dark:to-brand-950/80" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem] bg-cover bg-center opacity-35" style={{ backgroundImage: "url('/gurutina.jpeg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-white/85 via-white/80 to-gold-50/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-brand-950/80" />
         <SectionTitle
           eyebrow={t('home.ai')}
           title={t('home.recommended')}
@@ -462,8 +462,8 @@ export default function Inicio() {
 
       {/* NOTICIAS */}
       <section className="relative isolate overflow-hidden bg-white py-14 dark:bg-ink-800/40">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-10" style={{ backgroundImage: "url('/Iglesia_San_Mateo_Alajuela_Costa_Rica.jpg.jpg')" }} />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/95 via-white/90 to-cian-50/70 dark:from-ink-900/96 dark:via-ink-900/92 dark:to-cian-950/80" />
+        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/Iglesia_San_Mateo_Alajuela_Costa_Rica.jpg.jpg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/80 to-cian-50/65 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-cian-950/80" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle eyebrow={t('home.current')} title={t('home.centerNews')} />
 
@@ -495,8 +495,8 @@ export default function Inicio() {
 
       {/* HISTORIA CTA */}
       <section className="relative isolate mx-auto max-w-7xl overflow-hidden px-4 py-16 sm:px-6 lg:px-8">
-        <div aria-hidden="true" className="absolute inset-0 rounded-2xl bg-cover bg-center opacity-35" style={{ backgroundImage: "url('/rielDeOrotina.jpeg')" }} />
-        <div aria-hidden="true" className="absolute inset-0 rounded-2xl bg-gradient-to-br from-jade-950/95 via-jade-800/90 to-brand-900/80" />
+        <div aria-hidden="true" className="absolute inset-0 rounded-2xl bg-cover bg-center opacity-50" style={{ backgroundImage: "url('/rielDeOrotina.jpeg')" }} />
+        <div aria-hidden="true" className="absolute inset-0 rounded-2xl bg-gradient-to-br from-jade-950/85 via-jade-800/75 to-brand-900/70" />
         <div className="relative z-10 grid items-center gap-8 rounded-2xl p-8 text-white sm:p-12 lg:grid-cols-2">
           <div>
             <Palette aria-hidden="true" className="h-8 w-8 text-jade-200" />

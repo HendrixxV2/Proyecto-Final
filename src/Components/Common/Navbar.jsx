@@ -112,9 +112,6 @@ export default function Navbar() {
             ))}
           </div>
           <div className="hidden 2xl:block">
-            <AccessibilityPanel />
-          </div>
-          <div className="hidden 2xl:block">
             <FontSizeControl />
           </div>
           <div className="hidden md:block">
@@ -156,6 +153,7 @@ export default function Navbar() {
           >
             {open ? <X aria-hidden="true" className="h-5 w-5" /> : <Menu aria-hidden="true" className="h-5 w-5" />}
           </button>
+          <AccessibilityPanel compact />
         </div>
       </nav>
 

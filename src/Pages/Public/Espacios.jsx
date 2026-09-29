@@ -14,12 +14,15 @@ export default function Espacios() {
   const { data: espacios, loading } = useFetch(() => espaciosService.list({ activo: true }), []);
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionTitle
-        eyebrow="Espacios"
-        title="Salas, talleres y galerías"
-        description="Explora los espacios disponibles para eventos culturales, talleres, reuniones y exposiciones."
-      />
+    <main className="relative isolate overflow-hidden bg-ink-50 dark:bg-ink-900">
+      <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/espacios1.jpeg')" }} />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/80 to-jade-50/70 dark:from-ink-900/95 dark:via-ink-900/90 dark:to-jade-950/85" />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <SectionTitle
+          eyebrow="Espacios"
+          title="Salas, talleres y galerías"
+          description="Explora los espacios disponibles para eventos culturales, talleres, reuniones y exposiciones."
+        />
 
       {loading ? (
         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -71,7 +74,8 @@ export default function Espacios() {
             </li>
           ))}
         </ul>
-      )}
+        )}
+      </div>
     </main>
   );
 }

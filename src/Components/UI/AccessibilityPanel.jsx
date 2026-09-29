@@ -3,7 +3,7 @@ import { useA11y } from '@/Hooks/useA11y';
 import FontSizeControl from '@/Components/UI/FontSizeControl';
 import { useLanguage } from '@/Hooks/useLanguage';
 
-export default function AccessibilityPanel() {
+export default function AccessibilityPanel({ compact = false }) {
   const { highContrast, underlineLinks, reducedMotion, visualFeedback, colorPalette, setColorPalette, voiceGuide, toggle, reset } = useA11y();
   const { t } = useLanguage();
   const voiceAvailable = typeof window !== 'undefined'
@@ -17,9 +17,9 @@ export default function AccessibilityPanel() {
 
   return (
     <details className="relative">
-      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl border border-ink-200 bg-white px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-500 hover:bg-ink-50 focus-visible:outline-offset-4 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100 dark:hover:bg-ink-700">
+      <summary aria-label={t('common.accessibility')} title={t('common.accessibility')} className="flex cursor-pointer list-none items-center gap-2 rounded-xl border border-ink-200 bg-white px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-500 hover:bg-ink-50 focus-visible:outline-offset-4 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100 dark:hover:bg-ink-700">
         <Accessibility aria-hidden="true" className="h-4 w-4" />
-        <span className="hidden sm:inline">{t('common.accessibility')}</span>
+        {!compact && <span className="hidden sm:inline">{t('common.accessibility')}</span>}
         <span className="sr-only">{t('common.accessibility')}</span>
       </summary>
 

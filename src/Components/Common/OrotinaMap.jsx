@@ -1,14 +1,30 @@
-import { useEffect, useState } from 'react';
-import { ExternalLink, MapPinned, Navigation } from 'lucide-react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { Box, ExternalLink, Map as MapIcon, MapPinned, Navigation } from 'lucide-react';
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from 'react-leaflet';
 import { useLanguage } from '@/Hooks/useLanguage';
+import { useA11y } from '@/Hooks/useA11y';
 import 'leaflet/dist/leaflet.css';
+
+const OrotinaMap3D = lazy(() => import('@/Components/Common/OrotinaMap3D'));
 
 const OROTINA_CENTER = [9.9112, -84.5239];
 
 function getWazeUrl(punto) {
   const [latitude, longitude] = punto.posicion;
-  return `https://waze.com/ul?ll=${latitude}%2C${longitude}&navigate=yes`;
+  const url = new URL('https://www.waze.com/ul');
+  url.searchParams.set('ll', `${latitude},${longitude}`);
+  url.searchParams.set('navigate', 'yes');
+  url.searchParams.set('zoom', '17');
+  url.searchParams.set('utm_source', 'centroculturalorotina');
+  return url.toString();
+}
+
+function getGoogleMapsUrl(punto) {
+  const [latitude, longitude] = punto.posicion;
+  const url = new URL('https://www.google.com/maps/dir/');
+  url.searchParams.set('api', '1');
+  url.searchParams.set('destination', `${latitude},${longitude}`);
+  return url.toString();
 }
 
 const PUNTOS = [
@@ -88,7 +104,11 @@ const translations = {
     ministry: 'directorio del Ministerio de Cultura y Juventud',
     languageLabel: 'Idioma',
     mapLabel: 'Mapa interactivo de puntos de interés de Orotina',
+    viewMode: 'Modo de visualización del mapa',
+    view2d: 'Mapa 2D',
+    view3d: 'Mapa 3D',
     directions: 'Cómo llegar',
+    googleMaps: 'Google Maps',
     waze: 'Abrir en Waze',
   },
   en: {
@@ -108,7 +128,11 @@ const translations = {
     ministry: 'directory of the Ministry of Culture and Youth',
     languageLabel: 'Language',
     mapLabel: 'Interactive map of points of interest in Orotina',
+    viewMode: 'Map display mode',
+    view2d: '2D map',
+    view3d: '3D map',
     directions: 'Get directions',
+    googleMaps: 'Google Maps',
     waze: 'Open in Waze',
   },
   zh: {
@@ -128,7 +152,11 @@ const translations = {
     ministry: '文化與青年部目錄',
     languageLabel: '語言',
     mapLabel: '奧羅蒂納興趣點互動地圖',
+    viewMode: '地圖檢視模式',
+    view2d: '2D 地圖',
+    view3d: '3D 地圖',
     directions: '如何前往',
+    googleMaps: 'Google 地圖',
     waze: '在 Waze 中開啟',
   },
 };
@@ -200,16 +228,27 @@ function PuntoMapa({ punto, language, selected, onSelect }) {
           </div>
           <p className="text-xs leading-relaxed text-ink-600">{content.descripcion}</p>
           <div className="text-xs font-medium text-ink-600">{punto.fuente}</div>
-          <a
-            href={getWazeUrl(punto)}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:underline"
-          >
-            <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
-            {translations[language]?.waze ?? translations.es.waze}
-            <ExternalLink aria-hidden="true" className="h-3 w-3" />
-          </a>
+          <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs font-semibold">
+            <a
+              href={getWazeUrl(punto)}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-1 text-brand-700 hover:underline"
+            >
+              <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
+              {translations[language]?.waze ?? translations.es.waze}
+              <ExternalLink aria-hidden="true" className="h-3 w-3" />
+            </a>
+            <a
+              href={getGoogleMapsUrl(punto)}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-1 text-brand-700 hover:underline"
+            >
+              {translations[language]?.googleMaps ?? translations.es.googleMaps}
+              <ExternalLink aria-hidden="true" className="h-3 w-3" />
+            </a>
+          </div>
         </div>
       </Popup>
     </CircleMarker>
@@ -218,8 +257,14 @@ function PuntoMapa({ punto, language, selected, onSelect }) {
 
 export default function OrotinaMap() {
   const { language, setLanguage } = useLanguage();
+  const { reducedMotion } = useA11y();
   const [selectedPointId, setSelectedPointId] = useState(PUNTOS[0].id);
+  const [viewMode, setViewMode] = useState('2d');
   const t = translations[language] ?? translations.es;
+  const puntos3D = useMemo(() => PUNTOS.map((punto) => ({
+    ...punto,
+    nombre: getPointContent(punto, language).nombre,
+  })), [language]);
 
   return (
     <section aria-labelledby="mapa-orotina-titulo" className="relative mt-14">
@@ -275,28 +320,64 @@ export default function OrotinaMap() {
             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">{t.route}</p>
             <p className="text-sm font-medium text-ink-700 dark:text-ink-200">{t.places}</p>
           </div>
-          <div className="rounded-full border border-brand-200 bg-white px-2.5 py-1 text-xs font-medium text-brand-700 dark:border-brand-700 dark:bg-brand-900/20 dark:text-brand-300">
-            {t.cartography}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full border border-brand-200 bg-white px-2.5 py-1 text-xs font-medium text-brand-700 dark:border-brand-700 dark:bg-brand-900/20 dark:text-brand-300">
+              {t.cartography}
+            </span>
+            <div role="group" aria-label={t.viewMode} className="inline-flex items-center rounded-lg border border-ink-200 bg-white p-1 shadow-sm dark:border-ink-700 dark:bg-ink-900">
+              <button
+                type="button"
+                aria-label={t.view2d}
+                aria-pressed={viewMode === '2d'}
+                onClick={() => setViewMode('2d')}
+                className={`inline-flex min-h-9 items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold transition ${viewMode === '2d' ? 'bg-brand-600 text-white shadow-sm' : 'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800'}`}
+              >
+                <MapIcon aria-hidden="true" className="h-4 w-4" />
+                2D
+              </button>
+              <button
+                type="button"
+                aria-label={t.view3d}
+                aria-pressed={viewMode === '3d'}
+                onClick={() => setViewMode('3d')}
+                className={`inline-flex min-h-9 items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold transition ${viewMode === '3d' ? 'bg-brand-600 text-white shadow-sm' : 'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800'}`}
+              >
+                <Box aria-hidden="true" className="h-4 w-4" />
+                3D
+              </button>
+            </div>
           </div>
         </div>
 
         <div className="relative z-10 h-[min(32rem,78vh)] min-h-80" aria-label={t.mapLabel}>
-          <MapContainer center={OROTINA_CENTER} zoom={14} scrollWheelZoom={false} className="leaflet-map-surface z-10">
-            <RecenterMap />
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {PUNTOS.map((punto) => (
-              <PuntoMapa
-                key={punto.id}
-                punto={punto}
-                language={language}
-                selected={selectedPointId === punto.id}
-                onSelect={setSelectedPointId}
+          {viewMode === '2d' ? (
+            <MapContainer center={OROTINA_CENTER} zoom={14} scrollWheelZoom={false} className="leaflet-map-surface z-10">
+              <RecenterMap />
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-            ))}
-          </MapContainer>
+              {PUNTOS.map((punto) => (
+                <PuntoMapa
+                  key={punto.id}
+                  punto={punto}
+                  language={language}
+                  selected={selectedPointId === punto.id}
+                  onSelect={setSelectedPointId}
+                />
+              ))}
+            </MapContainer>
+          ) : (
+            <Suspense fallback={<div role="status" className="grid h-full place-items-center bg-[#e7eee5] text-sm font-medium text-ink-700">{language === 'en' ? 'Preparing 3D map…' : language === 'zh' ? '正在載入 3D 地圖…' : 'Preparando mapa 3D…'}</div>}>
+              <OrotinaMap3D
+                points={puntos3D}
+                language={language}
+                selectedPointId={selectedPointId}
+                onSelect={setSelectedPointId}
+                reducedMotion={reducedMotion}
+              />
+            </Suspense>
+          )}
 
           <div className="pointer-events-none absolute left-4 top-4 z-[500] rounded-2xl border border-white/70 bg-white/75 px-3 py-2 shadow-lg shadow-brand-900/10 backdrop-blur-md dark:border-ink-700 dark:bg-ink-900/70">
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-500 dark:text-ink-400">{t.location}</p>
@@ -310,26 +391,38 @@ export default function OrotinaMap() {
             {PUNTOS.map((punto) => {
               const content = getPointContent(punto, language);
               return (
-                <li key={punto.id} className="rounded-2xl border border-ink-200 bg-gradient-to-br from-white to-brand-50/70 p-3 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 dark:border-ink-700 dark:from-ink-800 dark:to-ink-900">
+                <li key={punto.id} className={`rounded-2xl border p-3 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 dark:from-ink-800 dark:to-ink-900 ${selectedPointId === punto.id ? 'border-brand-400 bg-gradient-to-br from-white to-brand-100/80 dark:border-brand-500 dark:to-brand-950/40' : 'border-ink-200 bg-gradient-to-br from-white to-brand-50/70 dark:border-ink-700'}`}>
                   <button
                     type="button"
                     className="w-full text-left"
+                    aria-pressed={selectedPointId === punto.id}
                     onClick={() => setSelectedPointId(punto.id)}
                   >
                     <p className="font-semibold text-ink-800 dark:text-ink-100">{content.nombre}</p>
                     <p className="mt-1 text-xs text-ink-500 dark:text-ink-300">{content.categoria}</p>
                     <p className="mt-2 text-xs font-semibold text-brand-700 dark:text-brand-300">{t.source}: {punto.fuente}</p>
                   </button>
-                  <a
-                    href={getWazeUrl(punto)}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:underline dark:text-brand-300"
-                  >
-                    <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
-                    {t.directions}
-                    <ExternalLink aria-hidden="true" className="h-3 w-3" />
-                  </a>
+                  <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs font-semibold">
+                    <a
+                      href={getWazeUrl(punto)}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex items-center gap-1 text-brand-700 hover:underline dark:text-brand-300"
+                    >
+                      <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
+                      {t.waze}
+                      <ExternalLink aria-hidden="true" className="h-3 w-3" />
+                    </a>
+                    <a
+                      href={getGoogleMapsUrl(punto)}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex items-center gap-1 text-brand-700 hover:underline dark:text-brand-300"
+                    >
+                      {t.googleMaps}
+                      <ExternalLink aria-hidden="true" className="h-3 w-3" />
+                    </a>
+                  </div>
                 </li>
               );
             })}

@@ -92,6 +92,21 @@
     width: 100%;
     z-index: 0;
   }
+
+  .orotina-map-3d__canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    touch-action: none;
+  }
+
+  .orotina-map-3d__canvas:focus-visible {
+    outline: 2px solid rgb(var(--focus-ring));
+    outline-offset: -3px;
+  }
 }
 
 .home-title-glow {

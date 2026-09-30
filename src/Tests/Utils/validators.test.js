@@ -19,8 +19,14 @@ describe('validators', () => {
   });
 
   it('valida fechas futuras', () => {
-    const ayer = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-    const manana = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+    const formatLocalDate = (date) =>
+      `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const ayerDate = new Date();
+    ayerDate.setDate(ayerDate.getDate() - 1);
+    const mananaDate = new Date();
+    mananaDate.setDate(mananaDate.getDate() + 1);
+    const ayer = formatLocalDate(ayerDate);
+    const manana = formatLocalDate(mananaDate);
 
     expect(isFutureDate(ayer)).toBe(false);
     expect(isFutureDate(manana)).toBe(true);

@@ -1,7 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider } from '@/Context/ThemeContext';
+import { LanguageProvider } from '@/Context/LanguageContext';
 import ThemeToggle from '@/Components/UI/ThemeToggle';
+
+const renderThemeToggle = () =>
+  render(
+    <LanguageProvider>
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>
+    </LanguageProvider>,
+  );
 
 describe('ThemeToggle', () => {
   beforeEach(() => {
@@ -31,11 +41,7 @@ describe('ThemeToggle', () => {
       dispatchEvent: jest.fn(),
     }));
 
-    render(
-      <ThemeProvider>
-        <ThemeToggle />
-      </ThemeProvider>,
-    );
+    renderThemeToggle();
 
     expect(document.documentElement.classList.contains('dark')).toBe(true);
   });
@@ -43,11 +49,7 @@ describe('ThemeToggle', () => {
   it('activa el modo oscuro en el documento', async () => {
     const user = userEvent.setup();
 
-    render(
-      <ThemeProvider>
-        <ThemeToggle />
-      </ThemeProvider>,
-    );
+    renderThemeToggle();
 
     const darkButton = screen.getByRole('radio', { name: /tema oscuro/i });
     await user.click(darkButton);

@@ -15,7 +15,7 @@ export default function Topbar({ onOpenMobile }) {
   };
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-ink-200 bg-white/90 px-4 backdrop-blur sm:px-6 dark:border-ink-700 dark:bg-ink-800/90">
+    <header className="admin-topbar sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-ink-200 bg-white/90 px-4 backdrop-blur sm:px-6 dark:border-ink-700 dark:bg-ink-800/90">
       <button
         type="button"
         onClick={onOpenMobile}
@@ -57,7 +57,7 @@ export default function Topbar({ onOpenMobile }) {
         </Link>
 
         <div className="flex items-center gap-2 border-l border-ink-200 pl-2 dark:border-ink-700">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-jade-500 text-sm font-bold text-white">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-brand-500 text-sm font-bold text-white">
             {user?.nombre?.charAt(0) ?? 'A'}
           </span>
           <div className="hidden sm:block">

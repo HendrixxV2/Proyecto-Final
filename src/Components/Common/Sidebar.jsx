@@ -77,7 +77,7 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
                     title={collapsed ? label : undefined}
                     className={({ isActive }) =>
                       cn(
-                        'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition',
+                        'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition',
                         collapsed && 'justify-center px-2',
                         isActive
                           ? 'bg-brand-500 text-white'
@@ -113,7 +113,7 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
       {/* Escritorio */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-30 hidden flex-col border-r border-ink-200 bg-white transition-[width] duration-300 lg:flex dark:border-ink-700 dark:bg-ink-800',
+          'admin-sidebar fixed inset-y-0 left-0 z-30 hidden flex-col border-r border-ink-200 bg-white transition-[width] duration-300 lg:flex dark:border-ink-700 dark:bg-ink-800',
           collapsed ? 'w-[72px]' : 'w-64',
         )}
       >
@@ -124,7 +124,7 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-ink-900/60" onClick={onCloseMobile} aria-hidden="true" />
-          <aside className="relative flex h-full w-72 flex-col border-r border-ink-200 bg-white animate-slide-up dark:border-ink-700 dark:bg-ink-800">
+          <aside className="admin-sidebar relative flex h-full w-72 flex-col border-r border-ink-200 bg-white animate-slide-up dark:border-ink-700 dark:bg-ink-800">
             {content}
           </aside>
         </div>

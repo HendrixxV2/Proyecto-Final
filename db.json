@@ -231,7 +231,7 @@
       "horaInicio": "09:00",
       "horaFin": "12:00",
       "motivo": "Ensayo del grupo de danza juvenil",
-      "estado": "pendiente",
+      "estado": "aprobada",
       "creadoEn": "2025-07-01T14:20:00.000Z"
     },
     {
@@ -252,7 +252,7 @@
       "horaFin": "11:30",
       "motivo": "Ensayo coro infantil.",
       "usuarioId": 4,
-      "estado": "pendiente",
+      "estado": "aprobada",
       "creadoEn": "2026-09-28T16:37:04.481Z",
       "id": 3
     }
@@ -263,7 +263,7 @@
       "eventoId": 1,
       "codigo": "ORO-TEATRO-0001",
       "precio": 8000,
-      "estado": "disponible",
+      "estado": "pagado",
       "usuarioId": null
     },
     {

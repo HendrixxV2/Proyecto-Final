@@ -1,0 +1,306 @@
+.admin-shell {
+  --admin-page: #f1f4fb;
+  --admin-surface: #fbfcff;
+  --admin-surface-soft: #f3f6fc;
+  --admin-surface-raised: #e9eef9;
+  --admin-border: #dce3f2;
+  --admin-text: #202a43;
+  --admin-muted: #68748e;
+  --admin-blue: #3b5cda;
+  --admin-blue-soft: #e8edff;
+  --admin-hero: #3655cb;
+  --a11y-brand-50: 237 241 255;
+  --a11y-brand-100: 220 228 255;
+  --a11y-brand-200: 189 203 255;
+  --a11y-brand-300: 151 173 255;
+  --a11y-brand-400: 105 137 246;
+  --a11y-brand-500: 59 92 218;
+  --a11y-brand-600: 46 73 184;
+  --a11y-brand-700: 38 61 153;
+  --a11y-brand-800: 32 51 122;
+  --a11y-brand-900: 26 41 96;
+  background-color: var(--admin-page) !important;
+  color: var(--admin-text) !important;
+}
+
+html.dark .admin-shell {
+  --admin-page: #121b35;
+  --admin-surface: #1b2747;
+  --admin-surface-soft: #202f54;
+  --admin-surface-raised: #293a66;
+  --admin-border: #30436f;
+  --admin-text: #e1e7f4;
+  --admin-muted: #a4b0cc;
+  --admin-blue: #8096ff;
+  --admin-blue-soft: #293968;
+  --admin-hero: #394fbd;
+  --a11y-brand-50: 233 238 255;
+  --a11y-brand-100: 207 217 255;
+  --a11y-brand-200: 173 188 255;
+  --a11y-brand-300: 139 160 255;
+  --a11y-brand-400: 112 139 255;
+  --a11y-brand-500: 91 119 239;
+  --a11y-brand-600: 73 99 213;
+  --a11y-brand-700: 59 81 179;
+  --a11y-brand-800: 48 66 143;
+  --a11y-brand-900: 39 53 111;
+}
+
+.admin-shell .admin-sidebar,
+.admin-shell .admin-topbar {
+  border-color: var(--admin-border);
+  background-color: var(--admin-surface);
+}
+
+.admin-shell [class~="bg-white"] {
+  background-color: var(--admin-surface) !important;
+}
+
+.admin-shell [class~="bg-ink-50"],
+.admin-shell [class~="bg-ink-100"] {
+  background-color: var(--admin-surface-soft) !important;
+}
+
+.admin-shell [class~="border-ink-100"],
+.admin-shell [class~="border-ink-200"],
+.admin-shell [class~="border-ink-300"] {
+  border-color: var(--admin-border) !important;
+}
+
+.admin-shell [class~="text-ink-900"],
+.admin-shell [class~="text-ink-800"],
+.admin-shell [class~="text-ink-700"],
+.admin-shell [class~="text-ink-600"] {
+  color: var(--admin-text) !important;
+}
+
+.admin-shell [class~="text-ink-500"],
+.admin-shell [class~="text-ink-400"] {
+  color: var(--admin-muted) !important;
+}
+
+.admin-shell [class~="hover:bg-ink-100"]:hover,
+.admin-shell [class~="hover:bg-ink-50"]:hover {
+  background-color: var(--admin-surface-raised) !important;
+}
+
+html.dark .admin-shell [class~="dark:bg-ink-800"],
+html.dark .admin-shell [class~="dark:bg-ink-800/90"],
+html.dark .admin-shell [class~="dark:bg-ink-800/60"] {
+  background-color: var(--admin-surface) !important;
+}
+
+html.dark .admin-shell [class~="dark:bg-ink-900"],
+html.dark .admin-shell [class~="dark:bg-ink-900/60"] {
+  background-color: var(--admin-page) !important;
+}
+
+html.dark .admin-shell [class~="dark:bg-ink-700"],
+html.dark .admin-shell [class~="dark:bg-ink-700/40"] {
+  background-color: var(--admin-surface-raised) !important;
+}
+
+html.dark .admin-shell [class~="dark:border-ink-700"],
+html.dark .admin-shell [class~="dark:border-ink-600"] {
+  border-color: var(--admin-border) !important;
+}
+
+html.dark .admin-shell [class~="dark:divide-ink-700"] > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--admin-border) !important;
+}
+
+html.dark .admin-shell [class~="dark:text-ink-50"],
+html.dark .admin-shell [class~="dark:text-ink-100"],
+html.dark .admin-shell [class~="dark:text-ink-200"] {
+  color: var(--admin-text) !important;
+}
+
+html.dark .admin-shell [class~="dark:text-ink-300"],
+html.dark .admin-shell [class~="dark:text-ink-400"] {
+  color: var(--admin-muted) !important;
+}
+
+html.dark .admin-shell [class~="dark:hover:bg-ink-700"]:hover,
+html.dark .admin-shell [class~="dark:hover:bg-ink-700/40"]:hover {
+  background-color: var(--admin-surface-raised) !important;
+}
+
+.admin-shell input,
+.admin-shell select,
+.admin-shell textarea {
+  color: var(--admin-text);
+}
+
+.admin-dashboard__heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.admin-dashboard__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 999px;
+  background-color: var(--admin-surface);
+  padding: 0.45rem 0.75rem;
+  color: var(--admin-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.admin-dashboard__status::before {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #27b989;
+  content: '';
+}
+
+.admin-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 13rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.75rem;
+  background-color: var(--admin-hero);
+  padding: 1.5rem;
+  color: #f0f3ff;
+}
+
+.admin-hero::after {
+  position: absolute;
+  z-index: -1;
+  top: -5rem;
+  right: 10%;
+  width: 18rem;
+  height: 18rem;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2rem rgb(255 255 255 / 0.045), 0 0 0 4rem rgb(255 255 255 / 0.035);
+  content: '';
+}
+
+.admin-hero__content {
+  max-width: 34rem;
+}
+
+.admin-hero__eyebrow {
+  color: #cbd6ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin-hero__title {
+  margin-top: 0.55rem;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.admin-hero__copy {
+  margin-top: 0.5rem;
+  max-width: 32rem;
+  color: #d6ddfb;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.admin-hero__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.admin-hero__metric strong {
+  display: block;
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-hero__metric span {
+  display: block;
+  margin-top: 0.15rem;
+  color: #cbd6ff;
+  font-size: 0.72rem;
+}
+
+.admin-hero__dial {
+  display: grid;
+  width: 7.5rem;
+  height: 7.5rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0.7rem solid rgb(255 255 255 / 0.19);
+  border-top-color: #80e0d1;
+  border-right-color: #80e0d1;
+  border-radius: 50%;
+  transform: rotate(35deg);
+}
+
+.admin-hero__dial span {
+  color: #f0f3ff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  transform: rotate(-35deg);
+}
+
+.admin-chart-panel {
+  min-width: 0;
+  border: 1px solid var(--admin-border);
+  border-radius: 0.75rem;
+  background-color: var(--admin-surface);
+  padding: 1.25rem;
+}
+
+.admin-chart-panel__title {
+  color: var(--admin-text);
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.admin-chart-panel__subtitle {
+  margin-top: 0.2rem;
+  color: var(--admin-muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 640px) {
+  .admin-dashboard__heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-hero {
+    min-height: 0;
+    padding: 1.25rem;
+  }
+
+  .admin-hero__dial {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-width: 0.45rem;
+  }
+
+  .admin-hero__dial span {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .admin-hero__dial {
+    display: none;
+  }
+}

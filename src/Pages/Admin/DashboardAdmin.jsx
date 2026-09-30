@@ -1,4 +1,4 @@
-import { AlertTriangle, BarChart3, CalendarClock, DollarSign, Users } from 'lucide-react';
+import { Activity, AlertTriangle, BarChart3, CalendarClock, CheckCircle2, DollarSign, Users } from 'lucide-react';
 import {
   Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart,
   Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
@@ -9,7 +9,7 @@ import StatCard from '@/Components/UI/StatCard';
 import ErrorState from '@/Components/UI/ErrorState';
 import { formatColones } from '@/Utils/format';
 
-const COLORES = ['#B4531F', '#1F6F6B', '#E9A03B', '#8E857A'];
+const COLORES = ['#5b77ef', '#32b9c8', '#e8ad48', '#8793ad'];
 
 export default function DashboardAdmin() {
   const { data, loading, error, refetch } = useFetch(() => reportesService.dashboard(), []);
@@ -17,15 +17,46 @@ export default function DashboardAdmin() {
   if (error) return <ErrorState onRetry={refetch} />;
 
   const kpis = data?.kpis;
+  const totalReservas = kpis?.reservasTotales ?? 0;
+  const aprobadas = data?.porEstado?.find((item) => item.estado === 'aprobada')?.total ?? 0;
+  const pendientes = kpis?.reservasPendientes ?? 0;
+  const porcentajeAprobadas = totalReservas ? Math.round((aprobadas / totalReservas) * 100) : 0;
 
   return (
-    <section>
-      <header className="mb-6">
-        <h1 className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50">Dashboard</h1>
-        <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">
-          Resumen operativo del Centro Cultural Orotinense.
-        </p>
+    <section className="admin-dashboard space-y-5">
+      <header className="admin-dashboard__heading">
+        <div>
+          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400">Centro Cultural Orotinense</p>
+          <h1 className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50">Panel de control</h1>
+          <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">Resumen de actividad y operación.</p>
+        </div>
+        <span className="admin-dashboard__status">Vista general</span>
       </header>
+
+      <article className="admin-hero">
+        <div className="admin-hero__content">
+          <p className="admin-hero__eyebrow">Actividad del centro</p>
+          <h2 className="admin-hero__title">Una vista clara de la operación cultural</h2>
+          <p className="admin-hero__copy">Reservas, espacios y comunidad reunidos en un solo lugar.</p>
+          <div className="admin-hero__metrics">
+            <div className="admin-hero__metric">
+              <strong>{totalReservas}</strong>
+              <span>Reservas registradas</span>
+            </div>
+            <div className="admin-hero__metric">
+              <strong>{pendientes}</strong>
+              <span>Pendientes de revisión</span>
+            </div>
+            <div className="admin-hero__metric">
+              <strong>{porcentajeAprobadas}%</strong>
+              <span>Solicitudes aprobadas</span>
+            </div>
+          </div>
+        </div>
+        <div className="admin-hero__dial" aria-label={`${porcentajeAprobadas}% de reservas aprobadas`} role="img">
+          <span>{porcentajeAprobadas}%</span>
+        </div>
+      </article>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard loading={loading} label="Reservas totales" value={kpis?.reservasTotales ?? 0} Icon={CalendarClock} tone="brand" />
@@ -34,28 +65,32 @@ export default function DashboardAdmin() {
         <StatCard loading={loading} label="Usuarios registrados" value={kpis?.usuariosActivos ?? 0} Icon={Users} tone="ink" />
       </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[1.4fr_1fr]">
-        <article className="rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800">
+      <div className="grid gap-4 xl:grid-cols-[1.4fr_1fr]">
+        <article className="admin-chart-panel">
           <header className="flex items-center justify-between">
-            <h2 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50">Reservas por espacio</h2>
+            <div>
+              <h2 className="admin-chart-panel__title">Reservas por espacio</h2>
+              <p className="admin-chart-panel__subtitle">Distribución de solicitudes registradas</p>
+            </div>
             <BarChart3 aria-hidden="true" className="h-4 w-4 text-ink-400" />
           </header>
 
           <div className="mt-4 h-72" role="img" aria-label="Gráfico de barras con el total de reservas por espacio">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data?.porEspacio ?? []} margin={{ top: 8, right: 8, left: -18, bottom: 40 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#D8D3CC" vertical={false} />
-                <XAxis dataKey="nombre" angle={-30} textAnchor="end" interval={0} tick={{ fontSize: 11 }} />
-                <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
-                <Tooltip formatter={(v) => [`${v} reservas`, 'Total']} />
-                <Bar dataKey="reservas" fill="#B4531F" radius={[6, 6, 0, 0]} />
+              <BarChart data={data?.porEspacio ?? []} margin={{ top: 8, right: 8, left: 8, bottom: 40 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--admin-border)" vertical={false} />
+                <XAxis dataKey="nombre" angle={-30} textAnchor="end" interval={0} tick={{ fontSize: 11, fill: 'var(--admin-muted)' }} />
+                <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: 'var(--admin-muted)' }} />
+                <Tooltip position={{ x: 8, y: 8 }} formatter={(v) => [`${v} reservas`, 'Total']} contentStyle={{ backgroundColor: 'var(--admin-surface)', borderColor: 'var(--admin-border)', borderRadius: 8 }} />
+                <Bar dataKey="reservas" fill="#5b77ef" radius={[5, 5, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </article>
 
-        <article className="rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800">
-          <h2 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50">Distribución por estado</h2>
+        <article className="admin-chart-panel">
+          <h2 className="admin-chart-panel__title">Estado de las solicitudes</h2>
+          <p className="admin-chart-panel__subtitle">Seguimiento de las reservas recibidas</p>
 
           <div className="mt-4 h-72" role="img" aria-label="Gráfico circular con la distribución de reservas por estado">
             <ResponsiveContainer width="100%" height="100%">
@@ -65,8 +100,8 @@ export default function DashboardAdmin() {
                     <Cell key={entry.estado} fill={COLORES[i % COLORES.length]} />
                   ))}
                 </Pie>
-                <Legend />
-                <Tooltip formatter={(v, n) => [`${v} reservas`, n]} />
+                <Legend formatter={(value) => <span style={{ color: 'var(--admin-muted)' }}>{value}</span>} />
+                <Tooltip position={{ x: 8, y: 8 }} formatter={(v, n) => [`${v} reservas`, n]} contentStyle={{ backgroundColor: 'var(--admin-surface)', borderColor: 'var(--admin-border)', borderRadius: 8 }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -81,18 +116,26 @@ export default function DashboardAdmin() {
         </article>
       </div>
 
-      <article className="mt-6 rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800">
-        <h2 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50">Tendencia de reservas</h2>
-        <div className="mt-4 h-64" role="img" aria-label="Gráfico de línea con la tendencia de reservas por estado">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data?.porEstado ?? []} margin={{ top: 8, right: 12, left: -18, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#D8D3CC" vertical={false} />
-              <XAxis dataKey="estado" tick={{ fontSize: 11 }} />
-              <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
-              <Tooltip />
-              <Line type="monotone" dataKey="total" stroke="#1F6F6B" strokeWidth={2.5} dot={{ r: 4 }} />
-            </LineChart>
-          </ResponsiveContainer>
+      <article className="admin-chart-panel">
+        <header className="flex items-center gap-3">
+          <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200">
+            <Activity aria-hidden="true" className="h-4 w-4" />
+          </span>
+          <div>
+            <h2 className="admin-chart-panel__title">Resumen de solicitudes</h2>
+            <p className="admin-chart-panel__subtitle">Estado actual de la atención</p>
+          </div>
+        </header>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {(data?.porEstado ?? []).map((item) => (
+            <div key={item.estado} className="flex items-center gap-3 rounded-lg bg-ink-50 p-3 dark:bg-ink-900">
+              <CheckCircle2 aria-hidden="true" className="h-4 w-4 shrink-0 text-brand-500" />
+              <div className="min-w-0">
+                <p className="truncate text-xs capitalize text-ink-500 dark:text-ink-400">{item.estado}</p>
+                <p className="mt-0.5 font-semibold tabular-nums text-ink-900 dark:text-ink-50">{item.total} solicitudes</p>
+              </div>
+            </div>
+          ))}
         </div>
       </article>
     </section>

@@ -44,6 +44,13 @@
       "rol": "usuario_regular",
       "email": "prueba20260924210351@prueba",
       "id": 5
+    },
+    {
+      "nombre": "Dylan Pichardo",
+      "email": "admindylanp@orotina.cr",
+      "password": "dylanp123",
+      "rol": "admin",
+      "id": 6
     }
   ],
   "espacios": [

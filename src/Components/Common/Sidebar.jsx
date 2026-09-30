@@ -41,12 +41,10 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
     <>
       <div className="flex h-16 items-center gap-2.5 border-b border-ink-200 px-4 dark:border-ink-700">
         <Link to={PATHS.home} className="flex items-center gap-2.5" onClick={onCloseMobile}>
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-500 text-white">
-            <Landmark aria-hidden="true" className="h-5 w-5" />
-          </span>
+          <img src="/logoOrotina.jpeg" alt="" className="h-9 w-9 shrink-0 rounded-full object-cover object-center" />
           {!collapsed && (
             <span className="min-w-0 font-display text-sm font-bold leading-tight text-ink-900 dark:text-ink-50">
-              CACO Admin
+              Admin Centro
               <span className="block text-[11px] font-medium text-ink-500 dark:text-ink-400">Panel de gestión</span>
             </span>
           )}

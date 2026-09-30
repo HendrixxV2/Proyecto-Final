@@ -6,6 +6,11 @@ import { cn } from '@/Utils/cn';
 export default function Modal({ open, onClose, title, description, children, footer, size = 'md' }) {
   const panelRef = useRef(null);
   const previouslyFocused = useRef(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -14,7 +19,7 @@ export default function Modal({ open, onClose, title, description, children, foo
     document.body.style.overflow = 'hidden';
 
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') onClose?.();
+      if (e.key === 'Escape') onCloseRef.current?.();
       if (e.key === 'Tab' && panelRef.current) {
         const focusables = panelRef.current.querySelectorAll(
           'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
@@ -40,7 +45,7 @@ export default function Modal({ open, onClose, title, description, children, foo
       document.body.style.overflow = '';
       previouslyFocused.current?.focus?.();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   if (!open) return null;
 

@@ -58,8 +58,10 @@ export default function AppRoutes() {
 
         {/* ------------------------- PRIVADO (usuario) ----------------------- */}
         <Route element={<PrivateRoute />}>
-          <Route element={<PublicLayout />}>
-            <Route path={PATHS.misReservas} element={<MisReservas />} />
+          <Route element={<RoleRoute roles={[ROLES.USUARIO]} />}>
+            <Route element={<PublicLayout />}>
+              <Route path={PATHS.misReservas} element={<MisReservas />} />
+            </Route>
           </Route>
         </Route>
 

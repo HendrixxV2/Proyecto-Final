@@ -97,8 +97,9 @@ describe('MisReservas', () => {
     useFetch
       .mockReturnValueOnce({
         data: [
-          { id: 1, espacioId: 4, fecha: today, horaInicio: '10:00', horaFin: '11:00', motivo: 'Ensayo', estado: 'pendiente' },
-          { id: 2, espacioId: 4, fecha: today, horaInicio: '12:00', horaFin: '13:00', motivo: 'Evento pasado', estado: 'rechazada' },
+          { id: 1, usuarioId: 31, espacioId: 4, fecha: today, horaInicio: '10:00', horaFin: '11:00', motivo: 'Ensayo', estado: 'pendiente' },
+          { id: 2, usuarioId: 31, espacioId: 4, fecha: today, horaInicio: '12:00', horaFin: '13:00', motivo: 'Evento pasado', estado: 'rechazada' },
+          { id: 3, usuarioId: 99, espacioId: 4, fecha: today, horaInicio: '14:00', horaFin: '15:00', motivo: 'Otra cuenta', estado: 'aprobada' },
         ],
         loading: false,
         error: null,
@@ -111,6 +112,7 @@ describe('MisReservas', () => {
 
     expect(screen.getAllByText('Sala Central')).toHaveLength(2);
     expect(screen.getByText('Ensayo')).toBeInTheDocument();
+    expect(screen.queryByText('Otra cuenta')).not.toBeInTheDocument();
     expect(screen.getAllByRole('button', { name: 'Cancelar' })).toHaveLength(1);
     await user.click(screen.getByRole('button', { name: 'Cancelar' }));
 
@@ -124,6 +126,7 @@ describe('MisReservas', () => {
       .mockReturnValueOnce({
         data: [{
           id: 1,
+          usuarioId: 31,
           espacioId: 4,
           fecha: today,
           horaInicio: '10:00',

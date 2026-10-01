@@ -129,7 +129,7 @@ export default function Navbar() {
               {isRegularUser && (
                 <Button as={Link} to={PATHS.misReservas} variant="ghost" size="sm">
                   <User aria-hidden="true" className="h-4 w-4" />
-                  {user.nombre.split(' ')[0]}
+                  {t('common.myBookings')}
                 </Button>
               )}
               <Button variant="ghost" size="icon" onClick={handleLogout} aria-label={t('common.logout')}>

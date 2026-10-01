@@ -35,8 +35,8 @@ export default function Calendario() {
 
   return (
     <div className="relative isolate overflow-hidden bg-ink-50 dark:bg-ink-900">
-      <div aria-hidden="true" className="absolute inset-0 bg-center opacity-[0.36]" style={{ backgroundImage: "url('/fondoCalendario.jpeg')", backgroundSize: '100% 100%' }} />
-      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/80 to-jade-50/70 dark:from-ink-900/95 dark:via-ink-900/90 dark:to-jade-950/85" />
+      <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-75" style={{ backgroundImage: "url('/fondoCalendario.jpeg')" }} />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/55 via-white/45 to-jade-50/45 dark:from-ink-900/80 dark:via-ink-900/75 dark:to-jade-950/70" />
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <SectionTitle
         eyebrow="Agenda cultural"

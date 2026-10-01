@@ -20,6 +20,7 @@ export default function MisReservas() {
   const { data: reservas, loading, error, refetch } = useFetch(() => reservasService.listByUsuario(user.id), [user.id]);
   const { data: espacios } = useFetch(() => espaciosService.list(), []);
 
+  const misReservas = (reservas ?? []).filter((reserva) => String(reserva.usuarioId) === String(user.id));
   const nombreEspacio = (id) => espacios?.find((e) => e.id === id)?.nombre ?? `Espacio #${id}`;
 
   const cancelar = async (id) => {
@@ -40,7 +41,7 @@ export default function MisReservas() {
         {loading && <SkeletonTable rows={4} />}
         {error && !loading && <ErrorState onRetry={refetch} />}
 
-        {!loading && !error && reservas?.length === 0 && (
+        {!loading && !error && misReservas.length === 0 && (
           <EmptyState
             icon={CalendarX2}
             title="Aún no tienes reservas"
@@ -48,9 +49,9 @@ export default function MisReservas() {
           />
         )}
 
-        {!loading && !error && reservas?.length > 0 && (
+        {!loading && !error && misReservas.length > 0 && (
           <ul className="space-y-3">
-            {reservas.map((r) => (
+            {misReservas.map((r) => (
               <li key={r.id} className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800">
                 <div>
                   <h3 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50">{nombreEspacio(r.espacioId)}</h3>

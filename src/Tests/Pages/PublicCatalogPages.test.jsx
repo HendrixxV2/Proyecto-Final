@@ -60,6 +60,7 @@ describe('Espacios public pages', () => {
     expect(screen.getByText('Sala Central')).toBeInTheDocument();
     expect(screen.getByText('Capacidad: 80')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Ver detalle' })).toHaveAttribute('href', '/espacios/4');
+    expect(screen.getByRole('link', { name: 'Reservar' })).toHaveAttribute('href', '/reservas?espacio=4');
   });
 
   it('shows the empty list state when no spaces are available', () => {

@@ -15,7 +15,7 @@ export default function AiAssistant() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      texto: '¡Hola! Soy el Asistente Cultural del Centro Orotinense. Puedo recomendarte eventos, espacios y contar la historia del cantón.',
+      texto: 'Hola, bienvenido/a. Soy Lulu, tu asistente virtual del Centro de Arte y Cultura Orotinense Luis Ferrero Acosta. ¿En qué te puedo ayudar hoy?',
       items: [],
     },
   ]);
@@ -42,7 +42,7 @@ export default function AiAssistant() {
     setLoading(true);
 
     try {
-      const res = await aiService.chat(pregunta, { historial: messages });
+      const res = await aiService.chat(pregunta, { historial: messages, usuario: user });
       setMessages((prev) => [...prev, { role: 'assistant', texto: res.texto, items: res.items ?? [] }]);
     } catch {
       setMessages((prev) => [
@@ -54,6 +54,8 @@ export default function AiAssistant() {
     }
   };
 
+  if (!user) return null;
+
   return (
     <>
       <button
@@ -61,17 +63,17 @@ export default function AiAssistant() {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls="asistente-cultural"
-        aria-label={open ? t('common.close') : t('common.assistant')}
+        aria-label={open ? t('common.close') : 'Lulu-Bot'}
         className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-jade-500 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-jade-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-jade-500"
       >
         {open ? <X aria-hidden="true" className="h-5 w-5" /> : <Sparkles aria-hidden="true" className="h-5 w-5" />}
-        <span className="hidden sm:inline">{open ? t('common.close') : t('common.assistant')}</span>
+        <span className="hidden sm:inline">{open ? t('common.close') : 'Lulu-Bot'}</span>
       </button>
 
       {open && (
           <section
           id="asistente-cultural"
-          aria-label="Asistente cultural con inteligencia artificial"
+          aria-label="Lulu-Bot, asistente virtual del Centro de Arte y Cultura Orotinense Luis Ferrero Acosta"
           className="fixed bottom-20 right-5 z-50 flex h-[70vh] max-h-[560px] w-[calc(100vw-2.5rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-2xl animate-slide-up dark:border-ink-700 dark:bg-ink-800"
         >
           <header className="flex items-center gap-3 border-b border-ink-200 bg-jade-500 px-4 py-3 text-white dark:border-ink-700">
@@ -79,7 +81,7 @@ export default function AiAssistant() {
               <Bot aria-hidden="true" className="h-5 w-5" />
             </span>
             <div className="min-w-0">
-              <p className="text-sm font-semibold">{t('common.assistant')}</p>
+              <p className="text-sm font-semibold">Lulu-Bot</p>
               <p className="text-[11px] text-white/80">Recomendaciones · Historia · Reservas</p>
             </div>
           </header>

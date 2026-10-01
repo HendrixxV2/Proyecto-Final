@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, MapPinned } from 'lucide-react';
+import { ArrowRight, CalendarCheck, MapPinned } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
 import { espaciosService } from '@/Services/espaciosService';
 import SectionTitle from '@/Components/Common/SectionTitle';
@@ -64,10 +64,14 @@ export default function Espacios() {
                   <span>{espacio.ubicacion ?? 'Ubicación por confirmar'}</span>
                 </div>
 
-                <div className="mt-6">
+                <div className="mt-6 grid gap-2 sm:grid-cols-2">
                   <Button as={Link} to={PATHS.espacioDetalle(espacio.id)} variant="outline" className="w-full justify-center">
                     Ver detalle
                     <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                  </Button>
+                  <Button as={Link} to={`${PATHS.reservas}?espacio=${espacio.id}`} className="w-full justify-center">
+                    <CalendarCheck aria-hidden="true" className="h-4 w-4" />
+                    Reservar
                   </Button>
                 </div>
               </article>

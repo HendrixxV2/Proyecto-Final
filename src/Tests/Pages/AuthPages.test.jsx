@@ -4,6 +4,7 @@ import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { LanguageProvider } from '@/Context/LanguageContext';
 import { useAuth } from '@/Hooks/useAuth';
 import { useToast } from '@/Hooks/useToast';
+import AuthLayout from '@/Layouts/AuthLayout';
 import Login from '@/Pages/Auth/Login';
 import Register from '@/Pages/Auth/Register';
 
@@ -28,7 +29,9 @@ function renderLogin(initialEntry = '/login') {
     <MemoryRouter initialEntries={[initialEntry]}>
       <LanguageProvider>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+          </Route>
           <Route path="*" element={<Destination />} />
         </Routes>
       </LanguageProvider>
@@ -41,7 +44,9 @@ function renderRegister() {
     <MemoryRouter initialEntries={['/registro']}>
       <LanguageProvider>
         <Routes>
-          <Route path="/registro" element={<Register />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/registro" element={<Register />} />
+          </Route>
           <Route path="*" element={<Destination />} />
         </Routes>
       </LanguageProvider>
@@ -64,6 +69,13 @@ describe('Login page', () => {
 
     expect(mockLogin).not.toHaveBeenCalled();
     expect(screen.getAllByRole('alert').length).toBeGreaterThan(0);
+  });
+
+  it('returns to the home page when the exit X is clicked', async () => {
+    renderLogin();
+    await userEvent.click(screen.getByRole('link', { name: 'Salir del inicio de sesión' }));
+
+    expect(screen.getByText('Ruta: /')).toBeInTheDocument();
   });
 
   it('returns regular users to the protected destination after login', async () => {

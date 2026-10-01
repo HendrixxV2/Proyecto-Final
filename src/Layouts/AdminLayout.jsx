@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '@/Components/Common/Sidebar';
 import Topbar from '@/Components/Common/Topbar';
+import AdminAssistant from '@/Components/AI/AdminAssistant';
+import BackToTop from '@/Components/Common/BackToTop';
 import './AdminLayout.css';
 
 export default function AdminLayout() {
@@ -26,6 +28,8 @@ export default function AdminLayout() {
           </div>
         </main>
       </div>
+      <AdminAssistant />
+      <BackToTop />
     </div>
   );
 }

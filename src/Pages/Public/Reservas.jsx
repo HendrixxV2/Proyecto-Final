@@ -84,14 +84,22 @@ export default function Reservas() {
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionTitle
-        eyebrow={t('booking.eyebrow')}
-        title={t('booking.title')}
-        description={t('booking.description')}
+    <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-cover bg-center"
+        style={{ backgroundImage: "url('/zonaReservaciones.jpg')" }}
       />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-white/65 dark:bg-ink-950/70" />
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+        <SectionTitle
+          eyebrow={t('booking.eyebrow')}
+          title={t('booking.title')}
+          description={t('booking.description')}
+        />
+
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
         <form onSubmit={handleSubmit} noValidate className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 dark:border-ink-700 dark:bg-ink-800">
           <Select
             label={t('booking.space')}
@@ -163,7 +171,8 @@ export default function Reservas() {
             </ul>
           </div>
         </aside>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

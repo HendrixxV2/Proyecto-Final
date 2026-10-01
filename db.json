@@ -51,6 +51,15 @@
       "password": "dylanp123",
       "rol": "admin",
       "id": 6
+    },
+    {
+      "nombre": "Aquiles Bailo",
+      "email": "aquiles@orotina.cr",
+      "password": "aquiles123",
+      "rol": "usuario_regular",
+      "avatar": null,
+      "creadoEn": "2026-10-01T15:22:33.753Z",
+      "id": 7
     }
   ],
   "espacios": [
@@ -262,6 +271,17 @@
       "estado": "aprobada",
       "creadoEn": "2026-09-28T16:37:04.481Z",
       "id": 3
+    },
+    {
+      "espacioId": 1,
+      "fecha": "2026-10-10",
+      "horaInicio": "09:00",
+      "horaFin": "13:30",
+      "motivo": "Reserva de ejemplo. Auditorio del centro de arte para actividad cultural con niños y niñas.",
+      "usuarioId": 7,
+      "estado": "pendiente",
+      "creadoEn": "2026-10-01T15:40:49.071Z",
+      "id": 4
     }
   ],
   "boletos": [

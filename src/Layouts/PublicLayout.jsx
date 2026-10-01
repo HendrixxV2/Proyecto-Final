@@ -4,6 +4,7 @@ import Navbar from '@/Components/Common/Navbar';
 import Footer from '@/Components/Common/Footer';
 import AiAssistant from '@/Components/AI/AiAssistant';
 import SkipLink from '@/Components/Common/SkipLink';
+import BackToTop from '@/Components/Common/BackToTop';
 
 export default function PublicLayout() {
   const { pathname } = useLocation();
@@ -65,6 +66,7 @@ export default function PublicLayout() {
       <p className="sr-only" aria-live="polite" aria-atomic="true">Sección actual: {sectionName}</p>
       <Footer />
       <AiAssistant />
+      <BackToTop />
     </div>
   );
 }

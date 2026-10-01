@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { X } from 'lucide-react';
 import { PATHS } from '@/Routes/paths';
+import BackToTop from '@/Components/Common/BackToTop';
 
 const FONDOS_LOGIN = ['/juanSantaMaria.jpeg', '/landingAlajuela2.jpeg'];
 const FONDOS_REGISTRO = ['/landingAlajuela1.jpeg', '/landingAlajuela3.jpeg'];
@@ -21,6 +23,15 @@ export default function AuthLayout() {
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
+      <Link
+        to={PATHS.home}
+        aria-label={pathname === PATHS.login ? 'Salir del inicio de sesión' : 'Salir del registro'}
+        title="Volver al inicio"
+        className="fixed right-4 top-4 z-20 grid h-10 w-10 place-items-center rounded-full border border-ink-200 bg-white/90 text-ink-600 shadow-sm transition hover:bg-ink-100 hover:text-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 dark:border-ink-700 dark:bg-ink-800/90 dark:text-ink-200 dark:hover:bg-ink-700"
+      >
+        <X aria-hidden="true" className="h-5 w-5" />
+      </Link>
+
       <aside className="relative hidden overflow-hidden bg-brand-700 p-12 text-white lg:flex lg:flex-col lg:justify-between">
         {fondos.map((fondo, indice) => (
           <img
@@ -54,6 +65,7 @@ export default function AuthLayout() {
           <Outlet />
         </div>
       </main>
+      <BackToTop />
     </div>
   );
 }

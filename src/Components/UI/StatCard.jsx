@@ -1,7 +1,7 @@
 import { cn } from '@/Utils/cn';
 import Skeleton from './Skeleton';
 
-export default function StatCard({ label, value, delta, Icon, tone = 'brand', loading = false }) {
+export default function StatCard({ label, value, delta, Icon, tone = 'brand', loading = false, onClick, href }) {
   const tones = {
     brand: 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200',
     jade: 'bg-jade-100 text-jade-700 dark:bg-jade-900 dark:text-jade-200',
@@ -18,8 +18,8 @@ export default function StatCard({ label, value, delta, Icon, tone = 'brand', lo
     );
   }
 
-  return (
-    <article className="rounded-2xl border border-ink-200 bg-white p-5 shadow-soft dark:border-ink-700 dark:bg-ink-800">
+  const cardContent = (
+    <>
       <div className="flex items-center justify-between">
         <p className="text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400">{label}</p>
         {Icon && (
@@ -30,6 +30,27 @@ export default function StatCard({ label, value, delta, Icon, tone = 'brand', lo
       </div>
       <p className="mt-3 font-display text-3xl font-bold text-ink-900 dark:text-ink-50">{value}</p>
       {delta && <p className="mt-1 text-xs text-ink-500 dark:text-ink-400">{delta}</p>}
+    </>
+  );
+
+  const sharedClassName = 'cursor-pointer rounded-2xl border border-ink-200 bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-brand-200 dark:border-ink-700 dark:bg-ink-800';
+
+  if (href) {
+    return (
+      <a href={href} onClick={onClick} className={sharedClassName}>
+        {cardContent}
+      </a>
+    );
+  }
+
+  return (
+    <article onClick={onClick} className={sharedClassName} role={onClick ? 'button' : undefined} tabIndex={onClick ? 0 : undefined} onKeyDown={(event) => {
+      if (onClick && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        onClick(event);
+      }
+    }}>
+      {cardContent}
     </article>
   );
 }

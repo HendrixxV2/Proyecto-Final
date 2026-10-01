@@ -3,24 +3,68 @@ import {
   Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart,
   Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';
+import { useMemo, useState } from 'react';
 import { useFetch } from '@/Hooks/useFetch';
 import { reportesService } from '@/Services/reportesService';
 import StatCard from '@/Components/UI/StatCard';
 import ErrorState from '@/Components/UI/ErrorState';
 import { formatColones } from '@/Utils/format';
+import { PATHS } from '@/Routes/paths';
 
 const COLORES = ['#5b77ef', '#32b9c8', '#e8ad48', '#8793ad'];
 
+const DEFAULT_DETAIL = {
+  title: 'Panel operativo',
+  description: 'Selecciona una tarjeta para ver el detalle de la operación y abrir la vista asociada.',
+  meta: 'Información consolidada de reservas, usuarios y reportes.',
+};
+
 export default function DashboardAdmin() {
   const { data, loading, error, refetch } = useFetch(() => reportesService.dashboard(), []);
-
-  if (error) return <ErrorState onRetry={refetch} />;
+  const [selectedMetric, setSelectedMetric] = useState('overview');
 
   const kpis = data?.kpis;
   const totalReservas = kpis?.reservasTotales ?? 0;
   const aprobadas = data?.porEstado?.find((item) => item.estado === 'aprobada')?.total ?? 0;
   const pendientes = kpis?.reservasPendientes ?? 0;
   const porcentajeAprobadas = totalReservas ? Math.round((aprobadas / totalReservas) * 100) : 0;
+
+  const metricDetails = useMemo(() => ({
+    overview: {
+      title: 'Panel operativo',
+      description: 'Hay un total de ' + totalReservas + ' reservas registradas y ' + pendientes + ' solicitudes pendientes.',
+      meta: 'Tasa de aprobación actual: ' + porcentajeAprobadas + '%',
+      route: PATHS.admin.dashboard,
+    },
+    reservas: {
+      title: 'Reservas',
+      description: 'Consulta la gestión completa de solicitudes, aprobaciones y rechazos del centro cultural.',
+      meta: 'Pendientes por revisar: ' + pendientes,
+      route: PATHS.admin.reservas,
+    },
+    ingresos: {
+      title: 'Ingresos',
+      description: 'Revisa los boletos pagados y el rendimiento del centro en cada actividad.',
+      meta: 'Total acumulado: ' + formatColones(kpis?.ingresos ?? 0),
+      route: PATHS.admin.reportes,
+    },
+    usuarios: {
+      title: 'Usuarios',
+      description: 'Mira los perfiles con reservas y solicitudes activas para darles seguimiento.',
+      meta: 'Usuarios registrados: ' + (kpis?.usuariosActivos ?? 0),
+      route: PATHS.admin.usuarios,
+    },
+  }), [kpis, pendientes, porcentajeAprobadas, totalReservas]);
+
+  const selectedDetail = metricDetails[selectedMetric] ?? DEFAULT_DETAIL;
+
+  const handleMetricClick = (metricId) => {
+    setSelectedMetric(metricId);
+  };
+
+  if (error) {
+    return <ErrorState onRetry={refetch} />;
+  }
 
   return (
     <section className="admin-dashboard space-y-5">
@@ -58,11 +102,28 @@ export default function DashboardAdmin() {
         </div>
       </article>
 
+      <article className="admin-chart-panel border border-brand-200 bg-brand-50/60 dark:border-brand-800/60 dark:bg-brand-900/20">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-700 dark:text-brand-200">Detalle activo</p>
+            <h2 className="mt-2 text-xl font-bold text-ink-900 dark:text-ink-50">{selectedDetail.title}</h2>
+          </div>
+          <a
+            href={selectedDetail.route}
+            className="rounded-lg border border-brand-200 bg-white px-3 py-1.5 text-xs font-semibold text-brand-700 transition hover:bg-brand-100 dark:border-brand-700 dark:bg-brand-950 dark:text-brand-200"
+          >
+            Ver sección
+          </a>
+        </div>
+        <p className="mt-3 text-sm text-ink-600 dark:text-ink-300">{selectedDetail.description}</p>
+        <p className="mt-2 text-xs font-medium uppercase tracking-wide text-ink-500 dark:text-ink-400">{selectedDetail.meta}</p>
+      </article>
+
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard loading={loading} label="Reservas totales" value={kpis?.reservasTotales ?? 0} Icon={CalendarClock} tone="brand" />
-        <StatCard loading={loading} label="Reservas pendientes" value={kpis?.reservasPendientes ?? 0} Icon={AlertTriangle} tone="gold" delta="Requieren aprobación" />
-        <StatCard loading={loading} label="Ingresos por boletos" value={formatColones(kpis?.ingresos ?? 0)} Icon={DollarSign} tone="jade" />
-        <StatCard loading={loading} label="Usuarios registrados" value={kpis?.usuariosActivos ?? 0} Icon={Users} tone="ink" />
+        <StatCard loading={loading} label="Reservas totales" value={kpis?.reservasTotales ?? 0} Icon={CalendarClock} tone="brand" onClick={() => handleMetricClick('reservas')} />
+        <StatCard loading={loading} label="Reservas pendientes" value={kpis?.reservasPendientes ?? 0} Icon={AlertTriangle} tone="gold" delta="Requieren aprobación" onClick={() => handleMetricClick('reservas')} />
+        <StatCard loading={loading} label="Ingresos por boletos" value={formatColones(kpis?.ingresos ?? 0)} Icon={DollarSign} tone="jade" onClick={() => handleMetricClick('ingresos')} />
+        <StatCard loading={loading} label="Usuarios registrados" value={kpis?.usuariosActivos ?? 0} Icon={Users} tone="ink" onClick={() => handleMetricClick('usuarios')} />
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1.4fr_1fr]">

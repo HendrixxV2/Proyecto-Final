@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>15/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>6/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">92.85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -142,23 +142,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,24 +209,24 @@ import StatCard from '@/Components/UI/StatCard';
 import { CalendarClock, DollarSign, Users } from 'lucide-react';
 import { formatColones } from '@/Utils/format';
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >ReportesAdmin(</span>) {
-  const { data, loading, error, refetch } = <span class="cstat-no" title="statement not covered" >useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >reportesService.dashboard(),</span> []);</span>
+export default function ReportesAdmin() {
+  const { data, loading, error, refetch } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >reportesService.dashboard(),</span> []);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (error) <span class="cstat-no" title="statement not covered" >return &lt;ErrorState onRetry={refetch} /&gt;;</span></span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (error) <span class="cstat-no" title="statement not covered" >return &lt;ErrorState onRetry={refetch} /&gt;;</span>
 &nbsp;
-  const exportarCSV = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-    const filas = <span class="cstat-no" title="statement not covered" >[['Espacio', 'Reservas'], ...(data?.porEspacio ?? []).map(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >[r.nombre, r.reservas])</span>];</span>
-    const csv = <span class="cstat-no" title="statement not covered" >filas.map(<span class="fstat-no" title="function not covered" >(f</span>) =&gt; <span class="cstat-no" title="statement not covered" >f.join(','))</span>.join('\n');</span>
-    const blob = <span class="cstat-no" title="statement not covered" >new Blob([csv], { type: 'text/csv;charset=utf-8;' });</span>
-    const url = <span class="cstat-no" title="statement not covered" >URL.createObjectURL(blob);</span>
-    const a = <span class="cstat-no" title="statement not covered" >document.createElement('a');</span>
-<span class="cstat-no" title="statement not covered" >    a.href = url;</span>
-<span class="cstat-no" title="statement not covered" >    a.download = `reporte-espacios-${new Date().toISOString().slice(0, 10)}.csv`;</span>
-<span class="cstat-no" title="statement not covered" >    a.click();</span>
-<span class="cstat-no" title="statement not covered" >    URL.revokeObjectURL(url);</span>
+  const exportarCSV = () =&gt; {
+    const filas = [['Espacio', 'Reservas'], ...(data?.porEspacio ?? <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>.map((r) =&gt; [r.nombre, r.reservas])];
+    const csv = filas.map((f) =&gt; f.join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `reporte-espacios-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;section&gt;
       &lt;header className="mb-6 flex flex-wrap items-end justify-between gap-4"&gt;
         &lt;div&gt;
@@ -242,9 +242,9 @@ export default function <span class="fstat-no" title="function not covered" >Rep
       &lt;/header&gt;
 &nbsp;
       &lt;div className="grid gap-4 sm:grid-cols-3"&gt;
-        &lt;StatCard loading={loading} label="Reservas" value={data?.kpis?.reservasTotales ?? 0} Icon={CalendarClock} tone="brand" /&gt;
-        &lt;StatCard loading={loading} label="Ingresos" value={formatColones(data?.kpis?.ingresos ?? 0)} Icon={DollarSign} tone="jade" /&gt;
-        &lt;StatCard loading={loading} label="Usuarios" value={data?.kpis?.usuariosActivos ?? 0} Icon={Users} tone="ink" /&gt;
+        &lt;StatCard loading={loading} label="Reservas" value={data?.kpis?.reservasTotales ?? <span class="branch-1 cbranch-no" title="branch not covered" >0}</span> Icon={CalendarClock} tone="brand" /&gt;
+        &lt;StatCard loading={loading} label="Ingresos" value={formatColones(data?.kpis?.ingresos ?? <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>} Icon={DollarSign} tone="jade" /&gt;
+        &lt;StatCard loading={loading} label="Usuarios" value={data?.kpis?.usuariosActivos ?? <span class="branch-1 cbranch-no" title="branch not covered" >0}</span> Icon={Users} tone="ink" /&gt;
       &lt;/div&gt;
 &nbsp;
       &lt;article className="mt-6 rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
@@ -255,7 +255,7 @@ export default function <span class="fstat-no" title="function not covered" >Rep
 &nbsp;
         &lt;div className="mt-4 h-80" role="img" aria-label="Gráfico de barras horizontales con el uso de cada espacio"&gt;
           &lt;ResponsiveContainer width="100%" height="100%"&gt;
-            &lt;BarChart data={data?.porEspacio ?? []} layout="vertical" margin={{ left: 24, right: 16 }}&gt;
+            &lt;BarChart data={data?.porEspacio ?? <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span> layout="vertical" margin={{ left: 24, right: 16 }}&gt;
               &lt;CartesianGrid strokeDasharray="3 3" stroke="#D8D3CC" horizontal={false} /&gt;
               &lt;XAxis type="number" allowDecimals={false} tick={{ fontSize: 11 }} /&gt;
               &lt;YAxis type="category" dataKey="nombre" width={140} tick={{ fontSize: 11 }} /&gt;
@@ -274,7 +274,7 @@ export default function <span class="fstat-no" title="function not covered" >Rep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

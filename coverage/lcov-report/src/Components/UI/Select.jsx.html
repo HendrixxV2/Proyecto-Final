@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">82.35% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>14/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -114,18 +114,14 @@
 <a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -145,7 +141,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,14 +162,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { forwardRef, useId } from 'react';
 import { cn } from '@/Utils/cn';
 &nbsp;
-const Select = <span class="cstat-no" title="statement not covered" >forwardRef(function <span class="fstat-no" title="function not covered" >Select(</span></span>
+const Select = forwardRef(function Select(
   { label, error, required, options = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> placeholder, className, id, children, ...props },
   ref,
 ) {
-  const autoId = <span class="cstat-no" title="statement not covered" >useId();</span>
-  const fieldId = <span class="cstat-no" title="statement not covered" >id ?? `select-${autoId}`;</span>
+  const autoId = useId();
+  const fieldId = id ?? `select-${autoId}`;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className="w-full"&gt;
       {label &amp;&amp; (
         &lt;label htmlFor={fieldId} className="mb-1.5 block text-sm font-medium text-ink-800 dark:text-ink-200"&gt;
@@ -185,21 +185,21 @@ const Select = <span class="cstat-no" title="statement not covered" >forwardRef(
           'h-11 w-full rounded-xl border bg-white px-3.5 text-sm text-ink-900 shadow-sm transition',
           'focus:outline-none focus:ring-2 focus:ring-brand-500/40',
           'dark:bg-ink-800 dark:text-ink-100',
-          error ? 'border-red-500' : 'border-ink-300 focus:border-brand-500 dark:border-ink-600',
+          error ? <span class="branch-0 cbranch-no" title="branch not covered" >'border-red-500' </span>: 'border-ink-300 focus:border-brand-500 dark:border-ink-600',
           className,
         )}
         {...props}
       &gt;
         {placeholder &amp;&amp; &lt;option value=""&gt;{placeholder}&lt;/option&gt;}
         {children ??
-          options.map(<span class="fstat-no" title="function not covered" >(o</span>pt) =&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;option key={opt.value} value={opt.value}&gt;</span>
+          options.map((opt) =&gt; (
+            &lt;option key={opt.value} value={opt.value}&gt;
               {opt.label}
             &lt;/option&gt;
           ))}
       &lt;/select&gt;
       {error &amp;&amp; (
-        &lt;p role="alert" className="mt-1 text-xs font-medium text-red-600"&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;p role="alert" className="mt-1 text-xs font-medium text-red-600"&gt;</span>
           ⚠ {error}
         &lt;/p&gt;
       )}
@@ -214,7 +214,7 @@ export default Select;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

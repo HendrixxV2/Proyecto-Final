@@ -11,7 +11,7 @@ export default function ErrorState({ title = 'Algo salió mal', description, onR
         {description ?? 'No pudimos cargar la información. Verifica tu conexión e inténtalo de nuevo.'}
       </p>
       {onRetry && (
-        <Button variant="outline" className="mt-5" onClick={() => onRetry()} icon>
+        <Button variant="outline" className="mt-5" onClick={() => onRetry()}>
           <RefreshCw aria-hidden="true" className="h-4 w-4" />
           Reintentar
         </Button>

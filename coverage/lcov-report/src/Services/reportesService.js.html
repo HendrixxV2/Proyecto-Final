@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,33 +107,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,33 +146,33 @@ import { boletosService } from './boletosService';
 import { espaciosService } from './espaciosService';
 import { usuariosService } from './usuariosService';
 &nbsp;
-export const reportesService = <span class="cstat-no" title="statement not covered" >{</span>
-<span class="fstat-no" title="function not covered" >  as</span>ync dashboard() {
-    const [reservas, boletos, espacios, usuarios] = <span class="cstat-no" title="statement not covered" >await Promise.all([</span>
+export const reportesService = {
+  async dashboard() {
+    const [reservas, boletos, espacios, usuarios] = await Promise.all([
       reservasService.list(),
       boletosService.list(),
       espaciosService.list(),
       usuariosService.list(),
     ]);
 &nbsp;
-    const ingresos = <span class="cstat-no" title="statement not covered" >boletos</span>
-      .filter(<span class="fstat-no" title="function not covered" >(b</span>) =&gt; <span class="cstat-no" title="statement not covered" >b.estado === 'pagado')</span>
-      .reduce(<span class="fstat-no" title="function not covered" >(a</span>cc, b) =&gt; <span class="cstat-no" title="statement not covered" >acc + Number(b.precio || 0),</span> 0);
+    const ingresos = boletos
+      .filter((b) =&gt; b.estado === 'pagado')
+      .reduce((acc, b) =&gt; acc + Number(b.precio || 0), 0);
 &nbsp;
-    const porEspacio = <span class="cstat-no" title="statement not covered" >espacios.map(<span class="fstat-no" title="function not covered" >(e</span>) =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+    const porEspacio = espacios.map((e) =&gt; ({
       nombre: e.nombre.length &gt; 22 ? `${e.nombre.slice(0, 22)}…` : e.nombre,
-      reservas: reservas.filter(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >r.espacioId === e.id)</span>.length,
+      reservas: reservas.filter((r) =&gt; r.espacioId === e.id).length,
     }));
 &nbsp;
-    const porEstado = <span class="cstat-no" title="statement not covered" >['pendiente', 'aprobada', 'rechazada', 'cancelada'].map(<span class="fstat-no" title="function not covered" >(e</span>stado) =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+    const porEstado = ['pendiente', 'aprobada', 'rechazada', 'cancelada'].map((estado) =&gt; ({
       estado,
-      total: reservas.filter(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >r.estado === estado)</span>.length,
+      total: reservas.filter((r) =&gt; r.estado === estado).length,
     }));
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
       kpis: {
         reservasTotales: reservas.length,
-        reservasPendientes: reservas.filter(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >r.estado === 'pendiente')</span>.length,
+        reservasPendientes: reservas.filter((r) =&gt; r.estado === 'pendiente').length,
         ingresos,
         usuariosActivos: usuarios.length,
       },
@@ -187,7 +187,7 @@ export const reportesService = <span class="cstat-no" title="statement not cover
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>8/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -155,23 +155,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,8 +174,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,6 +181,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,9 +202,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,16 +240,16 @@ import EventRecommender from '@/Components/AI/EventRecommender';
 import { Skeleton } from '@/Components/UI/Skeleton';
 import './Artes.css';
 &nbsp;
-const DISCIPLINAS = <span class="cstat-no" title="statement not covered" >[</span>
+const DISCIPLINAS = [
   { key: 'teatro', titulo: 'Teatro', descripcion: 'Temporadas profesionales, teatro comunitario y formación escénica.', imagen: '/grupoTeatro.jpeg', alt: 'Grupo de teatro del Centro Cultural Orotinense', inicio: '5 de octubre de 2026', fecha: '2026-10-05' },
   { key: 'baile', titulo: 'Baile', descripcion: 'Danza folclórica costarricense, contemporánea y proyectos juveniles.', imagen: '/grupoBaile.jpeg', alt: 'Grupo de baile del Centro Cultural Orotinense', inicio: '12 de octubre de 2026', fecha: '2026-10-12' },
   { key: 'canto', titulo: 'Canto', descripcion: 'Coro infantil, técnica vocal y repertorio del Pacífico Central.', imagen: '/grupoCanto.jpeg', alt: 'Grupo de canto del Centro Cultural Orotinense', inicio: '19 de octubre de 2026', fecha: '2026-10-19' },
 ];
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >Artes(</span>) {
-  const { data, loading } = <span class="cstat-no" title="statement not covered" >useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >contenidoService.list(),</span> []);</span>
+export default function Artes() {
+  const { data, loading } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >contenidoService.list(),</span> []);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className="programas-page relative isolate overflow-hidden bg-ink-50 dark:bg-ink-900"&gt;
       &lt;div
         aria-hidden="true"
@@ -265,9 +265,9 @@ export default function <span class="fstat-no" title="function not covered" >Art
         /&gt;
 &nbsp;
       &lt;div className="mt-10 space-y-14"&gt;
-        {DISCIPLINAS.map(<span class="fstat-no" title="function not covered" >(d</span>, index) =&gt; {
-          const bloques = <span class="cstat-no" title="statement not covered" >(data ?? []).filter(<span class="fstat-no" title="function not covered" >(b</span>) =&gt; <span class="cstat-no" title="statement not covered" >b.seccion === d.key)</span>;</span>
-<span class="cstat-no" title="statement not covered" >          return (</span>
+        {DISCIPLINAS.map((d, index) =&gt; {
+          const bloques = (data ?? []).filter((b) =&gt; b.seccion === d.key);
+          return (
             &lt;section key={d.key} aria-labelledby={`titulo-${d.key}`}&gt;
               &lt;div className="grid items-start gap-6 lg:items-center lg:grid-cols-[minmax(18rem,0.7fr)_minmax(0,1.3fr)] lg:gap-8 xl:items-stretch xl:grid-cols-[minmax(22rem,0.85fr)_minmax(0,1.15fr)] xl:gap-12"&gt;
                 &lt;figure className={`group relative isolate overflow-hidden rounded-2xl border border-ink-200 bg-ink-100 shadow-sm dark:border-ink-700 dark:bg-ink-800 xl:min-h-[32rem] ${index % 2 === 1 ? 'lg:order-2' : ''}`}&gt;
@@ -294,9 +294,9 @@ export default function <span class="fstat-no" title="function not covered" >Art
 &nbsp;
                   &lt;div className="mt-5 grid gap-4 md:grid-cols-2"&gt;
                     {loading
-                      ? Array.from({ length: 2 }).map(<span class="fstat-no" title="function not covered" >(_</span>, i) =&gt; <span class="cstat-no" title="statement not covered" >&lt;Skeleton key={i} className="h-32 w-full rounded-2xl" /&gt;)</span>
-                      : bloques.map(<span class="fstat-no" title="function not covered" >(b</span>) =&gt; (
-<span class="cstat-no" title="statement not covered" >                            &lt;article key={b.id} className="programa-info-card rounded-2xl border border-ink-200 p-5 dark:border-ink-700"&gt;</span>
+                      ? Array.from({ length: 2 }).map((_, i) =&gt; &lt;Skeleton key={i} className="h-32 w-full rounded-2xl" /&gt;)
+                      : bloques.map((b) =&gt; (
+                            &lt;article key={b.id} className="programa-info-card rounded-2xl border border-ink-200 p-5 dark:border-ink-700"&gt;
                             &lt;h3 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50"&gt;{b.titulo}&lt;/h3&gt;
                             &lt;p className="mt-1.5 text-sm text-ink-600 dark:text-ink-300"&gt;{b.cuerpo}&lt;/p&gt;
                           &lt;/article&gt;
@@ -325,7 +325,7 @@ export default function <span class="fstat-no" title="function not covered" >Art
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

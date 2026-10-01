@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -103,25 +103,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,10 +137,10 @@ import Badge from '@/Components/UI/Badge';
 import { formatColones } from '@/Utils/format';
 import { required, min } from '@/Utils/validators';
 &nbsp;
-const TIPOS = <span class="cstat-no" title="statement not covered" >['teatro', 'danza', 'galeria', 'taller', 'aire_libre', 'multiuso'];</span>
+const TIPOS = ['teatro', 'danza', 'galeria', 'taller', 'aire_libre', 'multiuso'];
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >EspaciosAdmin(</span>) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export default function EspaciosAdmin() {
+  return (
     &lt;CrudManager
       titulo="Espacios"
       descripcion="Gestiona salas, galerías y explanadas del centro."
@@ -148,14 +148,14 @@ export default function <span class="fstat-no" title="function not covered" >Esp
       searchKeys={['nombre', 'tipo', 'ubicacion']}
       columns={[
         { key: 'nombre', label: 'Nombre' },
-        { key: 'tipo', label: 'Tipo', render: <span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >&lt;Badge tone="info"&gt;{r.tipo}&lt;/Badge&gt; </span>},
+        { key: 'tipo', label: 'Tipo', render: (r) =&gt; &lt;Badge tone="info"&gt;{r.tipo}&lt;/Badge&gt; },
         { key: 'capacidad', label: 'Capacidad', align: 'right' },
-        { key: 'precioHora', label: 'Tarifa/hora', align: 'right', render: <span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >formatColones(r.precioHora) </span>},
-        { key: 'activo', label: 'Estado', render: <span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >&lt;Badge tone={r.activo ? 'success' : 'danger'}&gt;{r.activo ? 'Activo' : 'Inactivo'}&lt;/Badge&gt; </span>},
+        { key: 'precioHora', label: 'Tarifa/hora', align: 'right', render: (r) =&gt; formatColones(r.precioHora) },
+        { key: 'activo', label: 'Estado', render: (r) =&gt; &lt;Badge tone={r.activo ? 'success' : <span class="branch-1 cbranch-no" title="branch not covered" >'danger'}</span>&gt;{r.activo ? 'Activo' : <span class="branch-1 cbranch-no" title="branch not covered" >'Inactivo'}</span>&lt;/Badge&gt; },
       ]}
       fields={[
         { name: 'nombre', label: 'Nombre', required: true, fullWidth: true, rules: [required('El nombre es obligatorio.'), min(4, 'Mínimo 4 caracteres.')] },
-        { name: 'tipo', label: 'Tipo', type: 'select', required: true, options: TIPOS.map(<span class="fstat-no" title="function not covered" >(t</span>) =&gt; (<span class="cstat-no" title="statement not covered" >{ value: t, label: t })</span>), rules: [required('Selecciona un tipo.')] },
+        { name: 'tipo', label: 'Tipo', type: 'select', required: true, options: TIPOS.map((t) =&gt; ({ value: t, label: t })), rules: [required('Selecciona un tipo.')] },
         { name: 'capacidad', label: 'Capacidad', type: 'number', required: true, min: 1, rules: [required('Indica la capacidad.')] },
         { name: 'precioHora', label: 'Tarifa por hora (₡)', type: 'number', required: true, rules: [required('Indica la tarifa.')] },
         { name: 'ubicacion', label: 'Ubicación', required: true, fullWidth: true, rules: [required('Indica la ubicación.')] },
@@ -172,7 +172,7 @@ export default function <span class="fstat-no" title="function not covered" >Esp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

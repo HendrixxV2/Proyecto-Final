@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -101,6 +101,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,16 +116,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,15 +134,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { cn } from '@/Utils/cn';
 import Skeleton from './Skeleton';
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >StatCard(</span>{ label, value, delta, Icon, tone = <span class="branch-0 cbranch-no" title="branch not covered" >'brand',</span> loading = <span class="branch-0 cbranch-no" title="branch not covered" >false </span>}) {
-  const tones = <span class="cstat-no" title="statement not covered" >{</span>
+export default function StatCard({ label, value, delta, Icon, tone = <span class="branch-0 cbranch-no" title="branch not covered" >'brand',</span> loading = <span class="branch-0 cbranch-no" title="branch not covered" >false </span>}) {
+  const tones = {
     brand: 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200',
     jade: 'bg-jade-100 text-jade-700 dark:bg-jade-900 dark:text-jade-200',
     gold: 'bg-gold-400/25 text-gold-600 dark:bg-gold-600/25 dark:text-gold-400',
     ink: 'bg-ink-200 text-ink-700 dark:bg-ink-700 dark:text-ink-200',
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (loading) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) {
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;div className="rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
         &lt;Skeleton className="h-3 w-24" /&gt;
@@ -151,7 +151,7 @@ export default function <span class="fstat-no" title="function not covered" >Sta
     );
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;article className="rounded-2xl border border-ink-200 bg-white p-5 shadow-soft dark:border-ink-700 dark:bg-ink-800"&gt;
       &lt;div className="flex items-center justify-between"&gt;
         &lt;p className="text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400"&gt;{label}&lt;/p&gt;
@@ -172,7 +172,7 @@ export default function <span class="fstat-no" title="function not covered" >Sta
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

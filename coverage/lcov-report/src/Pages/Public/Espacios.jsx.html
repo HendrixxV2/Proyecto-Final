@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">58.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>7/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -157,23 +157,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,6 +174,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,10 +237,10 @@ import { SkeletonCard } from '@/Components/UI/Skeleton';
 import { PATHS } from '@/Routes/paths';
 import { formatColones } from '@/Utils/format';
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >Espacios(</span>) {
-  const { data: espacios, loading } = <span class="cstat-no" title="statement not covered" >useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >espaciosService.list({ activo: true }),</span> []);</span>
+export default function Espacios() {
+  const { data: espacios, loading } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >espaciosService.list({ activo: true }),</span> []);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;main className="relative isolate overflow-hidden bg-ink-50 dark:bg-ink-900"&gt;
       &lt;div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-[0.36]" style={{ backgroundImage: "url('/espacios1.jpeg')" }} /&gt;
       &lt;div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/80 to-jade-50/70 dark:from-ink-900/95 dark:via-ink-900/90 dark:to-jade-950/85" /&gt;
@@ -252,7 +252,7 @@ export default function <span class="fstat-no" title="function not covered" >Esp
         /&gt;
 &nbsp;
       {loading ? (
-        &lt;div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3"&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3"&gt;</span>
           {Array.from({ length: 6 }).map(<span class="fstat-no" title="function not covered" >(_</span>, index) =&gt; (
 <span class="cstat-no" title="statement not covered" >            &lt;SkeletonCard key={index} /&gt;</span>
           ))}
@@ -263,13 +263,13 @@ export default function <span class="fstat-no" title="function not covered" >Esp
         &lt;/div&gt;
       ) : (
         &lt;ul className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3"&gt;
-          {espacios.map(<span class="fstat-no" title="function not covered" >(e</span>spacio) =&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;li key={espacio.id}&gt;</span>
+          {espacios.map((espacio) =&gt; (
+            &lt;li key={espacio.id}&gt;
               &lt;article className="tarjeta-cultural flex h-full flex-col p-5"&gt;
                 &lt;div className="flex items-start justify-between gap-3"&gt;
                   &lt;div&gt;
                     &lt;p className="text-xs font-semibold uppercase tracking-wide text-jade-300"&gt;
-                      {espacio.tipo ?? 'Espacio'}
+                      {espacio.tipo ?? <span class="branch-1 cbranch-no" title="branch not covered" >'Espacio'}</span>
                     &lt;/p&gt;
                     &lt;h2 className="mt-2 font-display text-xl font-semibold text-white"&gt;
                       {espacio.nombre}
@@ -283,12 +283,12 @@ export default function <span class="fstat-no" title="function not covered" >Esp
                 &lt;/p&gt;
 &nbsp;
                 &lt;div className="mt-4 flex flex-wrap gap-2"&gt;
-                  &lt;Badge tone="jade"&gt;Capacidad: {espacio.capacidad ?? 0}&lt;/Badge&gt;
-                  &lt;Badge tone="brand"&gt;{formatColones(espacio.precioHora ?? 0)} / hora&lt;/Badge&gt;
+                  &lt;Badge tone="jade"&gt;Capacidad: {espacio.capacidad ?? <span class="branch-1 cbranch-no" title="branch not covered" >0}</span>&lt;/Badge&gt;
+                  &lt;Badge tone="brand"&gt;{formatColones(espacio.precioHora ?? <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>} / hora&lt;/Badge&gt;
                 &lt;/div&gt;
 &nbsp;
                 &lt;div className="mt-5 flex items-center justify-between text-sm text-white/75"&gt;
-                  &lt;span&gt;{espacio.ubicacion ?? 'Ubicación por confirmar'}&lt;/span&gt;
+                  &lt;span&gt;{espacio.ubicacion ?? <span class="branch-1 cbranch-no" title="branch not covered" >'Ubicación por confirmar'}</span>&lt;/span&gt;
                 &lt;/div&gt;
 &nbsp;
                 &lt;div className="mt-6"&gt;
@@ -313,7 +313,7 @@ export default function <span class="fstat-no" title="function not covered" >Esp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -113,18 +113,16 @@
 <a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">98x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">170x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,9 +136,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">172x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,23 +159,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { cn } from '@/Utils/cn';
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >DataTable(</span>{ columns, rows, keyField = <span class="branch-0 cbranch-no" title="branch not covered" >'id',</span> empty = <span class="branch-0 cbranch-no" title="branch not covered" >null,</span> caption, className }) {
-<span class="cstat-no" title="statement not covered" >  if (!rows?.length) <span class="cstat-no" title="statement not covered" >return empty;</span></span>
+export default function DataTable({ columns, rows, keyField = <span class="branch-0 cbranch-no" title="branch not covered" >'id',</span> empty = <span class="branch-0 cbranch-no" title="branch not covered" >null,</span> caption, className }) {
+  if (!rows?.length) return empty;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className={cn('overflow-x-auto rounded-2xl border border-ink-200 dark:border-ink-700', className)}&gt;
       &lt;table className="min-w-full divide-y divide-ink-200 text-sm dark:divide-ink-700"&gt;
         {caption &amp;&amp; &lt;caption className="sr-only"&gt;{caption}&lt;/caption&gt;}
         &lt;thead className="bg-ink-100 dark:bg-ink-800"&gt;
           &lt;tr&gt;
-            {columns.map(<span class="fstat-no" title="function not covered" >(c</span>ol) =&gt; (
-<span class="cstat-no" title="statement not covered" >              &lt;th</span>
+            {columns.map((col) =&gt; (
+              &lt;th
                 key={col.key}
                 scope="col"
                 className={cn(
                   'px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-ink-600 dark:text-ink-300',
                   col.align === 'right' &amp;&amp; 'text-right',
-                  col.align === 'center' &amp;&amp; 'text-center',
+                  col.align === 'center' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >'text-center',</span>
                 )}
               &gt;
                 {col.label}
@@ -184,15 +184,15 @@ export default function <span class="fstat-no" title="function not covered" >Dat
           &lt;/tr&gt;
         &lt;/thead&gt;
         &lt;tbody className="divide-y divide-ink-200 bg-white dark:divide-ink-700 dark:bg-ink-800/60"&gt;
-          {rows.map(<span class="fstat-no" title="function not covered" >(r</span>ow) =&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;tr key={row[keyField]} className="transition hover:bg-ink-50 dark:hover:bg-ink-700/40"&gt;</span>
-              {columns.map(<span class="fstat-no" title="function not covered" >(c</span>ol) =&gt; (
-<span class="cstat-no" title="statement not covered" >                &lt;td</span>
+          {rows.map((row) =&gt; (
+            &lt;tr key={row[keyField]} className="transition hover:bg-ink-50 dark:hover:bg-ink-700/40"&gt;
+              {columns.map((col) =&gt; (
+                &lt;td
                   key={col.key}
                   className={cn(
                     'px-4 py-3 align-middle text-ink-700 dark:text-ink-200',
                     col.align === 'right' &amp;&amp; 'text-right',
-                    col.align === 'center' &amp;&amp; 'text-center',
+                    col.align === 'center' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >'text-center',</span>
                   )}
                 &gt;
                   {col.render ? col.render(row) : row[col.key]}
@@ -211,7 +211,7 @@ export default function <span class="fstat-no" title="function not covered" >Dat
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -112,7 +112,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,11 +126,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,7 +137,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,8 +152,8 @@ import { ROLES, ROL_LABEL } from '@/Utils/constants';
 import { formatFecha } from '@/Utils/format';
 import { required, email, min } from '@/Utils/validators';
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >UsuariosAdmin(</span>) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export default function UsuariosAdmin() {
+  return (
     &lt;CrudManager
       titulo="Usuarios"
       descripcion="Administra las cuentas y los roles de acceso a la plataforma."
@@ -167,9 +167,9 @@ export default function <span class="fstat-no" title="function not covered" >Usu
         {
           key: 'rol',
           label: 'Rol',
-          render: <span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >&lt;Badge tone={r.rol === ROLES.ADMIN ? 'danger' : 'info'}&gt;{ROL_LABEL[r.rol] ?? r.rol}&lt;/Badge&gt;,</span>
+          render: (r) =&gt; &lt;Badge tone={r.rol === ROLES.ADMIN ? 'danger' : <span class="branch-1 cbranch-no" title="branch not covered" >'info'}</span>&gt;{ROL_LABEL[r.rol] ?? <span class="branch-1 cbranch-no" title="branch not covered" >r.rol}</span>&lt;/Badge&gt;,
         },
-        { key: 'creadoEn', label: 'Registro', render: <span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >formatFecha(r.creadoEn, 'dd/MM/yyyy') </span>},
+        { key: 'creadoEn', label: 'Registro', render: (r) =&gt; formatFecha(r.creadoEn, 'dd/MM/yyyy') },
       ]}
       fields={[
         { name: 'nombre', label: 'Nombre completo', required: true, fullWidth: true, rules: [required(), min(3, 'Mínimo 3 caracteres.')] },
@@ -180,7 +180,7 @@ export default function <span class="fstat-no" title="function not covered" >Usu
           label: 'Rol',
           type: 'select',
           required: true,
-          options: Object.values(ROLES).map(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; (<span class="cstat-no" title="statement not covered" >{ value: r, label: ROL_LABEL[r] })</span>),
+          options: Object.values(ROLES).map((r) =&gt; ({ value: r, label: ROL_LABEL[r] })),
           rules: [required()],
         },
       ]}
@@ -193,7 +193,7 @@ export default function <span class="fstat-no" title="function not covered" >Usu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

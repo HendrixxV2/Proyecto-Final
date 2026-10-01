@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">70.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/24</span>
+                <span class='fraction'>17/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">69.23% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>9/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/18</span>
+                <span class='fraction'>14/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -99,54 +99,54 @@
 <a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-yes">50x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { format, parseISO, isToday, isTomorrow, formatDistanceToNowStrict } from 'date-fns';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span></td><td class="text"><pre class="prettyprint lang-js">import { format, parseISO, isToday, isTomorrow, formatDistanceToNowStrict } from 'date-fns';
 import { es } from 'date-fns/locale';
 &nbsp;
-export const toDate = <span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; (<span class="cstat-no" title="statement not covered" >value instanceof Date ? value : parseISO(String(value)))</span>;
+export const toDate = (value) =&gt; (value instanceof Date ? value : parseISO(String(value)));
 &nbsp;
-export const formatFecha = <span class="fstat-no" title="function not covered" >(v</span>alue, pattern = <span class="branch-0 cbranch-no" title="branch not covered" >"d 'de' MMMM 'de' yyyy")</span> =&gt;
-<span class="cstat-no" title="statement not covered" >  format(toDate(value), pattern, { locale: es });</span>
+export const formatFecha = (value, pattern = "d 'de' MMMM 'de' yyyy") =&gt;
+  format(toDate(value), pattern, { locale: es });
 &nbsp;
 export const formatFechaCorta = <span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >format(toDate(value), 'dd/MM/yyyy', { locale: es });</span>
 &nbsp;
-export const formatHora = <span class="fstat-no" title="function not covered" >(h</span>hmm) =&gt; {
-  const [h, m] = <span class="cstat-no" title="statement not covered" >String(hhmm).split(':').map(Number);</span>
-  const suffix = <span class="cstat-no" title="statement not covered" >h &gt;= 12 ? 'p. m.' : 'a. m.';</span>
-  const hour12 = <span class="cstat-no" title="statement not covered" >h % 12 === 0 ? 12 : h % 12;</span>
-<span class="cstat-no" title="statement not covered" >  return `${hour12}:${String(m).padStart(2, '0')} ${suffix}`;</span>
+export const formatHora = (hhmm) =&gt; {
+  const [h, m] = String(hhmm).split(':').map(Number);
+  const suffix = h &gt;= 12 ? 'p. m.' : 'a. m.';
+  const hour12 = h % 12 === 0 ? 12 : h % 12;
+  return `${hour12}:${String(m).padStart(2, '0')} ${suffix}`;
 };
 &nbsp;
-export const formatRangoHoras = <span class="fstat-no" title="function not covered" >(i</span>nicio, fin) =&gt; <span class="cstat-no" title="statement not covered" >`${formatHora(inicio)} – ${formatHora(fin)}`;</span>
+export const formatRangoHoras = (inicio, fin) =&gt; `${formatHora(inicio)} – ${formatHora(fin)}`;
 &nbsp;
 export const etiquetaDia = <span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; {
   const d = <span class="cstat-no" title="statement not covered" >toDate(value);</span>
@@ -155,21 +155,21 @@ export const etiquetaDia = <span class="fstat-no" title="function not covered" >
 <span class="cstat-no" title="statement not covered" >  return format(d, 'EEE d MMM', { locale: es });</span>
 };
 &nbsp;
-export const formatColones = <span class="fstat-no" title="function not covered" >(v</span>alor) =&gt;
-<span class="cstat-no" title="statement not covered" >  new Intl.NumberFormat('es-CR', {</span>
+export const formatColones = (valor) =&gt;
+  new Intl.NumberFormat('es-CR', {
     style: 'currency',
     currency: 'CRC',
     maximumFractionDigits: 0,
   }).format(Number(valor) || 0);
 &nbsp;
-export const hace = <span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >formatDistanceToNowStrict(toDate(value), { addSuffix: true, locale: es });</span></pre></td></tr></table></pre>
+export const hace = (value) =&gt; formatDistanceToNowStrict(toDate(value), { addSuffix: true, locale: es });</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

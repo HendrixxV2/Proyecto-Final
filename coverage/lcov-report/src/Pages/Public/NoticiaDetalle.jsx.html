@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>7/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -150,16 +150,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,7 +181,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,15 +225,15 @@ import ErrorState from '@/Components/UI/ErrorState';
 import { formatFecha, hace } from '@/Utils/format';
 import { PATHS } from '@/Routes/paths';
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >NoticiaDetalle(</span>) {
-  const { id } = <span class="cstat-no" title="statement not covered" >useParams();</span>
-  const { data: noticia, loading, error, refetch } = <span class="cstat-no" title="statement not covered" >useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >noticiasService.getById(id),</span> [id]);</span>
+export default function NoticiaDetalle() {
+  const { id } = useParams();
+  const { data: noticia, loading, error, refetch } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >noticiasService.getById(id),</span> [id]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (loading) <span class="cstat-no" title="statement not covered" >return &lt;div className="grid min-h-[60vh] place-items-center"&gt;&lt;Spinner label="Cargando noticia…" /&gt;&lt;/div&gt;;</span></span>
-<span class="cstat-no" title="statement not covered" >  if (error) <span class="cstat-no" title="statement not covered" >return &lt;div className="mx-auto max-w-3xl px-4 py-12"&gt;&lt;ErrorState onRetry={refetch} /&gt;&lt;/div&gt;;</span></span>
-<span class="cstat-no" title="statement not covered" >  if (!noticia) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) <span class="cstat-no" title="statement not covered" >return &lt;div className="grid min-h-[60vh] place-items-center"&gt;&lt;Spinner label="Cargando noticia…" /&gt;&lt;/div&gt;;</span>
+  if (error) return &lt;div className="mx-auto max-w-3xl px-4 py-12"&gt;&lt;ErrorState onRetry={refetch} /&gt;&lt;/div&gt;;
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!noticia) <span class="cstat-no" title="statement not covered" >return null;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8"&gt;
       &lt;Link to={PATHS.noticias} className="inline-flex items-center gap-2 text-sm text-ink-500 hover:text-brand-600 dark:text-ink-400"&gt;
         &lt;ArrowLeft aria-hidden="true" className="h-4 w-4" /&gt; Volver a noticias
@@ -258,13 +258,13 @@ export default function <span class="fstat-no" title="function not covered" >Not
       &lt;/div&gt;
 &nbsp;
       &lt;div className="mt-8 space-y-4 text-base leading-relaxed text-ink-700 dark:text-ink-200"&gt;
-        {noticia.contenido.split('\n').map(<span class="fstat-no" title="function not covered" >(p</span>arrafo, i) =&gt; (
-<span class="cstat-no" title="statement not covered" >          &lt;p key={i}&gt;{parrafo}&lt;/p&gt;</span>
+        {noticia.contenido.split('\n').map((parrafo, i) =&gt; (
+          &lt;p key={i}&gt;{parrafo}&lt;/p&gt;
         ))}
       &lt;/div&gt;
 &nbsp;
       {noticia.galeria &amp;&amp; (
-        &lt;section aria-label="Memoria de la Escuela Primo Vargas" className="mt-10"&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;section aria-label="Memoria de la Escuela Primo Vargas" className="mt-10"&gt;</span>
           &lt;div className="mb-5 flex flex-wrap items-end justify-between gap-4"&gt;
             &lt;h2 className="font-display text-xl font-bold text-ink-900 dark:text-ink-50"&gt;Una memoria que pasa de generación en generación&lt;/h2&gt;
             &lt;dl className="flex gap-4 rounded-lg border border-ink-200 bg-white/80 px-4 py-3 text-sm dark:border-ink-700 dark:bg-ink-800/80"&gt;
@@ -298,7 +298,7 @@ export default function <span class="fstat-no" title="function not covered" >Not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

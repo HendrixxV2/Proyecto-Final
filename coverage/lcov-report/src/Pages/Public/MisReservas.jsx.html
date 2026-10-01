@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>16/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">73.68% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>14/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -154,27 +154,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,7 +189,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,7 +203,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -228,32 +228,32 @@ import Button from '@/Components/UI/Button';
 import { formatFecha, formatRangoHoras } from '@/Utils/format';
 import { BADGE_TONE_BY_ESTADO } from '@/Utils/constants';
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >MisReservas(</span>) {
-  const { user } = <span class="cstat-no" title="statement not covered" >useAuth();</span>
-  const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
+export default function MisReservas() {
+  const { user } = useAuth();
+  const toast = useToast();
 &nbsp;
-  const { data: reservas, loading, error, refetch } = <span class="cstat-no" title="statement not covered" >useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >reservasService.listByUsuario(user.id),</span> [user.id]);</span>
-  const { data: espacios } = <span class="cstat-no" title="statement not covered" >useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >espaciosService.list(),</span> []);</span>
+  const { data: reservas, loading, error, refetch } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >reservasService.listByUsuario(user.id),</span> [user.id]);
+  const { data: espacios } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >espaciosService.list(),</span> []);
 &nbsp;
-  const nombreEspacio = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>d) =&gt; <span class="cstat-no" title="statement not covered" >espacios?.find(<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >e.id === id)</span>?.nombre ?? `Espacio #${id}`;</span></span>
+  const nombreEspacio = (id) =&gt; espacios?.find((e) =&gt; e.id === id)?.nombre ?? <span class="branch-1 cbranch-no" title="branch not covered" >`Espacio #${id}`;</span>
 &nbsp;
-  const cancelar = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (id) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      await reservasService.cancelar(id);</span>
-<span class="cstat-no" title="statement not covered" >      toast.success('Reserva cancelada', 'Tu reserva fue cancelada correctamente.');</span>
-<span class="cstat-no" title="statement not covered" >      refetch();</span>
+  const cancelar = async (id) =&gt; {
+    try {
+      await reservasService.cancelar(id);
+      toast.success('Reserva cancelada', 'Tu reserva fue cancelada correctamente.');
+      refetch();
     } catch (err) {
-<span class="cstat-no" title="statement not covered" >      toast.error('No se pudo cancelar', err.message);</span>
+      toast.error('No se pudo cancelar', err.message);
     }
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8"&gt;
       &lt;SectionTitle eyebrow="Mi cuenta" title="Mis reservas" description="Consulta el estado de tus solicitudes de espacio." /&gt;
 &nbsp;
       &lt;div className="mt-8"&gt;
-        {loading &amp;&amp; &lt;SkeletonTable rows={4} /&gt;}
-        {error &amp;&amp; !loading &amp;&amp; &lt;ErrorState onRetry={refetch} /&gt;}
+        {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;SkeletonTable rows={4} /&gt;}</span>
+        {error &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!loading </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;ErrorState onRetry={refetch} /&gt;}</span>
 &nbsp;
         {!loading &amp;&amp; !error &amp;&amp; reservas?.length === 0 &amp;&amp; (
           &lt;EmptyState
@@ -265,8 +265,8 @@ export default function <span class="fstat-no" title="function not covered" >Mis
 &nbsp;
         {!loading &amp;&amp; !error &amp;&amp; reservas?.length &gt; 0 &amp;&amp; (
           &lt;ul className="space-y-3"&gt;
-            {reservas.map(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; (
-<span class="cstat-no" title="statement not covered" >              &lt;li key={r.id} className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;</span>
+            {reservas.map((r) =&gt; (
+              &lt;li key={r.id} className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
                 &lt;div&gt;
                   &lt;h3 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50"&gt;{nombreEspacio(r.espacioId)}&lt;/h3&gt;
                   &lt;p className="mt-1 text-sm text-ink-500 dark:text-ink-400"&gt;
@@ -276,9 +276,9 @@ export default function <span class="fstat-no" title="function not covered" >Mis
                 &lt;/div&gt;
 &nbsp;
                 &lt;div className="flex items-center gap-3"&gt;
-                  &lt;Badge tone={BADGE_TONE_BY_ESTADO[r.estado] ?? 'neutral'}&gt;{r.estado}&lt;/Badge&gt;
+                  &lt;Badge tone={BADGE_TONE_BY_ESTADO[r.estado] ?? <span class="branch-1 cbranch-no" title="branch not covered" >'neutral'}</span>&gt;{r.estado}&lt;/Badge&gt;
                   {['pendiente', 'aprobada'].includes(r.estado) &amp;&amp; (
-                    &lt;Button variant="outline" size="sm" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >cancelar(r.id)}</span>&gt;Cancelar&lt;/Button&gt;
+                    &lt;Button variant="outline" size="sm" onClick={() =&gt; cancelar(r.id)}&gt;Cancelar&lt;/Button&gt;
                   )}
                 &lt;/div&gt;
               &lt;/li&gt;
@@ -295,7 +295,7 @@ export default function <span class="fstat-no" title="function not covered" >Mis
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

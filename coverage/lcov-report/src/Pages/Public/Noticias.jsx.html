@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>9/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -131,20 +131,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,6 +143,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,10 +187,10 @@ import EmptyState from '@/Components/UI/EmptyState';
 import { formatFecha } from '@/Utils/format';
 import { PATHS } from '@/Routes/paths';
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >Noticias(</span>) {
-  const { data, loading } = <span class="cstat-no" title="statement not covered" >useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >noticiasService.list({ _sort: 'fecha', _order: 'desc' }),</span> []);</span>
+export default function Noticias() {
+  const { data, loading } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >noticiasService.list({ _sort: 'fecha', _order: 'desc' }),</span> []);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className="relative isolate overflow-hidden bg-ink-50 dark:bg-ink-900"&gt;
       &lt;div aria-hidden="true" className="absolute inset-0 bg-center opacity-[0.36]" style={{ backgroundImage: "url('/fondoNoticias.jpeg')", backgroundSize: '100% 100%' }} /&gt;
       &lt;div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/80 to-jade-50/70 dark:from-ink-900/95 dark:via-ink-900/90 dark:to-jade-950/85" /&gt;
@@ -198,7 +198,7 @@ export default function <span class="fstat-no" title="function not covered" >Not
       &lt;SectionTitle eyebrow="Sala de prensa" title="Noticias" description="Comunicados, convocatorias y novedades del centro." /&gt;
 &nbsp;
       {loading &amp;&amp; (
-        &lt;div className="mt-8 grid gap-5 lg:grid-cols-3"&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className="mt-8 grid gap-5 lg:grid-cols-3"&gt;</span>
           {Array.from({ length: 3 }).map(<span class="fstat-no" title="function not covered" >(_</span>, i) =&gt; <span class="cstat-no" title="statement not covered" >&lt;SkeletonCard key={i} /&gt;)</span>}
         &lt;/div&gt;
       )}
@@ -209,8 +209,8 @@ export default function <span class="fstat-no" title="function not covered" >Not
 &nbsp;
       {!loading &amp;&amp; data?.length &gt; 0 &amp;&amp; (
         &lt;ul className="mt-8 grid gap-5 lg:grid-cols-3"&gt;
-          {data.map(<span class="fstat-no" title="function not covered" >(n</span>) =&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;li key={n.id}&gt;</span>
+          {data.map((n) =&gt; (
+            &lt;li key={n.id}&gt;
               &lt;article className="flex h-full flex-col rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
                 {n.imagen &amp;&amp; (
                   &lt;img src={n.imagen} alt={n.titulo} loading="lazy" className="mb-4 aspect-[16/9] w-full rounded-lg object-cover" /&gt;
@@ -241,7 +241,7 @@ export default function <span class="fstat-no" title="function not covered" >Not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

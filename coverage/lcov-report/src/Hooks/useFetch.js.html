@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,71 +100,71 @@
 <a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useEffect, useRef, useState } from 'react';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useFetch(</span>fetcher, deps = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> { immediate = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span> initialData = <span class="branch-0 cbranch-no" title="branch not covered" >null </span>} = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> {
-  const [data, setData] = <span class="cstat-no" title="statement not covered" >useState(initialData);</span>
-  const [error, setError] = <span class="cstat-no" title="statement not covered" >useState(null);</span>
-  const [loading, setLoading] = <span class="cstat-no" title="statement not covered" >useState(immediate);</span>
+export function useFetch(fetcher, deps = [], { immediate = true, initialData = null } = {}) {
+  const [data, setData] = useState(initialData);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(immediate);
 &nbsp;
-  const fetcherRef = <span class="cstat-no" title="statement not covered" >useRef(fetcher);</span>
-<span class="cstat-no" title="statement not covered" >  fetcherRef.current = fetcher;</span>
+  const fetcherRef = useRef(fetcher);
+  fetcherRef.current = fetcher;
 &nbsp;
-  const execute = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >as</span>ync (signal) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    setLoading(true);</span>
-<span class="cstat-no" title="statement not covered" >    setError(null);</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-      const result = <span class="cstat-no" title="statement not covered" >await fetcherRef.current(signal);</span>
-<span class="cstat-no" title="statement not covered" >      setData(result);</span>
-<span class="cstat-no" title="statement not covered" >      return result;</span>
+  const execute = useCallback(async (signal) =&gt; {
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await fetcherRef.current(signal);
+      setData(result);
+      return result;
     } catch (err) {
-<span class="cstat-no" title="statement not covered" >      if (err?.name !== 'AbortError') <span class="cstat-no" title="statement not covered" >setError(err);</span></span>
-<span class="cstat-no" title="statement not covered" >      return null;</span>
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (err?.name !== 'AbortError') setError(err);
+      return null;
     } finally {
-<span class="cstat-no" title="statement not covered" >      setLoading(false);</span>
+      setLoading(false);
     }
   }, []);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!immediate) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
-    const controller = <span class="cstat-no" title="statement not covered" >new AbortController();</span>
-<span class="cstat-no" title="statement not covered" >    execute(controller.signal);</span>
-<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >controller.abort();</span></span>
+  useEffect(() =&gt; {
+    if (!immediate) return undefined;
+    const controller = new AbortController();
+    execute(controller.signal);
+    return () =&gt; controller.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return { data, error, loading, refetch: execute, setData };</span>
+  return { data, error, loading, refetch: execute, setData };
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -172,7 +172,7 @@ export function <span class="fstat-no" title="function not covered" >useFetch(</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

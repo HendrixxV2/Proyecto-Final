@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,7 +107,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -115,15 +115,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,8 +142,8 @@ import { CATEGORIAS_EVENTO } from '@/Utils/constants';
 import { formatColones, formatFecha } from '@/Utils/format';
 import { required, min } from '@/Utils/validators';
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >EventosAdmin(</span>) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export default function EventosAdmin() {
+  return (
     &lt;CrudManager
       titulo="Eventos"
       descripcion="Publica y administra la cartelera cultural del centro."
@@ -151,15 +151,15 @@ export default function <span class="fstat-no" title="function not covered" >Eve
       searchKeys={['titulo', 'categoria']}
       columns={[
         { key: 'titulo', label: 'Título' },
-        { key: 'categoria', label: 'Categoría', render: <span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >&lt;Badge tone="info"&gt;{r.categoria}&lt;/Badge&gt; </span>},
-        { key: 'fecha', label: 'Fecha', render: <span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >formatFecha(r.fecha, 'dd/MM/yyyy') </span>},
+        { key: 'categoria', label: 'Categoría', render: (r) =&gt; &lt;Badge tone="info"&gt;{r.categoria}&lt;/Badge&gt; },
+        { key: 'fecha', label: 'Fecha', render: (r) =&gt; formatFecha(r.fecha, 'dd/MM/yyyy') },
         { key: 'horaInicio', label: 'Hora' },
-        { key: 'precio', label: 'Entrada', align: 'right', render: <span class="fstat-no" title="function not covered" >(r</span>) =&gt; (<span class="cstat-no" title="statement not covered" >r.precio &gt; 0 ? formatColones(r.precio) : 'Gratuita')</span> },
-        { key: 'publicado', label: 'Publicado', render: <span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >&lt;Badge tone={r.publicado ? 'success' : 'neutral'}&gt;{r.publicado ? 'Sí' : 'Borrador'}&lt;/Badge&gt; </span>},
+        { key: 'precio', label: 'Entrada', align: 'right', render: (r) =&gt; (r.precio &gt; 0 ? formatColones(r.precio) : <span class="branch-1 cbranch-no" title="branch not covered" >'Gratuita')</span> },
+        { key: 'publicado', label: 'Publicado', render: (r) =&gt; &lt;Badge tone={r.publicado ? 'success' : <span class="branch-1 cbranch-no" title="branch not covered" >'neutral'}</span>&gt;{r.publicado ? 'Sí' : <span class="branch-1 cbranch-no" title="branch not covered" >'Borrador'}</span>&lt;/Badge&gt; },
       ]}
       fields={[
         { name: 'titulo', label: 'Título', required: true, fullWidth: true, rules: [required('El título es obligatorio.'), min(5, 'Mínimo 5 caracteres.')] },
-        { name: 'categoria', label: 'Categoría', type: 'select', required: true, options: CATEGORIAS_EVENTO.map(<span class="fstat-no" title="function not covered" >(c</span>) =&gt; (<span class="cstat-no" title="statement not covered" >{ value: c, label: c })</span>), rules: [required()] },
+        { name: 'categoria', label: 'Categoría', type: 'select', required: true, options: CATEGORIAS_EVENTO.map((c) =&gt; ({ value: c, label: c })), rules: [required()] },
         { name: 'espacioId', label: 'Espacio (ID)', type: 'number', required: true, rules: [required()] },
         { name: 'fecha', label: 'Fecha', type: 'date', required: true, rules: [required()] },
         { name: 'horaInicio', label: 'Hora inicio', type: 'time', required: true, rules: [required()] },
@@ -178,7 +178,7 @@ export default function <span class="fstat-no" title="function not covered" >Eve
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-30T16:10:06.563Z
+                at 2026-10-01T00:21:43.202Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -178,7 +178,7 @@
       "descripcion": "Fotografía histórica del Ferrocarril al Pacífico.",
       "imagen": "/assets/eventos/expo.jpg",
       "aforo": 120,
-      "precio": 0,
+      "precio": 1000,
       "publicado": true
     },
     {
@@ -220,7 +220,7 @@
       "descripcion": "Función de prueba con aforo completo disponible y precio regular.",
       "imagen": "/assets/eventos/ciencia-ficcion.jpg",
       "aforo": 12,
-      "precio": 5000,
+      "precio": 2500,
       "publicado": true
     },
     {
@@ -243,23 +243,12 @@
       "id": 1,
       "espacioId": 2,
       "usuarioId": 2,
-      "fecha": "2025-07-15",
+      "fecha": "2026-10-15",
       "horaInicio": "09:00",
       "horaFin": "12:00",
       "motivo": "Ensayo del grupo de danza juvenil",
       "estado": "aprobada",
       "creadoEn": "2025-07-01T14:20:00.000Z"
-    },
-    {
-      "id": 2,
-      "espacioId": 4,
-      "usuarioId": 3,
-      "fecha": "2025-07-18",
-      "horaInicio": "14:00",
-      "horaFin": "16:00",
-      "motivo": "Taller de pintura infantil",
-      "estado": "cancelada",
-      "creadoEn": "2025-07-02T09:05:00.000Z"
     },
     {
       "espacioId": 4,
@@ -279,7 +268,7 @@
       "horaFin": "13:30",
       "motivo": "Reserva de ejemplo. Auditorio del centro de arte para actividad cultural con niños y niñas.",
       "usuarioId": 7,
-      "estado": "pendiente",
+      "estado": "aprobada",
       "creadoEn": "2026-10-01T15:40:49.071Z",
       "id": 4
     }
@@ -530,7 +519,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-A1",
       "asiento": "A1",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -539,7 +528,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-A2",
       "asiento": "A2",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -548,7 +537,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-A3",
       "asiento": "A3",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -557,7 +546,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-A4",
       "asiento": "A4",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -566,7 +555,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-B1",
       "asiento": "B1",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -575,7 +564,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-B2",
       "asiento": "B2",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -584,7 +573,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-B3",
       "asiento": "B3",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -593,7 +582,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-B4",
       "asiento": "B4",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -602,7 +591,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-C1",
       "asiento": "C1",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -611,7 +600,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-C2",
       "asiento": "C2",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -620,7 +609,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-C3",
       "asiento": "C3",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },
@@ -629,7 +618,7 @@
       "eventoId": 7,
       "codigo": "QA-CIENCIA-C4",
       "asiento": "C4",
-      "precio": 5000,
+      "precio": 2500,
       "estado": "disponible",
       "usuarioId": null
     },

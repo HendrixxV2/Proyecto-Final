@@ -7,6 +7,7 @@ import DashboardAdmin from '@/Pages/Admin/DashboardAdmin';
 import DisponibilidadAdmin from '@/Pages/Admin/DisponibilidadAdmin';
 import ReportesAdmin from '@/Pages/Admin/ReportesAdmin';
 import Topbar from '@/Components/Common/Topbar';
+import { LanguageProvider } from '@/Context/LanguageContext';
 
 jest.mock('@/Hooks/useFetch', () => ({ useFetch: jest.fn() }));
 jest.mock('@/Hooks/useAuth', () => ({ useAuth: jest.fn() }));
@@ -47,12 +48,14 @@ const reportData = {
   porEspacio: [{ nombre: 'Sala Central', reservas: 4 }, { nombre: 'Galería', reservas: 2 }],
 };
 
+const withLanguage = ({ children }) => <LanguageProvider>{children}</LanguageProvider>;
+
 describe('admin dashboard and reports', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('shows KPIs and the computed approval percentage', () => {
     useFetch.mockReturnValue({ data: reportData, loading: false, error: null, refetch: jest.fn() });
-    render(<DashboardAdmin />);
+    render(<DashboardAdmin />, { wrapper: withLanguage });
 
     expect(screen.getByRole('heading', { name: 'Panel de control' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: '50% de reservas aprobadas' })).toBeInTheDocument();
@@ -63,7 +66,7 @@ describe('admin dashboard and reports', () => {
   it('handles an empty dashboard and exposes its error retry action', async () => {
     const retry = jest.fn();
     useFetch.mockReturnValue({ data: null, loading: false, error: null, refetch: retry });
-    const { rerender } = render(<DashboardAdmin />);
+    const { rerender } = render(<DashboardAdmin />, { wrapper: withLanguage });
     expect(screen.getByRole('img', { name: '0% de reservas aprobadas' })).toBeInTheDocument();
 
     useFetch.mockReturnValue({ data: null, loading: false, error: new Error('Fallo'), refetch: retry });
@@ -88,7 +91,7 @@ describe('admin dashboard and reports', () => {
     useFetch.mockReturnValue({ data: reportData, loading: false, error: null, refetch: jest.fn() });
 
     try {
-      render(<ReportesAdmin />);
+      render(<ReportesAdmin />, { wrapper: withLanguage });
       await userEvent.click(screen.getByRole('button', { name: 'Exportar CSV' }));
 
       const [blob] = URL.createObjectURL.mock.calls[0];
@@ -130,12 +133,14 @@ describe('Topbar notifications', () => {
 
     const user = userEvent.setup();
     render(
-      <MemoryRouter initialEntries={['/admin/dashboard']}>
-        <Routes>
-          <Route path="/admin/dashboard" element={<Topbar onOpenMobile={jest.fn()} />} />
-          <Route path="/admin/reservas" element={<div>Reservas del panel</div>} />
-        </Routes>
-      </MemoryRouter>,
+      <LanguageProvider>
+        <MemoryRouter initialEntries={['/admin/dashboard']}>
+          <Routes>
+            <Route path="/admin/dashboard" element={<Topbar onOpenMobile={jest.fn()} />} />
+            <Route path="/admin/reservas" element={<div>Reservas del panel</div>} />
+          </Routes>
+        </MemoryRouter>
+      </LanguageProvider>,
     );
 
     await user.click(screen.getByRole('button', { name: /notificaciones: 3 nuevas/i }));
@@ -168,7 +173,7 @@ describe('DisponibilidadAdmin', () => {
       .mockReturnValueOnce(spacesResult)
       .mockReturnValueOnce(currentReservations);
     const user = userEvent.setup();
-    render(<DisponibilidadAdmin />);
+    render(<DisponibilidadAdmin />, { wrapper: withLanguage });
 
     await user.selectOptions(screen.getByLabelText('Espacio'), '4');
 

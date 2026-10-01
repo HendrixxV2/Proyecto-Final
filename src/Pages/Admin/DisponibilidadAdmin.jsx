@@ -10,10 +10,12 @@ import EmptyState from '@/Components/UI/EmptyState';
 import { SkeletonTable } from '@/Components/UI/Skeleton';
 import { formatRangoHoras } from '@/Utils/format';
 import { BADGE_TONE_BY_ESTADO } from '@/Utils/constants';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 const HORARIO = Array.from({ length: 13 }, (_, i) => `${String(i + 8).padStart(2, '0')}:00`);
 
 export default function DisponibilidadAdmin() {
+  const { t } = useLanguage();
   const [espacioId, setEspacioId] = useState('');
   const [fecha, setFecha] = useState(new Date().toISOString().slice(0, 10));
 
@@ -29,35 +31,35 @@ export default function DisponibilidadAdmin() {
   return (
     <section>
       <header className="mb-6">
-        <h1 className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50">Disponibilidad de fechas</h1>
+        <h1 className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50">{t('adminAvailability.title')}</h1>
         <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">
-          Consulta la ocupación horaria de cada espacio antes de aprobar nuevas reservas.
+          {t('adminAvailability.description')}
         </p>
       </header>
 
       <div className="grid gap-4 rounded-2xl border border-ink-200 bg-white p-5 sm:grid-cols-2 dark:border-ink-700 dark:bg-ink-800">
         <Select
-          label="Espacio"
-          placeholder="Selecciona un espacio"
+          label={t('adminAvailability.space')}
+          placeholder={t('adminAvailability.selectSpace')}
           value={espacioId}
           onChange={(e) => setEspacioId(e.target.value)}
           options={(espacios ?? []).map((e) => ({ value: String(e.id), label: e.nombre }))}
         />
-        <Input label="Fecha" type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
+        <Input label={t('adminAvailability.date')} type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
       </div>
 
       <div className="mt-6">
         {!espacioId && (
-          <EmptyState icon={CalendarDays} title="Selecciona un espacio" description="Elige un espacio y una fecha para ver su ocupación." />
+          <EmptyState icon={CalendarDays} title={t('adminAvailability.selectSpace')} description={t('adminAvailability.choose')} />
         )}
 
         {espacioId && loading && <SkeletonTable rows={5} />}
 
         {espacioId && !loading && (
           <>
-            <div className="mb-4 flex flex-wrap gap-3" aria-label="Leyenda de disponibilidad">
-              <Badge tone="success">Libre</Badge>
-              <Badge tone="warning">Ocupado</Badge>
+            <div className="mb-4 flex flex-wrap gap-3" aria-label={t('adminAvailability.legend')}>
+              <Badge tone="success">{t('adminAvailability.free')}</Badge>
+              <Badge tone="warning">{t('adminAvailability.occupied')}</Badge>
             </div>
 
             <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
@@ -74,13 +76,13 @@ export default function DisponibilidadAdmin() {
                   >
                     {bloqueado ? <CircleSlash aria-hidden="true" className="h-4 w-4" /> : <Clock aria-hidden="true" className="h-4 w-4" />}
                     <span className="font-semibold">{hora}</span>
-                    <span className="ml-auto text-xs">{bloqueado ? 'Ocupado' : 'Libre'}</span>
+                    <span className="ml-auto text-xs">{bloqueado ? t('adminAvailability.occupied') : t('adminAvailability.free')}</span>
                   </li>
                 );
               })}
             </ul>
 
-            <h2 className="mt-8 font-display text-lg font-bold text-ink-900 dark:text-ink-50">Reservas registradas</h2>
+            <h2 className="mt-8 font-display text-lg font-bold text-ink-900 dark:text-ink-50">{t('adminAvailability.reservations')}</h2>
             <ul className="mt-4 space-y-2">
               {(reservas ?? []).map((r) => (
                 <li key={r.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-ink-200 p-4 dark:border-ink-700">
@@ -90,7 +92,7 @@ export default function DisponibilidadAdmin() {
                   <Badge tone={BADGE_TONE_BY_ESTADO[r.estado] ?? 'neutral'}>{r.estado}</Badge>
                 </li>
               ))}
-              {!reservas?.length && <li className="text-sm text-ink-500">Sin reservas para esta fecha.</li>}
+              {!reservas?.length && <li className="text-sm text-ink-500">{t('adminAvailability.empty')}</li>}
             </ul>
           </>
         )}

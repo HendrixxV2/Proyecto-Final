@@ -1,3 +1,7 @@
+import { PAGE_TRANSLATIONS } from './pageTranslations.js';
+import { MORE_TRANSLATIONS } from './moreTranslations.js';
+import { ADMIN_TRANSLATIONS } from './adminTranslations.js';
+
 export const TRANSLATIONS = {
   es: {
     common: { home: 'Inicio', calendar: 'Calendario', spaces: 'Espacios', tickets: 'Boletos', arts: 'Teatro · Baile · Canto', gallery: 'Galería Ferrocarril', history: 'Historia', news: 'Noticias', explore: 'Explorar', close: 'Cerrar', login: 'Ingresar', signup: 'Registrarse', logout: 'Cerrar sesión', myBookings: 'Mis reservas', panel: 'Panel', adminPanel: 'Panel administrativo', changeLanguage: 'Cambiar idioma a', mainNavigation: 'Navegación principal', publicSections: 'Secciones públicas', openMenu: 'Abrir menú', closeMenu: 'Cerrar menú', accessibility: 'Accesibilidad', assistant: 'Asistente Cultural' },
@@ -32,8 +36,15 @@ export const TRANSLATIONS = {
 };
 
 export function getTranslation(language, key, variables = {}) {
-  const value = key.split('.').reduce((result, part) => result?.[part], TRANSLATIONS[language])
-    ?? key.split('.').reduce((result, part) => result?.[part], TRANSLATIONS.es)
+  const resolve = (dictionary) => key.split('.').reduce((result, part) => result?.[part], dictionary);
+  const value = resolve(TRANSLATIONS[language])
+    ?? resolve(PAGE_TRANSLATIONS[language])
+    ?? resolve(MORE_TRANSLATIONS[language])
+    ?? resolve(ADMIN_TRANSLATIONS[language])
+    ?? resolve(PAGE_TRANSLATIONS.es)
+    ?? resolve(MORE_TRANSLATIONS.es)
+    ?? resolve(ADMIN_TRANSLATIONS.es)
+    ?? resolve(TRANSLATIONS.es)
     ?? key;
 
   return typeof value === 'string'

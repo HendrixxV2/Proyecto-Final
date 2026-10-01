@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render as renderWithTestingLibrary, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import BoletosAdmin from '@/Pages/Admin/BoletosAdmin';
 import ContenidoAdmin from '@/Pages/Admin/ContenidoAdmin';
@@ -10,6 +10,15 @@ import { useFetch } from '@/Hooks/useFetch';
 import { useToast } from '@/Hooks/useToast';
 import { boletosService } from '@/Services/boletosService';
 import { reservasService } from '@/Services/reservasService';
+import { LanguageContext } from '@/Context/LanguageContext';
+import { getTranslation } from '@/i18n/translations';
+
+const SpanishLanguageWrapper = ({ children }) => (
+  <LanguageContext.Provider value={{ language: 'es', setLanguage: jest.fn(), t: getTranslation.bind(null, 'es') }}>
+    {children}
+  </LanguageContext.Provider>
+);
+const render = (ui, options) => renderWithTestingLibrary(ui, { wrapper: SpanishLanguageWrapper, ...options });
 
 jest.mock('@/Hooks/useFetch', () => ({ useFetch: jest.fn() }));
 jest.mock('@/Hooks/useToast', () => ({ useToast: jest.fn() }));
@@ -54,6 +63,7 @@ function setFetchData(...data) {
 describe('admin CRUD pages', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    window.localStorage.removeItem('caco.language');
     useToast.mockReturnValue(mockToast);
     boletosService.emitir.mockReset();
     reservasService.aprobar.mockReset();
@@ -93,7 +103,7 @@ describe('admin CRUD pages', () => {
     setFetchData([usuario]);
     render(<UsuariosAdmin />);
 
-    expect(screen.getByRole('heading', { name: 'Usuarios' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Usuarios con reservas y solicitudes' })).toBeInTheDocument();
     expect(screen.getByText('Ada Lovelace')).toBeInTheDocument();
     expect(screen.getByText('Administrador')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Nuevo administrador' })).toBeInTheDocument();

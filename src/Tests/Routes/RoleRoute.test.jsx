@@ -4,20 +4,23 @@ import { AuthContext } from '@/Context/AuthContext';
 import Forbidden from '@/Pages/Forbidden';
 import NotFound from '@/Pages/NotFound';
 import RoleRoute from '@/Routes/RoleRoute';
+import { LanguageProvider } from '@/Context/LanguageContext';
 
 function renderRoleRoute(user, roles, fallback = null) {
   return render(
-    <AuthContext.Provider value={{ user }}>
-      <MemoryRouter initialEntries={['/admin']}>
-        <Routes>
-          <Route path="/login" element={<p>Inicio de sesión</p>} />
-          <Route path="/" element={<p>Inicio</p>} />
-          <Route element={<RoleRoute roles={roles} fallback={fallback} />}>
-            <Route path="/admin" element={<p>Panel autorizado</p>} />
-          </Route>
-        </Routes>
-      </MemoryRouter>
-    </AuthContext.Provider>,
+    <LanguageProvider>
+      <AuthContext.Provider value={{ user }}>
+        <MemoryRouter initialEntries={['/admin']}>
+          <Routes>
+            <Route path="/login" element={<p>Inicio de sesión</p>} />
+            <Route path="/" element={<p>Inicio</p>} />
+            <Route element={<RoleRoute roles={roles} fallback={fallback} />}>
+              <Route path="/admin" element={<p>Panel autorizado</p>} />
+            </Route>
+          </Routes>
+        </MemoryRouter>
+      </AuthContext.Provider>
+    </LanguageProvider>,
   );
 }
 
@@ -62,9 +65,11 @@ describe('Forbidden and NotFound pages', () => {
     ['NotFound', <NotFound />, '404'],
   ])('provides a home link from %s', (_, page, heading) => {
     render(
-      <MemoryRouter>
-        {page}
-      </MemoryRouter>,
+      <LanguageProvider>
+        <MemoryRouter>
+          {page}
+        </MemoryRouter>
+      </LanguageProvider>,
     );
 
     expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();

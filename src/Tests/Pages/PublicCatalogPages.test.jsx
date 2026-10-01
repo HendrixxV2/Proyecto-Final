@@ -5,6 +5,7 @@ import Espacios from '@/Pages/Public/Espacios';
 import EspacioDetalle from '@/Pages/Public/EspacioDetalle';
 import Noticias from '@/Pages/Public/Noticias';
 import NoticiaDetalle from '@/Pages/Public/NoticiaDetalle';
+import { LanguageProvider } from '@/Context/LanguageContext';
 
 jest.mock('@/Hooks/useFetch', () => ({ useFetch: jest.fn() }));
 jest.mock('@/Services/espaciosService', () => ({ espaciosService: { getById: jest.fn(), list: jest.fn() } }));
@@ -37,15 +38,17 @@ const noticia = {
 
 function renderAt(path, element) {
   return render(
-    <MemoryRouter initialEntries={[path]}>
-      <Routes>
-        <Route path="/espacios" element={<Espacios />} />
-        <Route path="/espacios/:id" element={<EspacioDetalle />} />
-        <Route path="/noticias" element={<Noticias />} />
-        <Route path="/noticias/:id" element={<NoticiaDetalle />} />
-        <Route path="/fallback" element={element} />
-      </Routes>
-    </MemoryRouter>,
+    <LanguageProvider>
+      <MemoryRouter initialEntries={[path]}>
+        <Routes>
+          <Route path="/espacios" element={<Espacios />} />
+          <Route path="/espacios/:id" element={<EspacioDetalle />} />
+          <Route path="/noticias" element={<Noticias />} />
+          <Route path="/noticias/:id" element={<NoticiaDetalle />} />
+          <Route path="/fallback" element={element} />
+        </Routes>
+      </MemoryRouter>
+    </LanguageProvider>,
   );
 }
 

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Bell, CheckCheck, ChevronRight, Clock3, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ADMIN_NOTIFICATION_ROUTES } from '@/Routes/paths';
+import { getTranslation } from '@/i18n/translations';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 const storageKey = 'admin-notifications-read';
 
@@ -20,19 +22,18 @@ const readFromStorage = () => {
   }
 };
 
-export const buildAdminNotifications = ({ pendingReservations = 0 } = {}) => {
+export const buildAdminNotifications = ({ pendingReservations = 0, language = 'es' } = {}) => {
+  const translate = (key, variables) => getTranslation(language, `adminNotifications.${key}`, variables);
   const items = [];
 
   if (pendingReservations > 0) {
     items.push({
       id: 'reserva-pendiente',
       type: 'nueva_reserva',
-      title: pendingReservations === 1 ? 'Nueva reserva en Sala de Danza' : `${pendingReservations} nuevas reservas pendientes`,
-      description: pendingReservations === 1
-        ? 'Revisa la solicitud antes de aprobarla.'
-        : 'Hay varias solicitudes esperando revisión.',
+      title: pendingReservations === 1 ? translate('newReservation') : translate('pendingReservations', { count: pendingReservations }),
+      description: pendingReservations === 1 ? translate('reviewReservation') : translate('severalReservations'),
       to: ADMIN_NOTIFICATION_ROUTES.nueva_reserva,
-      time: 'Hace unos minutos',
+      time: translate('recent'),
       read: false,
     });
   }
@@ -40,20 +41,20 @@ export const buildAdminNotifications = ({ pendingReservations = 0 } = {}) => {
   items.push({
     id: 'usuarios-pendientes',
     type: 'usuario_nuevo',
-    title: 'Usuarios por revisar',
-    description: 'Revisa usuarios con reservas y solicitudes pendientes.',
+    title: translate('usersReview'),
+    description: translate('usersDescription'),
     to: ADMIN_NOTIFICATION_ROUTES.usuario_nuevo,
-    time: 'Hace 20 minutos',
+    time: translate('twentyMinutes'),
     read: false,
   });
 
   items.push({
     id: 'reporte-semanal',
     type: 'reporte_activo',
-    title: 'Reporte semanal disponible',
-    description: 'Consulta el resumen actualizado de actividad del centro.',
+    title: translate('weeklyReport'),
+    description: translate('reportDescription'),
     to: ADMIN_NOTIFICATION_ROUTES.reporte_activo,
-    time: 'Hace 1 hora',
+    time: translate('oneHour'),
     read: false,
   });
 
@@ -61,6 +62,7 @@ export const buildAdminNotifications = ({ pendingReservations = 0 } = {}) => {
 };
 
 export default function AdminNotifications({ notifications = [] }) {
+  const { t } = useLanguage();
   const [items, setItems] = useState(() => {
     const saved = readFromStorage();
     const base = Array.isArray(notifications) ? notifications : [];
@@ -106,7 +108,7 @@ export default function AdminNotifications({ notifications = [] }) {
       <button
         type="button"
         onClick={() => setOpen((current) => !current)}
-        aria-label={unreadCount ? `Notificaciones: ${unreadCount} nuevas` : 'Notificaciones'}
+        aria-label={unreadCount ? t('ui.notifications', { count: unreadCount }) : t('adminNotifications.title')}
         className="relative rounded-lg p-2 text-ink-600 transition hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-700"
       >
         <Bell aria-hidden="true" className="h-5 w-5" />
@@ -121,14 +123,14 @@ export default function AdminNotifications({ notifications = [] }) {
         <div className="absolute right-0 top-full z-30 mt-2 w-80 overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-xl dark:border-ink-700 dark:bg-ink-900">
           <div className="flex items-center justify-between border-b border-ink-200 px-4 py-3 dark:border-ink-700">
             <div>
-              <p className="text-sm font-semibold text-ink-800 dark:text-ink-100">Notificaciones</p>
-              <p className="text-[11px] text-ink-500 dark:text-ink-400">{unreadCount} sin leer</p>
+              <p className="text-sm font-semibold text-ink-800 dark:text-ink-100">{t('adminNotifications.title')}</p>
+              <p className="text-[11px] text-ink-500 dark:text-ink-400">{t('adminNotifications.unread', { count: unreadCount })}</p>
             </div>
           </div>
 
           <div className="max-h-80 overflow-y-auto">
             {items.length === 0 ? (
-              <div className="px-4 py-5 text-sm text-ink-500 dark:text-ink-400">No hay notificaciones nuevas.</div>
+              <div className="px-4 py-5 text-sm text-ink-500 dark:text-ink-400">{t('adminNotifications.empty')}</div>
             ) : (
               items.map((notification) => {
                 const Icon = notificationIcons[notification.type] ?? Bell;
@@ -141,7 +143,7 @@ export default function AdminNotifications({ notifications = [] }) {
                     <button
                       type="button"
                       onClick={() => handleNotificationClick(notification)}
-                      aria-label={`Abrir notificación: ${notification.title}`}
+                      aria-label={t('adminNotifications.open', { title: notification.title })}
                       className="flex min-w-0 flex-1 items-start gap-3 text-left transition hover:bg-ink-50 dark:hover:bg-ink-800/80"
                     >
                       <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-900/40 dark:text-brand-200">
@@ -163,11 +165,11 @@ export default function AdminNotifications({ notifications = [] }) {
                     <button
                       type="button"
                       onClick={() => markAsRead(notification.id)}
-                      aria-label={notification.read ? 'Notificación leída' : 'Marcar como leída'}
+                      aria-label={notification.read ? t('adminNotifications.read') : t('adminNotifications.markRead')}
                       className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-ink-200 px-2 py-1 text-[10px] font-medium text-ink-600 transition hover:bg-ink-100 dark:border-ink-700 dark:text-ink-300 dark:hover:bg-ink-700"
                     >
                       <CheckCheck aria-hidden="true" className="h-3.5 w-3.5" />
-                      {notification.read ? 'Leída' : 'Leído'}
+                      {notification.read ? t('adminNotifications.read') : t('adminNotifications.markRead')}
                     </button>
                   </div>
                 );

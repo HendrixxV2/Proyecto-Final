@@ -10,6 +10,7 @@ import StatCard from '@/Components/UI/StatCard';
 import ErrorState from '@/Components/UI/ErrorState';
 import { formatColones } from '@/Utils/format';
 import { PATHS } from '@/Routes/paths';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 const COLORES = ['#5b77ef', '#32b9c8', '#e8ad48', '#8793ad'];
 
@@ -20,6 +21,7 @@ const DEFAULT_DETAIL = {
 };
 
 export default function DashboardAdmin() {
+  const { t } = useLanguage();
   const { data, loading, error, refetch } = useFetch(() => reportesService.dashboard(), []);
   const [selectedMetric, setSelectedMetric] = useState('overview');
 
@@ -31,30 +33,30 @@ export default function DashboardAdmin() {
 
   const metricDetails = useMemo(() => ({
     overview: {
-      title: 'Panel operativo',
-      description: 'Hay un total de ' + totalReservas + ' reservas registradas y ' + pendientes + ' solicitudes pendientes.',
-      meta: 'Tasa de aprobación actual: ' + porcentajeAprobadas + '%',
+      title: t('dashboard.overview'),
+      description: t('dashboard.panelDescription'),
+      meta: t('dashboard.approvalRate', { percent: porcentajeAprobadas }),
       route: PATHS.admin.dashboard,
     },
     reservas: {
-      title: 'Reservas',
-      description: 'Consulta la gestión completa de solicitudes, aprobaciones y rechazos del centro cultural.',
-      meta: 'Pendientes por revisar: ' + pendientes,
+      title: t('dashboard.bookingsTitle'),
+      description: t('dashboard.bookingsDescription'),
+      meta: t('dashboard.pendingMeta', { count: pendientes }),
       route: PATHS.admin.reservas,
     },
     ingresos: {
-      title: 'Ingresos',
-      description: 'Revisa los boletos pagados y el rendimiento del centro en cada actividad.',
-      meta: 'Total acumulado: ' + formatColones(kpis?.ingresos ?? 0),
+      title: t('dashboard.incomeTitle'),
+      description: t('dashboard.incomeDescription'),
+      meta: t('dashboard.totalMeta', { amount: formatColones(kpis?.ingresos ?? 0) }),
       route: PATHS.admin.reportes,
     },
     usuarios: {
-      title: 'Usuarios',
-      description: 'Mira los perfiles con reservas y solicitudes activas para darles seguimiento.',
-      meta: 'Usuarios registrados: ' + (kpis?.usuariosActivos ?? 0),
+      title: t('dashboard.usersTitle'),
+      description: t('dashboard.usersDescription'),
+      meta: t('dashboard.registeredMeta', { count: kpis?.usuariosActivos ?? 0 }),
       route: PATHS.admin.usuarios,
     },
-  }), [kpis, pendientes, porcentajeAprobadas, totalReservas]);
+  }), [kpis, pendientes, porcentajeAprobadas, t]);
 
   const selectedDetail = metricDetails[selectedMetric] ?? DEFAULT_DETAIL;
 
@@ -70,30 +72,30 @@ export default function DashboardAdmin() {
     <section className="admin-dashboard space-y-5">
       <header className="admin-dashboard__heading">
         <div>
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400">Centro Cultural Orotinense</p>
-          <h1 className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50">Panel de control</h1>
-          <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">Resumen de actividad y operación.</p>
+          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400">{t('dashboard.organization')}</p>
+          <h1 className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50">{t('dashboard.title')}</h1>
+          <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">{t('dashboard.subtitle')}</p>
         </div>
-        <span className="admin-dashboard__status">Vista general</span>
+        <span className="admin-dashboard__status">{t('dashboard.overview')}</span>
       </header>
 
       <article className="admin-hero">
         <div className="admin-hero__content">
-          <p className="admin-hero__eyebrow">Actividad del centro</p>
-          <h2 className="admin-hero__title">Una vista clara de la operación cultural</h2>
-          <p className="admin-hero__copy">Reservas, espacios y comunidad reunidos en un solo lugar.</p>
+          <p className="admin-hero__eyebrow">{t('dashboard.activity')}</p>
+          <h2 className="admin-hero__title">{t('dashboard.heroTitle')}</h2>
+          <p className="admin-hero__copy">{t('dashboard.heroCopy')}</p>
           <div className="admin-hero__metrics">
             <div className="admin-hero__metric">
               <strong>{totalReservas}</strong>
-              <span>Reservas registradas</span>
+              <span>{t('dashboard.bookings')}</span>
             </div>
             <div className="admin-hero__metric">
               <strong>{pendientes}</strong>
-              <span>Pendientes de revisión</span>
+              <span>{t('dashboard.pending')}</span>
             </div>
             <div className="admin-hero__metric">
               <strong>{porcentajeAprobadas}%</strong>
-              <span>Solicitudes aprobadas</span>
+              <span>{t('dashboard.approved')}</span>
             </div>
           </div>
         </div>
@@ -105,14 +107,14 @@ export default function DashboardAdmin() {
       <article className="admin-chart-panel border border-brand-200 bg-brand-50/60 dark:border-brand-800/60 dark:bg-brand-900/20">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-700 dark:text-brand-200">Detalle activo</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-700 dark:text-brand-200">{t('dashboard.activeDetail')}</p>
             <h2 className="mt-2 text-xl font-bold text-ink-900 dark:text-ink-50">{selectedDetail.title}</h2>
           </div>
           <a
             href={selectedDetail.route}
             className="rounded-lg border border-brand-200 bg-white px-3 py-1.5 text-xs font-semibold text-brand-700 transition hover:bg-brand-100 dark:border-brand-700 dark:bg-brand-950 dark:text-brand-200"
           >
-            Ver sección
+            {t('dashboard.showSection')}
           </a>
         </div>
         <p className="mt-3 text-sm text-ink-600 dark:text-ink-300">{selectedDetail.description}</p>
@@ -120,29 +122,29 @@ export default function DashboardAdmin() {
       </article>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard loading={loading} label="Reservas totales" value={kpis?.reservasTotales ?? 0} Icon={CalendarClock} tone="brand" onClick={() => handleMetricClick('reservas')} />
-        <StatCard loading={loading} label="Reservas pendientes" value={kpis?.reservasPendientes ?? 0} Icon={AlertTriangle} tone="gold" delta="Requieren aprobación" onClick={() => handleMetricClick('reservas')} />
-        <StatCard loading={loading} label="Ingresos por boletos" value={formatColones(kpis?.ingresos ?? 0)} Icon={DollarSign} tone="jade" onClick={() => handleMetricClick('ingresos')} />
-        <StatCard loading={loading} label="Usuarios registrados" value={kpis?.usuariosActivos ?? 0} Icon={Users} tone="ink" onClick={() => handleMetricClick('usuarios')} />
+        <StatCard loading={loading} label={t('dashboard.totalBookings')} value={kpis?.reservasTotales ?? 0} Icon={CalendarClock} tone="brand" onClick={() => handleMetricClick('reservas')} />
+        <StatCard loading={loading} label={t('dashboard.pendingBookings')} value={kpis?.reservasPendientes ?? 0} Icon={AlertTriangle} tone="gold" delta={t('dashboard.requiresApproval')} onClick={() => handleMetricClick('reservas')} />
+        <StatCard loading={loading} label={t('dashboard.ticketIncome')} value={formatColones(kpis?.ingresos ?? 0)} Icon={DollarSign} tone="jade" onClick={() => handleMetricClick('ingresos')} />
+        <StatCard loading={loading} label={t('dashboard.registeredUsers')} value={kpis?.usuariosActivos ?? 0} Icon={Users} tone="ink" onClick={() => handleMetricClick('usuarios')} />
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1.4fr_1fr]">
         <article className="admin-chart-panel">
           <header className="flex items-center justify-between">
             <div>
-              <h2 className="admin-chart-panel__title">Reservas por espacio</h2>
-              <p className="admin-chart-panel__subtitle">Distribución de solicitudes registradas</p>
+              <h2 className="admin-chart-panel__title">{t('dashboard.bySpace')}</h2>
+              <p className="admin-chart-panel__subtitle">{t('dashboard.bySpaceDescription')}</p>
             </div>
             <BarChart3 aria-hidden="true" className="h-4 w-4 text-ink-400" />
           </header>
 
-          <div className="mt-4 h-72" role="img" aria-label="Gráfico de barras con el total de reservas por espacio">
+          <div className="mt-4 h-72" role="img" aria-label={t('dashboard.barChart')}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data?.porEspacio ?? []} margin={{ top: 8, right: 8, left: 8, bottom: 40 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--admin-border)" vertical={false} />
                 <XAxis dataKey="nombre" angle={-30} textAnchor="end" interval={0} tick={{ fontSize: 11, fill: 'var(--admin-muted)' }} />
                 <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: 'var(--admin-muted)' }} />
-                <Tooltip position={{ x: 8, y: 8 }} formatter={(v) => [`${v} reservas`, 'Total']} contentStyle={{ backgroundColor: 'var(--admin-surface)', borderColor: 'var(--admin-border)', borderRadius: 8 }} />
+                <Tooltip position={{ x: 8, y: 8 }} formatter={(v) => [t('dashboard.reservations', { count: v }), t('dashboard.totalBookings')]} contentStyle={{ backgroundColor: 'var(--admin-surface)', borderColor: 'var(--admin-border)', borderRadius: 8 }} />
                 <Bar dataKey="reservas" fill="#5b77ef" radius={[5, 5, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -150,10 +152,10 @@ export default function DashboardAdmin() {
         </article>
 
         <article className="admin-chart-panel">
-          <h2 className="admin-chart-panel__title">Estado de las solicitudes</h2>
-          <p className="admin-chart-panel__subtitle">Seguimiento de las reservas recibidas</p>
+          <h2 className="admin-chart-panel__title">{t('dashboard.statusTitle')}</h2>
+          <p className="admin-chart-panel__subtitle">{t('dashboard.statusDescription')}</p>
 
-          <div className="mt-4 h-72" role="img" aria-label="Gráfico circular con la distribución de reservas por estado">
+          <div className="mt-4 h-72" role="img" aria-label={t('dashboard.pieChart')}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie data={data?.porEstado ?? []} dataKey="total" nameKey="estado" innerRadius={55} outerRadius={95} paddingAngle={4}>
@@ -162,15 +164,15 @@ export default function DashboardAdmin() {
                   ))}
                 </Pie>
                 <Legend formatter={(value) => <span style={{ color: 'var(--admin-muted)' }}>{value}</span>} />
-                <Tooltip position={{ x: 8, y: 8 }} formatter={(v, n) => [`${v} reservas`, n]} contentStyle={{ backgroundColor: 'var(--admin-surface)', borderColor: 'var(--admin-border)', borderRadius: 8 }} />
+                <Tooltip position={{ x: 8, y: 8 }} formatter={(v, n) => [t('dashboard.reservations', { count: v }), n]} contentStyle={{ backgroundColor: 'var(--admin-surface)', borderColor: 'var(--admin-border)', borderRadius: 8 }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <ul className="mt-3 grid gap-2 text-sm text-ink-700 dark:text-ink-200" aria-label="Datos de distribución por estado">
+          <ul className="mt-3 grid gap-2 text-sm text-ink-700 dark:text-ink-200" aria-label={t('dashboard.distribution')}>
             {(data?.porEstado ?? []).map((entry) => (
               <li key={entry.estado} className="flex items-center justify-between gap-4 border-t border-ink-100 pt-2 first:border-0 first:pt-0 dark:border-ink-700">
                 <span>{entry.estado}</span>
-                <strong>{entry.total} reservas</strong>
+                <strong>{t('dashboard.reservations', { count: entry.total })}</strong>
               </li>
             ))}
           </ul>
@@ -183,8 +185,8 @@ export default function DashboardAdmin() {
             <Activity aria-hidden="true" className="h-4 w-4" />
           </span>
           <div>
-            <h2 className="admin-chart-panel__title">Resumen de solicitudes</h2>
-            <p className="admin-chart-panel__subtitle">Estado actual de la atención</p>
+            <h2 className="admin-chart-panel__title">{t('dashboard.requestsSummary')}</h2>
+            <p className="admin-chart-panel__subtitle">{t('dashboard.currentStatus')}</p>
           </div>
         </header>
         <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -193,7 +195,7 @@ export default function DashboardAdmin() {
               <CheckCircle2 aria-hidden="true" className="h-4 w-4 shrink-0 text-brand-500" />
               <div className="min-w-0">
                 <p className="truncate text-xs capitalize text-ink-500 dark:text-ink-400">{item.estado}</p>
-                <p className="mt-0.5 font-semibold tabular-nums text-ink-900 dark:text-ink-50">{item.total} solicitudes</p>
+                <p className="mt-0.5 font-semibold tabular-nums text-ink-900 dark:text-ink-50">{t('dashboard.requests', { count: item.total })}</p>
               </div>
             </div>
           ))}

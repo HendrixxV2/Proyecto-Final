@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render as renderWithTestingLibrary, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { addMonths, format } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -9,6 +9,15 @@ import Calendario from '@/Pages/Public/Calendario';
 import MisReservas from '@/Pages/Public/MisReservas';
 import { CATEGORIAS_EVENTO } from '@/Utils/constants';
 import { reservasService } from '@/Services/reservasService';
+import { LanguageContext } from '@/Context/LanguageContext';
+import { getTranslation } from '@/i18n/translations';
+
+const SpanishLanguageWrapper = ({ children }) => (
+  <LanguageContext.Provider value={{ language: 'es', setLanguage: jest.fn(), t: getTranslation.bind(null, 'es') }}>
+    {children}
+  </LanguageContext.Provider>
+);
+const render = (ui, options) => renderWithTestingLibrary(ui, { wrapper: SpanishLanguageWrapper, ...options });
 
 jest.mock('@/Hooks/useAuth', () => ({ useAuth: jest.fn() }));
 jest.mock('@/Hooks/useFetch', () => ({ useFetch: jest.fn() }));
@@ -29,6 +38,7 @@ const category = CATEGORIAS_EVENTO[0];
 describe('Calendario', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    window.localStorage.removeItem('caco.language');
     useFetch.mockReturnValue({
       data: [
         {
@@ -62,7 +72,7 @@ describe('Calendario', () => {
 
     expect(screen.getByText('Actividad de hoy')).toBeInTheDocument();
     expect(screen.getByText('Otra categoría')).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: category, exact: true }));
+    await user.click(screen.getByRole('button', { name: new RegExp(category, 'i') }));
 
     expect(screen.getByText('Actividad de hoy')).toBeInTheDocument();
     expect(screen.queryByText('Otra categoría')).not.toBeInTheDocument();
@@ -76,10 +86,10 @@ describe('Calendario', () => {
     const currentMonthDate = new Date();
     const currentMonth = format(currentMonthDate, 'MMMM yyyy', { locale: es });
     const nextMonth = format(addMonths(currentMonthDate, 1), 'MMMM yyyy', { locale: es });
-    const monthSection = screen.getByRole('region', { name: `Calendario de ${currentMonth}` });
+    const monthSection = screen.getByRole('region', { name: `Calendario interactivo: ${currentMonth}` });
 
     await user.click(within(monthSection).getByRole('button', { name: 'Mes siguiente' }));
-    expect(screen.getByRole('region', { name: `Calendario de ${nextMonth}` })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: `Calendario interactivo: ${nextMonth}` })).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /15 de/ }));
     expect(screen.getByText('Sin actividades')).toBeInTheDocument();
   });
@@ -88,6 +98,7 @@ describe('Calendario', () => {
 describe('MisReservas', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    window.localStorage.removeItem('caco.language');
     useAuth.mockReturnValue({ user: { id: 31 } });
     useToast.mockReturnValue(mockToast);
   });

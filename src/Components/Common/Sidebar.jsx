@@ -5,38 +5,40 @@ import {
 } from 'lucide-react';
 import { PATHS } from '@/Routes/paths';
 import { cn } from '@/Utils/cn';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 const SECCIONES = [
   {
-    titulo: 'Resumen',
-    items: [{ to: PATHS.admin.dashboard, label: 'Dashboard', Icon: LayoutDashboard }],
+    titulo: 'summary',
+    items: [{ to: PATHS.admin.dashboard, label: 'dashboard', Icon: LayoutDashboard }],
   },
   {
-    titulo: 'Operación',
+    titulo: 'operation',
     items: [
-      { to: PATHS.admin.reservas, label: 'Reservas', Icon: CalendarClock },
-      { to: PATHS.admin.disponibilidad, label: 'Disponibilidad', Icon: CalendarDays },
-      { to: PATHS.admin.boletos, label: 'Boletos', Icon: Ticket },
+      { to: PATHS.admin.reservas, label: 'reservations', Icon: CalendarClock },
+      { to: PATHS.admin.disponibilidad, label: 'availability', Icon: CalendarDays },
+      { to: PATHS.admin.boletos, label: 'tickets', Icon: Ticket },
     ],
   },
   {
-    titulo: 'Catálogo',
+    titulo: 'catalog',
     items: [
-      { to: PATHS.admin.espacios, label: 'Espacios', Icon: MapPinned },
-      { to: PATHS.admin.eventos, label: 'Eventos', Icon: Landmark },
-      { to: PATHS.admin.contenido, label: 'Contenido histórico', Icon: Newspaper },
+      { to: PATHS.admin.espacios, label: 'spaces', Icon: MapPinned },
+      { to: PATHS.admin.eventos, label: 'events', Icon: Landmark },
+      { to: PATHS.admin.contenido, label: 'content', Icon: Newspaper },
     ],
   },
   {
-    titulo: 'Administración',
+    titulo: 'administration',
     items: [
-      { to: PATHS.admin.usuarios, label: 'Usuarios', Icon: Users },
-      { to: PATHS.admin.reportes, label: 'Reportes', Icon: BarChart3 },
+      { to: PATHS.admin.usuarios, label: 'users', Icon: Users },
+      { to: PATHS.admin.reportes, label: 'reports', Icon: BarChart3 },
     ],
   },
 ];
 
 export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggleCollapse }) {
+  const { t } = useLanguage();
   const content = (
     <>
       <div className="flex h-16 items-center gap-2.5 border-b border-ink-200 px-4 dark:border-ink-700">
@@ -44,8 +46,8 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
           <img src="/logoOrotina.jpeg" alt="" className="h-9 w-9 shrink-0 rounded-full object-cover object-center" />
           {!collapsed && (
             <span className="min-w-0 font-display text-sm font-bold leading-tight text-ink-900 dark:text-ink-50">
-              Admin Centro
-              <span className="block text-[11px] font-medium text-ink-500 dark:text-ink-400">Panel de gestión</span>
+              {t('adminNav.brand')}
+              <span className="block text-[11px] font-medium text-ink-500 dark:text-ink-400">{t('adminNav.subtitle')}</span>
             </span>
           )}
         </Link>
@@ -53,18 +55,18 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
         <button
           type="button"
           onClick={onCloseMobile}
-          aria-label="Cerrar menú lateral"
+          aria-label={t('adminNav.close')}
           className="ml-auto rounded-lg p-1.5 text-ink-500 hover:bg-ink-100 lg:hidden dark:hover:bg-ink-700"
         >
           <X aria-hidden="true" className="h-5 w-5" />
         </button>
       </div>
 
-      <nav aria-label="Navegación del panel" className="flex-1 overflow-y-auto px-3 py-4">
+      <nav aria-label={t('adminNav.navigation')} className="flex-1 overflow-y-auto px-3 py-4">
         {SECCIONES.map((seccion) => (
           <div key={seccion.titulo} className="mb-5">
             {!collapsed && (
-              <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-ink-400">{seccion.titulo}</p>
+              <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-ink-400">{t(`adminNav.sections.${seccion.titulo}`)}</p>
             )}
             <ul className="space-y-1">
               {seccion.items.map(({ to, label, Icon }) => (
@@ -72,7 +74,7 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
                   <NavLink
                     to={to}
                     onClick={onCloseMobile}
-                    title={collapsed ? label : undefined}
+                    title={collapsed ? t(`adminNav.items.${label}`) : undefined}
                     className={({ isActive }) =>
                       cn(
                         'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition',
@@ -84,7 +86,7 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
                     }
                   >
                     <Icon aria-hidden="true" className="h-4.5 w-4.5 shrink-0" />
-                    {!collapsed && <span className="truncate">{label}</span>}
+                    {!collapsed && <span className="truncate">{t(`adminNav.items.${label}`)}</span>}
                   </NavLink>
                 </li>
               ))}
@@ -96,12 +98,12 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
       <button
         type="button"
         onClick={onToggleCollapse}
-        aria-label={collapsed ? 'Expandir menú lateral' : 'Colapsar menú lateral'}
+        aria-label={t(collapsed ? 'ui.expandSidebar' : 'ui.collapseSidebar')}
         aria-pressed={collapsed}
         className="hidden h-12 items-center justify-center gap-2 border-t border-ink-200 text-xs font-medium text-ink-500 transition hover:bg-ink-100 lg:flex dark:border-ink-700 dark:hover:bg-ink-700"
       >
         <ChevronLeft aria-hidden="true" className={cn('h-4 w-4 transition-transform', collapsed && 'rotate-180')} />
-        {!collapsed && 'Colapsar'}
+        {!collapsed && t('adminNav.collapse')}
       </button>
     </>
   );

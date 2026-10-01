@@ -4,6 +4,8 @@ import CrudManager from '@/Components/Admin/CrudManager';
 import { useFetch } from '@/Hooks/useFetch';
 import { useToast } from '@/Hooks/useToast';
 import { required } from '@/Utils/validators';
+import { LanguageContext } from '@/Context/LanguageContext';
+import { getTranslation } from '@/i18n/translations';
 
 jest.mock('@/Hooks/useFetch', () => ({ useFetch: jest.fn() }));
 jest.mock('@/Hooks/useDebounce', () => ({ useDebounce: (value) => value }));
@@ -39,13 +41,15 @@ function renderManager(data = [{ id: 4, nombre: 'Sala Norte', capacidad: 20, act
   useFetch.mockReturnValue({ data, loading: false, error: null, refetch: mockRefetch });
   useToast.mockReturnValue(mockToast);
   return render(
-    <CrudManager
-      titulo="Espacios"
-      service={mockService}
-      columns={[{ key: 'nombre', label: 'Nombre' }]}
-      fields={fields}
-      {...overrides}
-    />,
+    <LanguageContext.Provider value={{ language: 'es', setLanguage: jest.fn(), t: getTranslation.bind(null, 'es') }}>
+      <CrudManager
+        titulo="Espacios"
+        service={mockService}
+        columns={[{ key: 'nombre', label: 'Nombre' }]}
+        fields={fields}
+        {...overrides}
+      />
+    </LanguageContext.Provider>,
   );
 }
 

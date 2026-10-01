@@ -12,8 +12,10 @@ import Badge from '@/Components/UI/Badge';
 import Button from '@/Components/UI/Button';
 import { formatFecha, formatRangoHoras } from '@/Utils/format';
 import { BADGE_TONE_BY_ESTADO } from '@/Utils/constants';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 export default function MisReservas() {
+  const { t } = useLanguage();
   const { user } = useAuth();
   const toast = useToast();
 
@@ -26,16 +28,16 @@ export default function MisReservas() {
   const cancelar = async (id) => {
     try {
       await reservasService.cancelar(id);
-      toast.success('Reserva cancelada', 'Tu reserva fue cancelada correctamente.');
+      toast.success(t('myBookings.canceled'), t('myBookings.canceledDescription'));
       refetch();
     } catch (err) {
-      toast.error('No se pudo cancelar', err.message);
+      toast.error(t('myBookings.cancelError'), err.message);
     }
   };
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionTitle eyebrow="Mi cuenta" title="Mis reservas" description="Consulta el estado de tus solicitudes de espacio." />
+      <SectionTitle eyebrow={t('myBookings.eyebrow')} title={t('myBookings.title')} description={t('myBookings.description')} />
 
       <div className="mt-8">
         {loading && <SkeletonTable rows={4} />}
@@ -44,8 +46,8 @@ export default function MisReservas() {
         {!loading && !error && misReservas.length === 0 && (
           <EmptyState
             icon={CalendarX2}
-            title="Aún no tienes reservas"
-            description="Cuando solicites un espacio, aparecerá aquí con su estado de aprobación."
+            title={t('myBookings.empty')}
+            description={t('myBookings.emptyDescription')}
           />
         )}
 
@@ -64,7 +66,7 @@ export default function MisReservas() {
                 <div className="flex items-center gap-3">
                   <Badge tone={BADGE_TONE_BY_ESTADO[r.estado] ?? 'neutral'}>{r.estado}</Badge>
                   {['pendiente', 'aprobada'].includes(r.estado) && (
-                    <Button variant="outline" size="sm" onClick={() => cancelar(r.id)}>Cancelar</Button>
+                    <Button variant="outline" size="sm" onClick={() => cancelar(r.id)}>{t('myBookings.cancel')}</Button>
                   )}
                 </div>
               </li>

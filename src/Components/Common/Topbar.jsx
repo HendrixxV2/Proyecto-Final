@@ -7,14 +7,17 @@ import { reportesService } from '@/Services/reportesService';
 import ThemeToggle from '@/Components/UI/ThemeToggle';
 import FontSizeControl from '@/Components/UI/FontSizeControl';
 import AdminNotifications, { buildAdminNotifications } from '@/Components/Admin/AdminNotifications';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 export default function Topbar({ onOpenMobile }) {
   const { user, logout } = useAuth();
+  const { language, t } = useLanguage();
   const navigate = useNavigate();
   const { data } = useFetch(() => reportesService.dashboard(), []);
 
   const notifications = buildAdminNotifications({
     pendingReservations: data?.kpis?.reservasPendientes ?? 0,
+    language,
   });
 
   const handleLogout = () => {
@@ -27,7 +30,7 @@ export default function Topbar({ onOpenMobile }) {
       <button
         type="button"
         onClick={onOpenMobile}
-        aria-label="Abrir menú lateral"
+        aria-label={t('ui.openSidebar')}
         className="rounded-lg p-2 text-ink-600 hover:bg-ink-100 lg:hidden dark:text-ink-300 dark:hover:bg-ink-700"
       >
         <Menu aria-hidden="true" className="h-5 w-5" />
@@ -37,8 +40,8 @@ export default function Topbar({ onOpenMobile }) {
         <Search aria-hidden="true" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
         <input
           type="search"
-          placeholder="Buscar reservas, espacios, usuarios…"
-          aria-label="Búsqueda global del panel"
+          placeholder={t('ui.searchPanel')}
+          aria-label={t('ui.globalSearch')}
           className="h-10 w-full rounded-xl border border-ink-200 bg-ink-50 pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-ink-600 dark:bg-ink-900 dark:text-ink-100"
         />
       </div>
@@ -54,7 +57,7 @@ export default function Topbar({ onOpenMobile }) {
           className="hidden items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-ink-600 hover:bg-ink-100 sm:inline-flex dark:text-ink-300 dark:hover:bg-ink-700"
         >
           <ExternalLink aria-hidden="true" className="h-4 w-4" />
-          Ver sitio
+          {t('ui.visitSite')}
         </Link>
 
         <div className="flex items-center gap-2 border-l border-ink-200 pl-2 dark:border-ink-700">
@@ -64,13 +67,13 @@ export default function Topbar({ onOpenMobile }) {
           <div className="hidden sm:block">
             <p className="text-xs font-semibold text-ink-800 dark:text-ink-100">{user?.nombre}</p>
             <p className="flex items-center gap-1 text-[11px] text-ink-500 dark:text-ink-400">
-              <ShieldCheck aria-hidden="true" className="h-3 w-3" /> Administrador
+              <ShieldCheck aria-hidden="true" className="h-3 w-3" /> {t('ui.administrator')}
             </p>
           </div>
           <button
             type="button"
             onClick={handleLogout}
-            aria-label="Cerrar sesión"
+            aria-label={t('common.logout')}
             className="rounded-lg p-2 text-ink-500 hover:bg-ink-100 dark:hover:bg-ink-700"
           >
             <LogOut aria-hidden="true" className="h-4 w-4" />

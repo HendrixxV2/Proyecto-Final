@@ -7,8 +7,10 @@ import { SkeletonCard } from '@/Components/UI/Skeleton';
 import EmptyState from '@/Components/UI/EmptyState';
 import { formatFecha } from '@/Utils/format';
 import { PATHS } from '@/Routes/paths';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 export default function Noticias() {
+  const { t } = useLanguage();
   const { data, loading } = useFetch(() => noticiasService.list({ _sort: 'fecha', _order: 'desc' }), []);
 
   return (
@@ -16,7 +18,7 @@ export default function Noticias() {
       <div aria-hidden="true" className="absolute inset-0 bg-center opacity-[0.36]" style={{ backgroundImage: "url('/fondoNoticias.jpeg')", backgroundSize: '100% 100%' }} />
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/80 to-jade-50/70 dark:from-ink-900/95 dark:via-ink-900/90 dark:to-jade-950/85" />
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionTitle eyebrow="Sala de prensa" title="Noticias" description="Comunicados, convocatorias y novedades del centro." />
+      <SectionTitle eyebrow={t('newsPage.eyebrow')} title={t('newsPage.title')} description={t('newsPage.description')} />
 
       {loading && (
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
@@ -25,7 +27,7 @@ export default function Noticias() {
       )}
 
       {!loading && data?.length === 0 && (
-        <div className="mt-8"><EmptyState title="Sin noticias publicadas" /></div>
+        <div className="mt-8"><EmptyState title={t('newsPage.empty')} /></div>
       )}
 
       {!loading && data?.length > 0 && (
@@ -45,7 +47,7 @@ export default function Noticias() {
                   to={PATHS.noticiaDetalle(n.id)}
                   className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:underline dark:text-brand-300"
                 >
-                  Leer nota completa <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                  {t('newsPage.readMore')} <ArrowRight aria-hidden="true" className="h-4 w-4" />
                 </Link>
               </article>
             </li>

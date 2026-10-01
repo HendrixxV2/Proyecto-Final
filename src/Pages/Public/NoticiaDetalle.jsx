@@ -7,19 +7,21 @@ import Spinner from '@/Components/UI/Spinner';
 import ErrorState from '@/Components/UI/ErrorState';
 import { formatFecha, hace } from '@/Utils/format';
 import { PATHS } from '@/Routes/paths';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 export default function NoticiaDetalle() {
+  const { t } = useLanguage();
   const { id } = useParams();
   const { data: noticia, loading, error, refetch } = useFetch(() => noticiasService.getById(id), [id]);
 
-  if (loading) return <div className="grid min-h-[60vh] place-items-center"><Spinner label="Cargando noticia…" /></div>;
+  if (loading) return <div className="grid min-h-[60vh] place-items-center"><Spinner label={t('newsDetail.loading')} /></div>;
   if (error) return <div className="mx-auto max-w-3xl px-4 py-12"><ErrorState onRetry={refetch} /></div>;
   if (!noticia) return null;
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
       <Link to={PATHS.noticias} className="inline-flex items-center gap-2 text-sm text-ink-500 hover:text-brand-600 dark:text-ink-400">
-        <ArrowLeft aria-hidden="true" className="h-4 w-4" /> Volver a noticias
+        <ArrowLeft aria-hidden="true" className="h-4 w-4" /> {t('newsDetail.back')}
       </Link>
 
       <header className="mt-6">
@@ -47,16 +49,16 @@ export default function NoticiaDetalle() {
       </div>
 
       {noticia.galeria && (
-        <section aria-label="Memoria de la Escuela Primo Vargas" className="mt-10">
+        <section aria-label={t('newsDetail.schoolMemory')} className="mt-10">
           <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
-            <h2 className="font-display text-xl font-bold text-ink-900 dark:text-ink-50">Una memoria que pasa de generación en generación</h2>
+            <h2 className="font-display text-xl font-bold text-ink-900 dark:text-ink-50">{t('newsDetail.generations')}</h2>
             <dl className="flex gap-4 rounded-lg border border-ink-200 bg-white/80 px-4 py-3 text-sm dark:border-ink-700 dark:bg-ink-800/80">
               <div>
-                <dt className="text-xs text-ink-500 dark:text-ink-400">Nacimiento</dt>
+                <dt className="text-xs text-ink-500 dark:text-ink-400">{t('newsDetail.birth')}</dt>
                 <dd className="font-semibold text-ink-900 dark:text-ink-50">{noticia.biografia.nacimiento}</dd>
               </div>
               <div>
-                <dt className="text-xs text-ink-500 dark:text-ink-400">Defunción</dt>
+                <dt className="text-xs text-ink-500 dark:text-ink-400">{t('newsDetail.death')}</dt>
                 <dd className="font-semibold text-ink-900 dark:text-ink-50">{noticia.biografia.defuncion}</dd>
               </div>
             </dl>

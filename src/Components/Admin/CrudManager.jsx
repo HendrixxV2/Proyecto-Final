@@ -13,6 +13,7 @@ import EmptyState from '@/Components/UI/EmptyState';
 import ErrorState from '@/Components/UI/ErrorState';
 import { SkeletonTable } from '@/Components/UI/Skeleton';
 import { validateForm } from '@/Utils/validators';
+import { useLanguage } from '@/Hooks/useLanguage';
 
 const inputPorTipo = (field, value, onChange, error) => {
   switch (field.type) {
@@ -57,6 +58,7 @@ export default function CrudManager({
   createLabel = 'Nuevo',
   createDefaults = {},
 }) {
+  const { t } = useLanguage();
   const { data, loading, error, refetch } = useFetch(() => service.list(), []);
   const [query, setQuery] = useState('');
   const debounced = useDebounce(query, 300);
@@ -118,7 +120,7 @@ export default function CrudManager({
     const { errors: validationErrors, isValid } = validateForm(form, rules);
     if (!isValid) {
       setErrors(validationErrors);
-      toast.warning('Revisa el formulario', 'Hay campos con información inválida.');
+      toast.warning(t('crud.reviewForm'), t('crud.invalidFields'));
       return;
     }
 
@@ -133,16 +135,16 @@ export default function CrudManager({
 
       if (editing) {
         await service.update(editing[rowKey], { ...editing, ...payload });
-        toast.success('Registro actualizado', 'Los cambios se guardaron correctamente.');
+        toast.success(t('crud.updated'), t('crud.saved'));
       } else {
         await service.create(payload);
-        toast.success('Registro creado', 'El nuevo elemento ya está disponible.');
+        toast.success(t('crud.created'), t('crud.available'));
       }
 
       setModalOpen(false);
       await refetch();
     } catch (err) {
-      toast.error('No se pudo guardar', err.message);
+      toast.error(t('crud.saveError'), err.message);
     } finally {
       setSaving(false);
     }
@@ -152,11 +154,11 @@ export default function CrudManager({
     if (!confirmDelete) return;
     try {
       await service.remove(confirmDelete[rowKey]);
-      toast.success('Registro eliminado', 'El elemento se retiró del sistema.');
+      toast.success(t('crud.deleted'), t('crud.removed'));
       setConfirmDelete(null);
       await refetch();
     } catch (err) {
-      toast.error('No se pudo eliminar', err.message);
+      toast.error(t('crud.deleteError'), err.message);
     }
   };
 
@@ -164,19 +166,19 @@ export default function CrudManager({
     ...columns,
     {
       key: '__acciones',
-      label: 'Acciones',
+      label: t('crud.actions'),
       align: 'right',
       render: (row) => (
         <div className="flex justify-end gap-2">
           {extraActions?.(row)}
-          <Button variant="ghost" size="icon" onClick={() => openEdit(row)} aria-label={`Editar ${row.nombre ?? row.titulo ?? row[rowKey]}`}>
+          <Button variant="ghost" size="icon" onClick={() => openEdit(row)} aria-label={t('crud.edit', { name: row.nombre ?? row.titulo ?? row[rowKey] })}>
             <Pencil aria-hidden="true" className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setConfirmDelete(row)}
-            aria-label={`Eliminar ${row.nombre ?? row.titulo ?? row[rowKey]}`}
+            aria-label={t('crud.delete', { name: row.nombre ?? row.titulo ?? row[rowKey] })}
             className="text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
           >
             <Trash2 aria-hidden="true" className="h-4 w-4" />
@@ -201,8 +203,8 @@ export default function CrudManager({
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar…"
-              aria-label={`Buscar en ${titulo}`}
+              placeholder={t('crud.search')}
+              aria-label={t('crud.searchIn', { name: titulo })}
               className="h-11 w-full rounded-xl border border-ink-300 bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-ink-600 dark:bg-ink-800 dark:text-ink-100"
             />
           </div>
@@ -227,9 +229,9 @@ export default function CrudManager({
           keyField={rowKey}
           empty={
             <EmptyState
-              title="Sin registros"
-              description={query ? 'No hay coincidencias con tu búsqueda.' : emptyMessage}
-              action={<Button onClick={openCreate}>Crear el primero</Button>}
+              title={t('crud.empty')}
+              description={query ? t('crud.noMatches') : emptyMessage}
+              action={<Button onClick={openCreate}>{t('crud.createFirst')}</Button>}
             />
           }
         />
@@ -238,12 +240,12 @@ export default function CrudManager({
       <Modal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        title={editing ? `Editar ${titulo.toLowerCase()}` : `Nuevo ${titulo.toLowerCase()}`}
-        description={editing ? 'Modifica los campos y guarda los cambios.' : 'Completa la información del nuevo registro.'}
+        title={editing ? t('crud.editTitle', { name: titulo.toLowerCase() }) : t('crud.newTitle', { name: titulo.toLowerCase() })}
+        description={editing ? t('crud.editDescription') : t('crud.newDescription')}
         footer={
           <>
-            <Button variant="outline" onClick={() => setModalOpen(false)}>Cancelar</Button>
-            <Button onClick={handleSubmit} loading={saving}>{editing ? 'Guardar cambios' : 'Crear'}</Button>
+            <Button variant="outline" onClick={() => setModalOpen(false)}>{t('crud.cancel')}</Button>
+            <Button onClick={handleSubmit} loading={saving}>{editing ? t('crud.save') : t('crud.create')}</Button>
           </>
         }
       >
@@ -259,18 +261,17 @@ export default function CrudManager({
       <Modal
         open={Boolean(confirmDelete)}
         onClose={() => setConfirmDelete(null)}
-        title="Confirmar eliminación"
+        title={t('crud.confirmDelete')}
         size="sm"
         footer={
           <>
-            <Button variant="outline" onClick={() => setConfirmDelete(null)}>Cancelar</Button>
-            <Button variant="danger" onClick={handleDelete}>Sí, eliminar</Button>
+            <Button variant="outline" onClick={() => setConfirmDelete(null)}>{t('crud.cancel')}</Button>
+            <Button variant="danger" onClick={handleDelete}>{t('crud.yesDelete')}</Button>
           </>
         }
       >
         <p className="text-sm text-ink-700 dark:text-ink-200">
-          ¿Seguro que deseas eliminar <strong>{confirmDelete?.nombre ?? confirmDelete?.titulo ?? 'este registro'}</strong>? Esta
-          acción no se puede deshacer.
+          {t('crud.deletePrompt', { name: confirmDelete?.nombre ?? confirmDelete?.titulo ?? t('crud.defaultRecord') })}
         </p>
       </Modal>
     </section>

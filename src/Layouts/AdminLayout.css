@@ -1,14 +1,14 @@
 .admin-shell {
   --admin-page: #f1f4fb;
-  --admin-surface: #fbfcff;
-  --admin-surface-soft: #f3f6fc;
-  --admin-surface-raised: #e9eef9;
-  --admin-border: #dce3f2;
+  --admin-surface: rgba(251, 252, 255, 0.88);
+  --admin-surface-soft: rgba(243, 246, 252, 0.88);
+  --admin-surface-raised: rgba(233, 238, 249, 0.92);
+  --admin-border: rgba(220, 227, 242, 0.8);
   --admin-text: #202a43;
   --admin-muted: #68748e;
   --admin-blue: #3b5cda;
   --admin-blue-soft: #e8edff;
-  --admin-hero: #3655cb;
+  --admin-hero: rgba(54, 85, 203, 0.88);
   --a11y-brand-50: 237 241 255;
   --a11y-brand-100: 220 228 255;
   --a11y-brand-200: 189 203 255;
@@ -19,8 +19,51 @@
   --a11y-brand-700: 38 61 153;
   --a11y-brand-800: 32 51 122;
   --a11y-brand-900: 26 41 96;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background-color: var(--admin-page) !important;
   color: var(--admin-text) !important;
+}
+
+.admin-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/dashboardAdministrativo.jpeg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  transform: scale(1.08);
+  animation: admin-dashboard-pan 24s ease-in-out alternate infinite both;
+  filter: saturate(0.9) brightness(0.8);
+}
+
+.admin-shell::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: rgba(9, 15, 31, 0.28);
+  backdrop-filter: blur(4px);
+}
+
+.admin-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes admin-dashboard-pan {
+  0% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.12) translate3d(0, -10px, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(0, 8px, 0);
+  }
 }
 
 html.dark .admin-shell {

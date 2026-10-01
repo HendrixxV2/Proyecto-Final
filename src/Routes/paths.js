@@ -26,3 +26,11 @@ export const PATHS = {
     reportes: '/admin/reportes',
   },
 };
+
+export const ADMIN_NOTIFICATION_ROUTES = {
+  nueva_reserva: PATHS.admin.reservas,
+  reserva_pendiente: PATHS.admin.reservas,
+  usuario_nuevo: PATHS.admin.usuarios,
+  reporte_activo: PATHS.admin.reportes,
+  dashboard: PATHS.admin.dashboard,
+};

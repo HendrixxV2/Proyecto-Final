@@ -1,11 +1,17 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { useFetch } from '@/Hooks/useFetch';
+import { useAuth } from '@/Hooks/useAuth';
 import DashboardAdmin from '@/Pages/Admin/DashboardAdmin';
 import DisponibilidadAdmin from '@/Pages/Admin/DisponibilidadAdmin';
 import ReportesAdmin from '@/Pages/Admin/ReportesAdmin';
+import Topbar from '@/Components/Common/Topbar';
 
 jest.mock('@/Hooks/useFetch', () => ({ useFetch: jest.fn() }));
+jest.mock('@/Hooks/useAuth', () => ({ useAuth: jest.fn() }));
+jest.mock('@/Components/UI/ThemeToggle', () => ({ __esModule: true, default: () => <button type="button">Theme</button> }));
+jest.mock('@/Components/UI/FontSizeControl', () => ({ __esModule: true, default: () => <button type="button">Text</button> }));
 
 const originalResizeObserver = global.ResizeObserver;
 
@@ -106,6 +112,36 @@ describe('admin dashboard and reports', () => {
       click.mockRestore();
       createElementSpy.mockRestore();
     }
+  });
+});
+
+describe('Topbar notifications', () => {
+  it('opens the notification list and navigates to the reservations section when clicked', async () => {
+    useAuth.mockReturnValue({
+      user: { nombre: 'Admin Demo', rol: 'admin' },
+      logout: jest.fn(),
+    });
+    useFetch.mockReturnValue({
+      data: { kpis: { reservasPendientes: 2 } },
+      loading: false,
+      error: null,
+      refetch: jest.fn(),
+    });
+
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter initialEntries={['/admin/dashboard']}>
+        <Routes>
+          <Route path="/admin/dashboard" element={<Topbar onOpenMobile={jest.fn()} />} />
+          <Route path="/admin/reservas" element={<div>Reservas del panel</div>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await user.click(screen.getByRole('button', { name: /notificaciones: 3 nuevas/i }));
+    await user.click(screen.getByRole('button', { name: /2 nuevas reservas pendientes/i }));
+
+    await waitFor(() => expect(screen.getByText('Reservas del panel')).toBeInTheDocument());
   });
 });
 

@@ -1,13 +1,21 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Bell, ExternalLink, LogOut, Menu, Search, ShieldCheck } from 'lucide-react';
+import { ExternalLink, LogOut, Menu, Search, ShieldCheck } from 'lucide-react';
 import { useAuth } from '@/Hooks/useAuth';
 import { PATHS } from '@/Routes/paths';
+import { useFetch } from '@/Hooks/useFetch';
+import { reportesService } from '@/Services/reportesService';
 import ThemeToggle from '@/Components/UI/ThemeToggle';
 import FontSizeControl from '@/Components/UI/FontSizeControl';
+import AdminNotifications, { buildAdminNotifications } from '@/Components/Admin/AdminNotifications';
 
 export default function Topbar({ onOpenMobile }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { data } = useFetch(() => reportesService.dashboard(), []);
+
+  const notifications = buildAdminNotifications({
+    pendingReservations: data?.kpis?.reservasPendientes ?? 0,
+  });
 
   const handleLogout = () => {
     logout();
@@ -39,14 +47,7 @@ export default function Topbar({ onOpenMobile }) {
         <div className="hidden xl:block"><FontSizeControl /></div>
         <div className="hidden lg:block"><ThemeToggle compact /></div>
 
-        <button
-          type="button"
-          aria-label="Notificaciones: 3 nuevas"
-          className="relative rounded-lg p-2 text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-700"
-        >
-          <Bell aria-hidden="true" className="h-5 w-5" />
-          <span className="absolute right-1.5 top-1.5 grid h-4 w-4 place-items-center rounded-full bg-brand-500 text-[10px] font-bold text-white">3</span>
-        </button>
+        <AdminNotifications notifications={notifications} />
 
         <Link
           to={PATHS.home}

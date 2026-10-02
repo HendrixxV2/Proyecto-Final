@@ -13,6 +13,7 @@ import Button from '@/Components/UI/Button';
 import { formatFecha, formatRangoHoras } from '@/Utils/format';
 import { BADGE_TONE_BY_ESTADO } from '@/Utils/constants';
 import { useLanguage } from '@/Hooks/useLanguage';
+import './MisReservas.css';
 
 export default function MisReservas() {
   const { t } = useLanguage();
@@ -36,7 +37,8 @@ export default function MisReservas() {
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+    <section className="mis-reservas-page">
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
       <SectionTitle eyebrow={t('myBookings.eyebrow')} title={t('myBookings.title')} description={t('myBookings.description')} />
 
       <div className="mt-8">
@@ -74,6 +76,7 @@ export default function MisReservas() {
           </ul>
         )}
       </div>
-    </div>
+      </div>
+    </section>
   );
 }

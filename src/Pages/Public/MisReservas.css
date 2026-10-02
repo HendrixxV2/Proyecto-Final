@@ -1,0 +1,40 @@
+.mis-reservas-page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.mis-reservas-page::before,
+.mis-reservas-page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mis-reservas-page::before {
+  z-index: -2;
+  background: url('/misReservas.jpeg') center / cover no-repeat;
+  animation: mis-reservas-drift 36s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.mis-reservas-page::after {
+  z-index: -1;
+  background: linear-gradient(120deg, rgb(248 249 247 / 72%), rgb(238 244 241 / 60%));
+}
+
+html.dark .mis-reservas-page::after {
+  background: linear-gradient(120deg, rgb(14 20 25 / 76%), rgb(14 28 28 / 68%));
+}
+
+@keyframes mis-reservas-drift {
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to { transform: scale(1.06) translate3d(-0.45%, 0.35%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mis-reservas-page::before {
+    animation: none;
+  }
+}

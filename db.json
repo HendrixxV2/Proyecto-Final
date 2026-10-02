@@ -60,6 +60,22 @@
       "avatar": null,
       "creadoEn": "2026-10-01T15:22:33.753Z",
       "id": 7
+    },
+    {
+      "nombre": "Bolivar",
+      "email": "bolivar12@orotina.cr",
+      "password": "bolivar123",
+      "rol": "usuario_regular",
+      "avatar": null,
+      "creadoEn": "2026-10-02T16:15:58.171Z",
+      "id": 8
+    },
+    {
+      "nombre": "Jessica",
+      "email": "jessica123@orotina.cr",
+      "password": "orotina123",
+      "rol": "admin",
+      "id": 9
     }
   ],
   "espacios": [
@@ -271,6 +287,17 @@
       "estado": "aprobada",
       "creadoEn": "2026-10-01T15:40:49.071Z",
       "id": 4
+    },
+    {
+      "espacioId": 3,
+      "fecha": "2026-10-15",
+      "horaInicio": "09:00",
+      "horaFin": "12:00",
+      "motivo": "Reserva de espacio",
+      "usuarioId": 8,
+      "estado": "aprobada",
+      "creadoEn": "2026-10-02T16:21:06.353Z",
+      "id": 5
     }
   ],
   "boletos": [
@@ -421,8 +448,8 @@
       "codigo": "QA-CORTOS-A2",
       "asiento": "A2",
       "precio": 0,
-      "estado": "disponible",
-      "usuarioId": null
+      "estado": "reservado",
+      "usuarioId": 8
     },
     {
       "id": 18,

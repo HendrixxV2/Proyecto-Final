@@ -17,7 +17,7 @@ import { api }               from './api';
 import { reportesService }   from './reportesService';
 import { formatFecha, formatColones, formatHora, formatRangoHoras } from '@/utils/format';
 
-const AI_ENDPOINT = 'http://localhost:5678/webhook-test/Agente IA';
+const AI_ENDPOINT = globalThis.__AI_ENDPOINT__ || 'http://localhost:5678/webhook-test/Agente IA';
 const SENSITIVE_QUERY = /\b(?:correos?|e-?mails?|contraseñas?|passwords?|credenciales?|claves?\s+(?:de\s+)?(?:acceso|usuario|cuenta))\b/i;
 const EMAIL_ADDRESS = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 const SECRET_ASSIGNMENT = /\b(?:password|contraseña|clave|token)(?:\s+\w+){0,4}\s+(?:es|[:=])\s*\S+/i;
@@ -962,6 +962,27 @@ export const aiService = {
   },
 
   /* ── Chat conversacional ──────────────────────────────────────────── */
+  async chatWorkflow(mensaje, sessionId) {
+    if (!mensaje?.trim()) return r('¿En qué puedo ayudarte?');
+    if (SENSITIVE_QUERY.test(mensaje) || containsSensitiveOutput(mensaje)) return refuseSensitiveOutput();
+
+    const res = await fetch(AI_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: mensaje, sessionId }),
+    });
+    if (!res.ok) throw new Error(`Webhook n8n respondió ${res.status}`);
+
+    const rawResponse = await res.text();
+    let payload;
+    try {
+      payload = JSON.parse(rawResponse);
+    } catch {
+      payload = rawResponse;
+    }
+    return normalizeWebhookResponse(payload);
+  },
+
   async chat(mensaje, { historial = [], usuario } = {}) {
     if (!usuario?.id) return r('Inicia sesión para conversar con Lulu-Bot.');
     if (!mensaje?.trim()) return r('¿En qué puedo ayudarte?');

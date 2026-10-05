@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">92.85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
@@ -104,7 +104,22 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,14 +153,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7098x</span>
-<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">29968x</span>
+<span class="cline-any cline-yes">7432x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3309x</span>
-<span class="cline-any cline-yes">75x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const TRANSLATIONS = {
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7432x</span>
+<span class="cline-any cline-yes">495x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { PAGE_TRANSLATIONS } from './pageTranslations.js';
+import { MORE_TRANSLATIONS } from './moreTranslations.js';
+import { ADMIN_TRANSLATIONS } from './adminTranslations.js';
+&nbsp;
+export const TRANSLATIONS = {
   es: {
     common: { home: 'Inicio', calendar: 'Calendario', spaces: 'Espacios', tickets: 'Boletos', arts: 'Teatro · Baile · Canto', gallery: 'Galería Ferrocarril', history: 'Historia', news: 'Noticias', explore: 'Explorar', close: 'Cerrar', login: 'Ingresar', signup: 'Registrarse', logout: 'Cerrar sesión', myBookings: 'Mis reservas', panel: 'Panel', adminPanel: 'Panel administrativo', changeLanguage: 'Cambiar idioma a', mainNavigation: 'Navegación principal', publicSections: 'Secciones públicas', openMenu: 'Abrir menú', closeMenu: 'Cerrar menú', accessibility: 'Accesibilidad', assistant: 'Asistente Cultural' },
     ui: { textSize: 'Tamaño del texto', decreaseText: 'Reducir tamaño del texto', increaseText: 'Aumentar tamaño del texto', resetAccessibility: 'Restablecer preferencias de accesibilidad', lightTheme: 'Tema claro', darkTheme: 'Tema oscuro', theme: 'Tema de la interfaz', loadingSection: 'Cargando sección…', reset: 'Restablecer', closeSidebar: 'Cerrar menú lateral', openSidebar: 'Abrir menú lateral', expandSidebar: 'Expandir menú lateral', collapseSidebar: 'Colapsar menú lateral', panelNavigation: 'Navegación del panel', searchPanel: 'Buscar reservas, espacios, usuarios…', globalSearch: 'Búsqueda global del panel', notifications: 'Notificaciones: {count} nuevas', visitSite: 'Ver sitio', administrator: 'Administrador' },
@@ -179,8 +205,15 @@
 };
 &nbsp;
 export function getTranslation(language, key, variables = {}) {
-  const value = key.split('.').reduce((result, part) =&gt; result?.[part], TRANSLATIONS[language])
-    ?? key.split('.').reduce((result, part) =&gt; result?.[part], TRANSLATIONS.es)
+  const resolve = (dictionary) =&gt; key.split('.').reduce((result, part) =&gt; result?.[part], dictionary);
+  const value = resolve(TRANSLATIONS[language])
+    ?? resolve(PAGE_TRANSLATIONS[language])
+    ?? resolve(MORE_TRANSLATIONS[language])
+    ?? resolve(ADMIN_TRANSLATIONS[language])
+    ?? resolve(PAGE_TRANSLATIONS.es)
+    ?? resolve(MORE_TRANSLATIONS.es)
+    ?? resolve(ADMIN_TRANSLATIONS.es)
+    ?? resolve(TRANSLATIONS.es)
     ?? key;
 &nbsp;
   return typeof value === 'string'
@@ -193,7 +226,7 @@ export function getTranslation(language, key, variables = {}) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-01T17:40:15.073Z
+                at 2026-10-02T20:29:21.612Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

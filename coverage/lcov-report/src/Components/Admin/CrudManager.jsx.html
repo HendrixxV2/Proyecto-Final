@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.72% </span>
+                <span class="strong">90.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>88/97</span>
+                <span class='fraction'>89/98</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.18% </span>
+                <span class="strong">93.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>82/88</span>
+                <span class='fraction'>83/89</span>
             </div>
         
             
@@ -340,7 +340,9 @@
 <a name='L275'></a><a href='#L275'>275</a>
 <a name='L276'></a><a href='#L276'>276</a>
 <a name='L277'></a><a href='#L277'>277</a>
-<a name='L278'></a><a href='#L278'>278</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -399,6 +401,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99x</span>
 <span class="cline-any cline-yes">99x</span>
 <span class="cline-any cline-yes">99x</span>
 <span class="cline-any cline-yes">99x</span>
@@ -616,7 +619,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo, useState } from 'react';
 import { Pencil, Plus, Search, Trash2 } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
@@ -632,6 +634,7 @@ import EmptyState from '@/Components/UI/EmptyState';
 import ErrorState from '@/Components/UI/ErrorState';
 import { SkeletonTable } from '@/Components/UI/Skeleton';
 import { validateForm } from '@/Utils/validators';
+import { useLanguage } from '@/Hooks/useLanguage';
 &nbsp;
 const inputPorTipo = (field, value, onChange, error) =&gt; {
   switch (field.type) {
@@ -676,6 +679,7 @@ export default function CrudManager({
   createLabel = 'Nuevo',
   createDefaults = {},
 }) {
+  const { t } = useLanguage();
   const { data, loading, error, refetch } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >service.list(),</span> []);
   const [query, setQuery] = useState('');
   const debounced = useDebounce(query, 300);
@@ -737,7 +741,7 @@ export default function CrudManager({
     const { errors: validationErrors, isValid } = validateForm(form, rules);
     if (!isValid) {
       setErrors(validationErrors);
-      toast.warning('Revisa el formulario', 'Hay campos con información inválida.');
+      toast.warning(t('crud.reviewForm'), t('crud.invalidFields'));
       return;
     }
 &nbsp;
@@ -752,16 +756,16 @@ export default function CrudManager({
 &nbsp;
       if (editing) {
         await service.update(editing[rowKey], { ...editing, ...payload });
-        toast.success('Registro actualizado', 'Los cambios se guardaron correctamente.');
+        toast.success(t('crud.updated'), t('crud.saved'));
       } else {
         await service.create(payload);
-        toast.success('Registro creado', 'El nuevo elemento ya está disponible.');
+        toast.success(t('crud.created'), t('crud.available'));
       }
 &nbsp;
       setModalOpen(false);
       await refetch();
     } catch (err) {
-      toast.error('No se pudo guardar', err.message);
+      toast.error(t('crud.saveError'), err.message);
     } finally {
       setSaving(false);
     }
@@ -771,11 +775,11 @@ export default function CrudManager({
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!confirmDelete) <span class="cstat-no" title="statement not covered" >return;</span>
     try {
       await service.remove(confirmDelete[rowKey]);
-      toast.success('Registro eliminado', 'El elemento se retiró del sistema.');
+      toast.success(t('crud.deleted'), t('crud.removed'));
       setConfirmDelete(null);
       await refetch();
     } catch (err) {
-<span class="cstat-no" title="statement not covered" >      toast.error('No se pudo eliminar', err.message);</span>
+<span class="cstat-no" title="statement not covered" >      toast.error(t('crud.deleteError'), err.message);</span>
     }
   };
 &nbsp;
@@ -783,19 +787,19 @@ export default function CrudManager({
     ...columns,
     {
       key: '__acciones',
-      label: 'Acciones',
+      label: t('crud.actions'),
       align: 'right',
       render: (row) =&gt; (
         &lt;div className="flex justify-end gap-2"&gt;
           {extraActions?.(row)}
-          &lt;Button variant="ghost" size="icon" onClick={() =&gt; openEdit(row)} aria-label={`Editar ${row.nombre ?? row.titulo ?? row[rowKey]}`}&gt;
+          &lt;Button variant="ghost" size="icon" onClick={() =&gt; openEdit(row)} aria-label={t('crud.edit', { name: row.nombre ?? row.titulo ?? row[rowKey] })}&gt;
             &lt;Pencil aria-hidden="true" className="h-4 w-4" /&gt;
           &lt;/Button&gt;
           &lt;Button
             variant="ghost"
             size="icon"
             onClick={() =&gt; setConfirmDelete(row)}
-            aria-label={`Eliminar ${row.nombre ?? row.titulo ?? row[rowKey]}`}
+            aria-label={t('crud.delete', { name: row.nombre ?? row.titulo ?? row[rowKey] })}
             className="text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
           &gt;
             &lt;Trash2 aria-hidden="true" className="h-4 w-4" /&gt;
@@ -820,8 +824,8 @@ export default function CrudManager({
               type="search"
               value={query}
               onChange={(e) =&gt; setQuery(e.target.value)}
-              placeholder="Buscar…"
-              aria-label={`Buscar en ${titulo}`}
+              placeholder={t('crud.search')}
+              aria-label={t('crud.searchIn', { name: titulo })}
               className="h-11 w-full rounded-xl border border-ink-300 bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-ink-600 dark:bg-ink-800 dark:text-ink-100"
             /&gt;
           &lt;/div&gt;
@@ -846,9 +850,9 @@ export default function CrudManager({
           keyField={rowKey}
           empty={
             &lt;EmptyState
-              title="Sin registros"
-              description={query ? 'No hay coincidencias con tu búsqueda.' : emptyMessage}
-              action={&lt;Button onClick={openCreate}&gt;Crear el primero&lt;/Button&gt;}
+              title={t('crud.empty')}
+              description={query ? t('crud.noMatches') : emptyMessage}
+              action={&lt;Button onClick={openCreate}&gt;{t('crud.createFirst')}&lt;/Button&gt;}
             /&gt;
           }
         /&gt;
@@ -857,12 +861,12 @@ export default function CrudManager({
       &lt;Modal
         open={modalOpen}
         onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setModalOpen(false)}</span>
-        title={editing ? `Editar ${titulo.toLowerCase()}` : `Nuevo ${titulo.toLowerCase()}`}
-        description={editing ? 'Modifica los campos y guarda los cambios.' : 'Completa la información del nuevo registro.'}
+        title={editing ? t('crud.editTitle', { name: titulo.toLowerCase() }) : t('crud.newTitle', { name: titulo.toLowerCase() })}
+        description={editing ? t('crud.editDescription') : t('crud.newDescription')}
         footer={
           &lt;&gt;
-            &lt;Button variant="outline" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setModalOpen(false)}</span>&gt;Cancelar&lt;/Button&gt;
-            &lt;Button onClick={handleSubmit} loading={saving}&gt;{editing ? 'Guardar cambios' : 'Crear'}&lt;/Button&gt;
+            &lt;Button variant="outline" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setModalOpen(false)}</span>&gt;{t('crud.cancel')}&lt;/Button&gt;
+            &lt;Button onClick={handleSubmit} loading={saving}&gt;{editing ? t('crud.save') : t('crud.create')}&lt;/Button&gt;
           &lt;/&gt;
         }
       &gt;
@@ -878,18 +882,17 @@ export default function CrudManager({
       &lt;Modal
         open={Boolean(confirmDelete)}
         onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setConfirmDelete(null)}</span>
-        title="Confirmar eliminación"
+        title={t('crud.confirmDelete')}
         size="sm"
         footer={
           &lt;&gt;
-            &lt;Button variant="outline" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setConfirmDelete(null)}</span>&gt;Cancelar&lt;/Button&gt;
-            &lt;Button variant="danger" onClick={handleDelete}&gt;Sí, eliminar&lt;/Button&gt;
+            &lt;Button variant="outline" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setConfirmDelete(null)}</span>&gt;{t('crud.cancel')}&lt;/Button&gt;
+            &lt;Button variant="danger" onClick={handleDelete}&gt;{t('crud.yesDelete')}&lt;/Button&gt;
           &lt;/&gt;
         }
       &gt;
         &lt;p className="text-sm text-ink-700 dark:text-ink-200"&gt;
-          ¿Seguro que deseas eliminar &lt;strong&gt;{confirmDelete?.nombre ?? confirmDelete?.titulo ?? 'este registro'}&lt;/strong&gt;? Esta
-          acción no se puede deshacer.
+          {t('crud.deletePrompt', { name: confirmDelete?.nombre ?? confirmDelete?.titulo ?? t('crud.defaultRecord') })}
         &lt;/p&gt;
       &lt;/Modal&gt;
     &lt;/section&gt;
@@ -901,7 +904,7 @@ export default function CrudManager({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-01T17:40:15.073Z
+                at 2026-10-02T20:29:21.612Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

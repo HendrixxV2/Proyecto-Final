@@ -2,26 +2,32 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bot, Loader2, Send, Sparkles, X } from 'lucide-react';
 import { aiService } from '@/Services/aiService';
-import { useAuth } from '@/Hooks/useAuth';
 import { cn } from '@/Utils/cn';
 import { useLanguage } from '@/Hooks/useLanguage';
+import { useLocalStorage } from '@/Hooks/useLocalStorage';
 
 const SUGERENCIAS = ['¿Qué eventos hay este mes?', '¿Qué espacios puedo reservar?', 'Cuéntame del Ferrocarril', 'Últimas noticias'];
+const HISTORY_KEY = 'caco.ai.messages';
+const SESSION_KEY = 'caco.ai.sessionId';
+const INITIAL_MESSAGE = {
+  role: 'assistant',
+  texto: 'Hola, bienvenido/a. Soy Lulu, tu asistente virtual del Centro de Arte y Cultura Orotinense Luis Ferrero Acosta. ¿En qué te puedo ayudar hoy?',
+  items: [],
+};
+
+const createSessionId = () => (
+  window.crypto?.randomUUID?.()
+  ?? `lulu-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`
+);
 
 export default function AiAssistant() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      texto: 'Hola, bienvenido/a. Soy Lulu, tu asistente virtual del Centro de Arte y Cultura Orotinense Luis Ferrero Acosta. ¿En qué te puedo ayudar hoy?',
-      items: [],
-    },
-  ]);
+  const [sessionId] = useLocalStorage(SESSION_KEY, createSessionId());
+  const [messages, setMessages] = useLocalStorage(HISTORY_KEY, [INITIAL_MESSAGE]);
 
   const listRef = useRef(null);
-  const { user } = useAuth();
   const { language, t } = useLanguage();
   const suggestions = language === 'en'
     ? ['What events are on this month?', 'What spaces can I book?', 'Tell me about the Railway', 'Latest news']
@@ -42,19 +48,17 @@ export default function AiAssistant() {
     setLoading(true);
 
     try {
-      const res = await aiService.chat(pregunta, { historial: messages, usuario: user });
+      const res = await aiService.chatWorkflow(pregunta, sessionId);
       setMessages((prev) => [...prev, { role: 'assistant', texto: res.texto, items: res.items ?? [] }]);
     } catch {
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', texto: 'No pude procesar tu consulta. Intenta de nuevo en un momento.', items: [] },
+        { role: 'assistant', texto: 'No pude conectar con el asistente. Intenta de nuevo en un momento.', items: [] },
       ]);
     } finally {
       setLoading(false);
     }
   };
-
-  if (!user) return null;
 
   return (
     <>
@@ -119,9 +123,9 @@ export default function AiAssistant() {
             ))}
 
             {loading && (
-              <p className="inline-flex items-center gap-2 text-xs text-ink-500 dark:text-ink-400">
+              <p role="status" className="inline-flex items-center gap-2 text-xs text-ink-500 dark:text-ink-400">
                 <Loader2 aria-hidden="true" className="h-3.5 w-3.5 animate-spin" />
-                Analizando el catálogo cultural…
+                Escribiendo…
               </p>
             )}
           </div>
@@ -165,11 +169,7 @@ export default function AiAssistant() {
               </button>
             </form>
 
-            {user && (
-              <p className="mt-2 text-[10px] text-ink-400">
-                Sesión de {user.nombre} · las recomendaciones se personalizan con tu historial.
-              </p>
-            )}
+            <p className="mt-2 text-[10px] text-ink-400">La conversación se guarda en este navegador.</p>
           </div>
         </section>
       )}

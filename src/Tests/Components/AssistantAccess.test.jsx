@@ -11,7 +11,7 @@ const renderAdminAssistant = (user) => render(
 );
 
 describe('assistant access', () => {
-  it('does not render the public assistant without a registered user', () => {
+  it('renders the public assistant without a registered user', () => {
     render(
       <AuthContext.Provider value={{ user: null }}>
         <LanguageContext.Provider value={{ language: 'es', t: (key) => key }}>
@@ -20,7 +20,7 @@ describe('assistant access', () => {
       </AuthContext.Provider>,
     );
 
-    expect(screen.queryByRole('button', { name: 'Lulu-Bot' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Lulu-Bot' })).toBeInTheDocument();
   });
 
   it('hides Lulu Admin from regular users', () => {

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">69.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/12</span>
+                <span class='fraction'>9/13</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>8/9</span>
             </div>
         
             
@@ -139,7 +139,9 @@
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -150,6 +152,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -224,19 +228,21 @@ import Spinner from '@/Components/UI/Spinner';
 import ErrorState from '@/Components/UI/ErrorState';
 import { formatFecha, hace } from '@/Utils/format';
 import { PATHS } from '@/Routes/paths';
+import { useLanguage } from '@/Hooks/useLanguage';
 &nbsp;
 export default function NoticiaDetalle() {
+  const { t } = useLanguage();
   const { id } = useParams();
   const { data: noticia, loading, error, refetch } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >noticiasService.getById(id),</span> [id]);
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) <span class="cstat-no" title="statement not covered" >return &lt;div className="grid min-h-[60vh] place-items-center"&gt;&lt;Spinner label="Cargando noticia…" /&gt;&lt;/div&gt;;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) <span class="cstat-no" title="statement not covered" >return &lt;div className="grid min-h-[60vh] place-items-center"&gt;&lt;Spinner label={t('newsDetail.loading')} /&gt;&lt;/div&gt;;</span>
   if (error) return &lt;div className="mx-auto max-w-3xl px-4 py-12"&gt;&lt;ErrorState onRetry={refetch} /&gt;&lt;/div&gt;;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!noticia) <span class="cstat-no" title="statement not covered" >return null;</span>
 &nbsp;
   return (
     &lt;article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8"&gt;
       &lt;Link to={PATHS.noticias} className="inline-flex items-center gap-2 text-sm text-ink-500 hover:text-brand-600 dark:text-ink-400"&gt;
-        &lt;ArrowLeft aria-hidden="true" className="h-4 w-4" /&gt; Volver a noticias
+        &lt;ArrowLeft aria-hidden="true" className="h-4 w-4" /&gt; {t('newsDetail.back')}
       &lt;/Link&gt;
 &nbsp;
       &lt;header className="mt-6"&gt;
@@ -264,16 +270,16 @@ export default function NoticiaDetalle() {
       &lt;/div&gt;
 &nbsp;
       {noticia.galeria &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;section aria-label="Memoria de la Escuela Primo Vargas" className="mt-10"&gt;</span>
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;section aria-label={t('newsDetail.schoolMemory')} className="mt-10"&gt;</span>
           &lt;div className="mb-5 flex flex-wrap items-end justify-between gap-4"&gt;
-            &lt;h2 className="font-display text-xl font-bold text-ink-900 dark:text-ink-50"&gt;Una memoria que pasa de generación en generación&lt;/h2&gt;
+            &lt;h2 className="font-display text-xl font-bold text-ink-900 dark:text-ink-50"&gt;{t('newsDetail.generations')}&lt;/h2&gt;
             &lt;dl className="flex gap-4 rounded-lg border border-ink-200 bg-white/80 px-4 py-3 text-sm dark:border-ink-700 dark:bg-ink-800/80"&gt;
               &lt;div&gt;
-                &lt;dt className="text-xs text-ink-500 dark:text-ink-400"&gt;Nacimiento&lt;/dt&gt;
+                &lt;dt className="text-xs text-ink-500 dark:text-ink-400"&gt;{t('newsDetail.birth')}&lt;/dt&gt;
                 &lt;dd className="font-semibold text-ink-900 dark:text-ink-50"&gt;{noticia.biografia.nacimiento}&lt;/dd&gt;
               &lt;/div&gt;
               &lt;div&gt;
-                &lt;dt className="text-xs text-ink-500 dark:text-ink-400"&gt;Defunción&lt;/dt&gt;
+                &lt;dt className="text-xs text-ink-500 dark:text-ink-400"&gt;{t('newsDetail.death')}&lt;/dt&gt;
                 &lt;dd className="font-semibold text-ink-900 dark:text-ink-50"&gt;{noticia.biografia.defuncion}&lt;/dd&gt;
               &lt;/div&gt;
             &lt;/dl&gt;
@@ -298,7 +304,7 @@ export default function NoticiaDetalle() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-01T17:40:15.073Z
+                at 2026-10-02T20:29:21.612Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

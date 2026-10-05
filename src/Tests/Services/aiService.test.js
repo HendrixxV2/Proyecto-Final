@@ -27,6 +27,38 @@ describe('aiService.resumirTexto', () => {
   });
 });
 
+describe('aiService.chatWorkflow', () => {
+  const originalFetch = global.fetch;
+
+  beforeEach(() => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      text: async () => JSON.stringify({ output: 'Hola, ¿en qué puedo ayudarte?' }),
+    });
+  });
+
+  afterEach(() => {
+    global.fetch = originalFetch;
+  });
+
+  it('sends only the latest message and persistent session id', async () => {
+    const response = await aiService.chatWorkflow('Hola', 'session-123');
+    const [url, options] = global.fetch.mock.calls[0];
+    const body = JSON.parse(options.body);
+
+    expect(url).toBe('http://localhost:5678/webhook-test/Agente IA');
+    expect(options.method).toBe('POST');
+    expect(body).toEqual({ message: 'Hola', sessionId: 'session-123' });
+    expect(response.texto).toBe('Hola, ¿en qué puedo ayudarte?');
+  });
+
+  it('throws when the webhook request fails', async () => {
+    global.fetch.mockResolvedValueOnce({ ok: false, status: 503 });
+
+    await expect(aiService.chatWorkflow('Hola', 'session-123')).rejects.toThrow('Webhook n8n respondió 503');
+  });
+});
+
 describe('aiService.chat privacy', () => {
   const originalFetch = global.fetch;
 

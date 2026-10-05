@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/30</span>
+                <span class='fraction'>31/31</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/26</span>
+                <span class='fraction'>27/27</span>
             </div>
         
             
@@ -156,7 +156,8 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,7 +167,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,14 +185,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">137x</span>
-<span class="cline-any cline-yes">137x</span>
-<span class="cline-any cline-yes">137x</span>
-<span class="cline-any cline-yes">137x</span>
-<span class="cline-any cline-yes">137x</span>
-<span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">548x</span>
 <span class="cline-any cline-yes">130x</span>
@@ -258,24 +260,25 @@ import Input from '@/Components/UI/Input';
 import Button from '@/Components/UI/Button';
 import { validateForm, required, email, min } from '@/Utils/validators';
 import { PATHS } from '@/Routes/paths';
-&nbsp;
-const rules = {
-  nombre: [required('Ingresa tu nombre completo.'), min(3, 'El nombre debe tener al menos 3 caracteres.')],
-  email: [required('Ingresa tu correo.'), email()],
-  password: [required('Crea una contraseña.'), min(6, 'Debe tener al menos 6 caracteres.')],
-  confirmar: [
-    required('Confirma tu contraseña.'),
-    (v, values) =&gt; (v !== values.password ? 'Las contraseñas no coinciden.' : null),
-  ],
-};
+import { useLanguage } from '@/Hooks/useLanguage';
 &nbsp;
 export default function Register() {
   const [form, setForm] = useState({ nombre: '', email: '', password: '', confirmar: '' });
   const [errors, setErrors] = useState({});
   const [accept, setAccept] = useState(false);
   const { register, loading } = useAuth();
+  const { t } = useLanguage();
   const toast = useToast();
   const navigate = useNavigate();
+  const rules = {
+    nombre: [required(t('register.name')), min(3, t('register.nameLength'))],
+    email: [required(t('register.email')), email()],
+    password: [required(t('register.password')), min(6, t('register.passwordLength'))],
+    confirmar: [
+      required(t('register.confirm')),
+      (value, values) =&gt; (value !== values.password ? t('register.mismatch') : null),
+    ],
+  };
 &nbsp;
   const setField = (name) =&gt; (e) =&gt; {
     setForm((prev) =&gt; ({ ...prev, [name]: e.target.value }));
@@ -289,32 +292,32 @@ export default function Register() {
     if (!isValid) return setErrors(vErrors);
 &nbsp;
     if (!accept) {
-      toast.warning('Acepta los términos', 'Debes aceptar las condiciones de uso para continuar.');
+      toast.warning(t('register.acceptTitle'), t('register.acceptDescription'));
       return;
     }
 &nbsp;
     try {
       const user = await register({ nombre: form.nombre, email: form.email, password: form.password });
-      toast.success(`¡Bienvenida/o, ${user.nombre.split(' ')[0]}!`, 'Tu cuenta fue creada correctamente.');
+      toast.success(t('register.welcome', { name: user.nombre.split(' ')[0] }), t('register.created'));
       navigate(PATHS.home, { replace: true });
     } catch (err) {
-      toast.error('No se pudo crear la cuenta', err.message);
+      toast.error(t('register.error'), err.message);
       setErrors({ email: err.message });
     }
   };
 &nbsp;
   return (
     &lt;div&gt;
-      &lt;h1 className="font-display text-3xl font-bold text-ink-900 dark:text-ink-50"&gt;Crear cuenta&lt;/h1&gt;
+      &lt;h1 className="font-display text-3xl font-bold text-ink-900 dark:text-ink-50"&gt;{t('register.title')}&lt;/h1&gt;
       &lt;p className="mt-2 text-sm text-ink-600 dark:text-ink-300"&gt;
-        Únete a la comunidad cultural de Orotina.
+        {t('register.description')}
       &lt;/p&gt;
 &nbsp;
       &lt;form onSubmit={handleSubmit} noValidate className="mt-8 space-y-5"&gt;
-        &lt;Input label="Nombre completo" required value={form.nombre} onChange={setField('nombre')} error={errors.nombre} autoComplete="name" /&gt;
-        &lt;Input label="Correo electrónico" type="email" required value={form.email} onChange={setField('email')} error={errors.email} autoComplete="email" /&gt;
-        &lt;Input label="Contraseña" type="password" required value={form.password} onChange={setField('password')} error={errors.password} autoComplete="new-password" hint="Mínimo 6 caracteres." /&gt;
-        &lt;Input label="Confirmar contraseña" type="password" required value={form.confirmar} onChange={setField('confirmar')} error={errors.confirmar} autoComplete="new-password" /&gt;
+        &lt;Input label={t('register.nameLabel')} required value={form.nombre} onChange={setField('nombre')} error={errors.nombre} autoComplete="name" /&gt;
+        &lt;Input label={t('register.emailLabel')} type="email" required value={form.email} onChange={setField('email')} error={errors.email} autoComplete="email" /&gt;
+        &lt;Input label={t('register.passwordLabel')} type="password" required value={form.password} onChange={setField('password')} error={errors.password} autoComplete="new-password" hint={t('register.passwordHint')} /&gt;
+        &lt;Input label={t('register.confirmLabel')} type="password" required value={form.confirmar} onChange={setField('confirmar')} error={errors.confirmar} autoComplete="new-password" /&gt;
 &nbsp;
         &lt;label className="flex items-start gap-3 text-sm text-ink-600 dark:text-ink-300"&gt;
           &lt;input
@@ -324,20 +327,20 @@ export default function Register() {
             className="mt-0.5 h-4 w-4 rounded border-ink-300 text-brand-500"
           /&gt;
           &lt;span&gt;
-            Acepto las condiciones de uso y el tratamiento de mis datos para la gestión de reservas y boletos del centro.
+            {t('register.terms')}
           &lt;/span&gt;
         &lt;/label&gt;
 &nbsp;
         &lt;Button type="submit" size="lg" loading={loading} className="w-full"&gt;
           &lt;UserPlus aria-hidden="true" className="h-4 w-4" /&gt;
-          Crear cuenta
+          {t('register.submit')}
         &lt;/Button&gt;
       &lt;/form&gt;
 &nbsp;
       &lt;p className="mt-6 text-center text-sm text-ink-600 dark:text-ink-300"&gt;
-        ¿Ya tienes cuenta?{' '}
+        {t('register.haveAccount')}{' '}
         &lt;Link to={PATHS.login} className="font-semibold text-brand-600 hover:underline dark:text-brand-300"&gt;
-          Inicia sesión
+          {t('register.login')}
         &lt;/Link&gt;
       &lt;/p&gt;
     &lt;/div&gt;
@@ -349,7 +352,7 @@ export default function Register() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-01T17:40:15.073Z
+                at 2026-10-02T20:29:21.612Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

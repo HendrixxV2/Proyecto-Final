@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/14</span>
+                <span class='fraction'>11/15</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -168,7 +168,9 @@
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,6 +186,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -287,21 +291,23 @@ import WeatherWidget from '@/Components/Weather/WeatherWidget';
 import { formatColones, formatFecha, formatRangoHoras } from '@/Utils/format';
 import { BADGE_TONE_BY_ESTADO } from '@/Utils/constants';
 import { PATHS } from '@/Routes/paths';
+import { useLanguage } from '@/Hooks/useLanguage';
 &nbsp;
 export default function EspacioDetalle() {
+  const { t } = useLanguage();
   const { id } = useParams();
 &nbsp;
   const { data: espacio, loading, error, refetch } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >espaciosService.getById(id),</span> [id]);
   const { data: reservas } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >reservasService.listByEspacioYFecha(id, new Date().toISOString().slice(0, 10)),</span> [id]);
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) <span class="cstat-no" title="statement not covered" >return &lt;div className="grid min-h-[60vh] place-items-center"&gt;&lt;Spinner label="Cargando espacio…" /&gt;&lt;/div&gt;;</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) <span class="cstat-no" title="statement not covered" >return &lt;div className="grid min-h-[60vh] place-items-center"&gt;&lt;Spinner label={t('spaceDetail.loading')} /&gt;&lt;/div&gt;;</span>
   if (error) return &lt;div className="mx-auto max-w-3xl px-4 py-12"&gt;&lt;ErrorState onRetry={refetch} /&gt;&lt;/div&gt;;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!espacio) <span class="cstat-no" title="statement not covered" >return null;</span>
 &nbsp;
   return (
     &lt;div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8"&gt;
       &lt;Link to={PATHS.espacios} className="inline-flex items-center gap-2 text-sm text-ink-500 hover:text-brand-600 dark:text-ink-400"&gt;
-        &lt;ArrowLeft aria-hidden="true" className="h-4 w-4" /&gt; Volver a espacios
+        &lt;ArrowLeft aria-hidden="true" className="h-4 w-4" /&gt; {t('spaceDetail.back')}
       &lt;/Link&gt;
 &nbsp;
       &lt;div className="mt-6 grid gap-8 lg:grid-cols-[1.5fr_1fr]"&gt;
@@ -317,9 +323,9 @@ export default function EspacioDetalle() {
 &nbsp;
           &lt;dl className="mt-6 grid gap-4 sm:grid-cols-3"&gt;
             {[
-              { Icon: Users, label: 'Capacidad', value: `${espacio.capacidad} personas` },
-              { Icon: MapPin, label: 'Ubicación', value: espacio.ubicacion },
-              { Icon: Clock, label: 'Tarifa', value: `${formatColones(espacio.precioHora)} / hora` },
+              { Icon: Users, label: t('spaceDetail.capacity'), value: t('spaceDetail.people', { count: espacio.capacidad }) },
+              { Icon: MapPin, label: t('spaceDetail.location'), value: espacio.ubicacion },
+              { Icon: Clock, label: t('spaceDetail.rate'), value: `${formatColones(espacio.precioHora)} ${t('spaceDetail.hour')}` },
             ].map(({ Icon, label, value }) =&gt; (
               &lt;div key={label} className="rounded-xl border border-ink-200 p-4 dark:border-ink-700"&gt;
                 &lt;dt className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-ink-400"&gt;
@@ -333,14 +339,14 @@ export default function EspacioDetalle() {
           &lt;div className="mt-6 flex flex-wrap gap-2"&gt;
             {espacio.accesible &amp;&amp; (
               &lt;Badge tone="success"&gt;
-                &lt;Accessibility aria-hidden="true" className="h-3.5 w-3.5" /&gt; Accesible para personas con discapacidad
+                &lt;Accessibility aria-hidden="true" className="h-3.5 w-3.5" /&gt; {t('spaceDetail.accessible')}
               &lt;/Badge&gt;
             )}
-            &lt;Badge tone={espacio.activo ? 'success' : <span class="branch-1 cbranch-no" title="branch not covered" >'danger'}</span>&gt;{espacio.activo ? 'Disponible' : <span class="branch-1 cbranch-no" title="branch not covered" >'No disponible'}</span>&lt;/Badge&gt;
+            &lt;Badge tone={espacio.activo ? 'success' : <span class="branch-1 cbranch-no" title="branch not covered" >'danger'}</span>&gt;{espacio.activo ? t('spaceDetail.available') : <span class="branch-1 cbranch-no" title="branch not covered" >t('spaceDetail.unavailable')}</span>&lt;/Badge&gt;
           &lt;/div&gt;
 &nbsp;
           &lt;div className="mt-8"&gt;
-            &lt;h2 className="font-display text-xl font-bold text-ink-900 dark:text-ink-50"&gt;Reservas de hoy&lt;/h2&gt;
+            &lt;h2 className="font-display text-xl font-bold text-ink-900 dark:text-ink-50"&gt;{t('spaceDetail.todayBookings')}&lt;/h2&gt;
             {reservas?.length ? (
               &lt;ul className="mt-4 space-y-2"&gt;
                 {reservas.map((r) =&gt; (
@@ -354,22 +360,22 @@ export default function EspacioDetalle() {
               &lt;/ul&gt;
             ) : (
 <span class="branch-1 cbranch-no" title="branch not covered" >              &lt;div className="mt-4"&gt;</span>
-                &lt;EmptyState title="Día libre" description="No hay reservas registradas para hoy en este espacio." /&gt;
+                &lt;EmptyState title={t('spaceDetail.freeDay')} description={t('spaceDetail.noBookings')} /&gt;
               &lt;/div&gt;
             )}
           &lt;/div&gt;
 &nbsp;
-          &lt;p className="mt-6 text-xs text-ink-400"&gt;Última actualización: {formatFecha(new Date())}&lt;/p&gt;
+          &lt;p className="mt-6 text-xs text-ink-400"&gt;{t('spaceDetail.updated', { date: formatFecha(new Date()) })}&lt;/p&gt;
         &lt;/div&gt;
 &nbsp;
         &lt;aside className="space-y-6"&gt;
           &lt;div className="rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
-            &lt;h2 className="font-display text-lg font-bold text-ink-900 dark:text-ink-50"&gt;¿Te interesa este espacio?&lt;/h2&gt;
+            &lt;h2 className="font-display text-lg font-bold text-ink-900 dark:text-ink-50"&gt;{t('spaceDetail.interested')}&lt;/h2&gt;
             &lt;p className="mt-2 text-sm text-ink-600 dark:text-ink-300"&gt;
-              Envía tu solicitud de reserva y el equipo administrativo la revisará en un plazo de 48 horas.
+              {t('spaceDetail.requestDescription')}
             &lt;/p&gt;
             &lt;Button as={Link} to={`${PATHS.reservas}?espacio=${espacio.id}`} className="mt-4 w-full"&gt;
-              Solicitar reserva
+              {t('spaceDetail.request')}
             &lt;/Button&gt;
           &lt;/div&gt;
 &nbsp;
@@ -385,7 +391,7 @@ export default function EspacioDetalle() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-01T17:40:15.073Z
+                at 2026-10-02T20:29:21.612Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

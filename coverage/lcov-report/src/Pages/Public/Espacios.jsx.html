@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
@@ -148,7 +148,9 @@
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,6 +163,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -244,8 +248,10 @@ import EmptyState from '@/Components/UI/EmptyState';
 import { SkeletonCard } from '@/Components/UI/Skeleton';
 import { PATHS } from '@/Routes/paths';
 import { formatColones } from '@/Utils/format';
+import { useLanguage } from '@/Hooks/useLanguage';
 &nbsp;
 export default function Espacios() {
+  const { t } = useLanguage();
   const { data: espacios, loading } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >espaciosService.list({ activo: true }),</span> []);
 &nbsp;
   return (
@@ -254,9 +260,9 @@ export default function Espacios() {
       &lt;div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/55 via-white/45 to-jade-50/45 dark:from-ink-900/80 dark:via-ink-900/75 dark:to-jade-950/70" /&gt;
       &lt;div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"&gt;
         &lt;SectionTitle
-          eyebrow="Espacios"
-          title="Salas, talleres y galerías"
-          description="Explora los espacios disponibles para eventos culturales, talleres, reuniones y exposiciones."
+          eyebrow={t('spacesPage.eyebrow')}
+          title={t('spacesPage.title')}
+          description={t('spacesPage.description')}
         /&gt;
 &nbsp;
       {loading ? (
@@ -267,7 +273,7 @@ export default function Espacios() {
         &lt;/div&gt;
       ) : !espacios?.length ? (
         &lt;div className="mt-8"&gt;
-          &lt;EmptyState title="No hay espacios disponibles" description="Pronto agregaremos nuevas salas y galerías." /&gt;
+          &lt;EmptyState title={t('spacesPage.empty')} description={t('spacesPage.emptyDescription')} /&gt;
         &lt;/div&gt;
       ) : (
         &lt;ul className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3"&gt;
@@ -277,7 +283,7 @@ export default function Espacios() {
                 &lt;div className="flex items-start justify-between gap-3"&gt;
                   &lt;div&gt;
                     &lt;p className="text-xs font-semibold uppercase tracking-wide text-jade-300"&gt;
-                      {espacio.tipo ?? <span class="branch-1 cbranch-no" title="branch not covered" >'Espacio'}</span>
+                      {espacio.tipo ?? <span class="branch-1 cbranch-no" title="branch not covered" >t('spacesPage.space')}</span>
                     &lt;/p&gt;
                     &lt;h2 className="mt-2 font-display text-xl font-semibold text-white"&gt;
                       {espacio.nombre}
@@ -291,22 +297,22 @@ export default function Espacios() {
                 &lt;/p&gt;
 &nbsp;
                 &lt;div className="mt-4 flex flex-wrap gap-2"&gt;
-                  &lt;Badge tone="jade"&gt;Capacidad: {espacio.capacidad ?? <span class="branch-1 cbranch-no" title="branch not covered" >0}</span>&lt;/Badge&gt;
-                  &lt;Badge tone="brand"&gt;{formatColones(espacio.precioHora ?? <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>} / hora&lt;/Badge&gt;
+                  &lt;Badge tone="jade"&gt;{t('spacesPage.capacity', { count: espacio.capacidad ?? <span class="branch-1 cbranch-no" title="branch not covered" >0 </span>})}&lt;/Badge&gt;
+                  &lt;Badge tone="brand"&gt;{formatColones(espacio.precioHora ?? <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>} {t('spacesPage.perHour')}&lt;/Badge&gt;
                 &lt;/div&gt;
 &nbsp;
                 &lt;div className="mt-5 flex items-center justify-between text-sm text-white/75"&gt;
-                  &lt;span&gt;{espacio.ubicacion ?? <span class="branch-1 cbranch-no" title="branch not covered" >'Ubicación por confirmar'}</span>&lt;/span&gt;
+                  &lt;span&gt;{espacio.ubicacion ?? <span class="branch-1 cbranch-no" title="branch not covered" >t('spacesPage.locationPending')}</span>&lt;/span&gt;
                 &lt;/div&gt;
 &nbsp;
                 &lt;div className="mt-6 grid gap-2 sm:grid-cols-2"&gt;
                   &lt;Button as={Link} to={PATHS.espacioDetalle(espacio.id)} variant="outline" className="w-full justify-center"&gt;
-                    Ver detalle
+                    {t('spacesPage.details')}
                     &lt;ArrowRight aria-hidden="true" className="h-4 w-4" /&gt;
                   &lt;/Button&gt;
                   &lt;Button as={Link} to={`${PATHS.reservas}?espacio=${espacio.id}`} className="w-full justify-center"&gt;
                     &lt;CalendarCheck aria-hidden="true" className="h-4 w-4" /&gt;
-                    Reservar
+                    {t('spacesPage.book')}
                   &lt;/Button&gt;
                 &lt;/div&gt;
               &lt;/article&gt;
@@ -325,7 +331,7 @@ export default function Espacios() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-01T17:40:15.073Z
+                at 2026-10-02T20:29:21.612Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

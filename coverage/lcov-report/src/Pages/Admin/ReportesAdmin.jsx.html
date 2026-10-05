@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/18</span>
+                <span class='fraction'>16/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.85% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/14</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
@@ -131,7 +131,9 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,6 +144,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -208,14 +212,16 @@ import ErrorState from '@/Components/UI/ErrorState';
 import StatCard from '@/Components/UI/StatCard';
 import { CalendarClock, DollarSign, Users } from 'lucide-react';
 import { formatColones } from '@/Utils/format';
+import { useLanguage } from '@/Hooks/useLanguage';
 &nbsp;
 export default function ReportesAdmin() {
+  const { t } = useLanguage();
   const { data, loading, error, refetch } = useFetch(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >reportesService.dashboard(),</span> []);
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (error) <span class="cstat-no" title="statement not covered" >return &lt;ErrorState onRetry={refetch} /&gt;;</span>
 &nbsp;
   const exportarCSV = () =&gt; {
-    const filas = [['Espacio', 'Reservas'], ...(data?.porEspacio ?? <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>.map((r) =&gt; [r.nombre, r.reservas])];
+    const filas = [[t('adminReports.csvSpace'), t('adminReports.csvBookings')], ...(data?.porEspacio ?? <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>.map((r) =&gt; [r.nombre, r.reservas])];
     const csv = filas.map((f) =&gt; f.join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
@@ -230,36 +236,36 @@ export default function ReportesAdmin() {
     &lt;section&gt;
       &lt;header className="mb-6 flex flex-wrap items-end justify-between gap-4"&gt;
         &lt;div&gt;
-          &lt;h1 className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50"&gt;Reportes&lt;/h1&gt;
+          &lt;h1 className="font-display text-2xl font-bold text-ink-900 dark:text-ink-50"&gt;{t('adminReports.title')}&lt;/h1&gt;
           &lt;p className="mt-1 text-sm text-ink-500 dark:text-ink-400"&gt;
-            Indicadores de uso, ingresos y participación comunitaria.
+            {t('adminReports.description')}
           &lt;/p&gt;
         &lt;/div&gt;
         &lt;Button variant="outline" onClick={exportarCSV}&gt;
           &lt;Download aria-hidden="true" className="h-4 w-4" /&gt;
-          Exportar CSV
+          {t('adminReports.export')}
         &lt;/Button&gt;
       &lt;/header&gt;
 &nbsp;
       &lt;div className="grid gap-4 sm:grid-cols-3"&gt;
-        &lt;StatCard loading={loading} label="Reservas" value={data?.kpis?.reservasTotales ?? <span class="branch-1 cbranch-no" title="branch not covered" >0}</span> Icon={CalendarClock} tone="brand" /&gt;
-        &lt;StatCard loading={loading} label="Ingresos" value={formatColones(data?.kpis?.ingresos ?? <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>} Icon={DollarSign} tone="jade" /&gt;
-        &lt;StatCard loading={loading} label="Usuarios" value={data?.kpis?.usuariosActivos ?? <span class="branch-1 cbranch-no" title="branch not covered" >0}</span> Icon={Users} tone="ink" /&gt;
+        &lt;StatCard loading={loading} label={t('adminReports.bookings')} value={data?.kpis?.reservasTotales ?? <span class="branch-1 cbranch-no" title="branch not covered" >0}</span> Icon={CalendarClock} tone="brand" /&gt;
+        &lt;StatCard loading={loading} label={t('adminReports.income')} value={formatColones(data?.kpis?.ingresos ?? <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>} Icon={DollarSign} tone="jade" /&gt;
+        &lt;StatCard loading={loading} label={t('adminReports.users')} value={data?.kpis?.usuariosActivos ?? <span class="branch-1 cbranch-no" title="branch not covered" >0}</span> Icon={Users} tone="ink" /&gt;
       &lt;/div&gt;
 &nbsp;
       &lt;article className="mt-6 rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
         &lt;header className="flex items-center gap-2"&gt;
           &lt;FileSpreadsheet aria-hidden="true" className="h-4 w-4 text-ink-400" /&gt;
-          &lt;h2 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50"&gt;Uso por espacio&lt;/h2&gt;
+          &lt;h2 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50"&gt;{t('adminReports.usage')}&lt;/h2&gt;
         &lt;/header&gt;
 &nbsp;
-        &lt;div className="mt-4 h-80" role="img" aria-label="Gráfico de barras horizontales con el uso de cada espacio"&gt;
+        &lt;div className="mt-4 h-80" role="img" aria-label={t('adminReports.chart')}&gt;
           &lt;ResponsiveContainer width="100%" height="100%"&gt;
             &lt;BarChart data={data?.porEspacio ?? <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span> layout="vertical" margin={{ left: 24, right: 16 }}&gt;
               &lt;CartesianGrid strokeDasharray="3 3" stroke="#D8D3CC" horizontal={false} /&gt;
               &lt;XAxis type="number" allowDecimals={false} tick={{ fontSize: 11 }} /&gt;
               &lt;YAxis type="category" dataKey="nombre" width={140} tick={{ fontSize: 11 }} /&gt;
-              &lt;Tooltip formatter={<span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >[`${v} reservas`, 'Total']}</span> /&gt;
+              &lt;Tooltip formatter={<span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >[t('adminReports.reservationTotal', { count: v }), t('adminReports.total')]}</span> /&gt;
               &lt;Bar dataKey="reservas" fill="#1F6F6B" radius={[0, 6, 6, 0]} /&gt;
             &lt;/BarChart&gt;
           &lt;/ResponsiveContainer&gt;
@@ -274,7 +280,7 @@ export default function ReportesAdmin() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-01T17:40:15.073Z
+                at 2026-10-02T20:29:21.612Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

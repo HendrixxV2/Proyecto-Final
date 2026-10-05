@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.32% </span>
+                <span class="strong">91.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/31</span>
+                <span class='fraction'>31/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/25</span>
+                <span class='fraction'>33/45</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96% </span>
+                <span class="strong">96.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/25</span>
+                <span class='fraction'>27/28</span>
             </div>
         
             
@@ -237,7 +237,18 @@
 <a name='L172'></a><a href='#L172'>172</a>
 <a name='L173'></a><a href='#L173'>173</a>
 <a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,6 +256,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -413,7 +435,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo, useState } from 'react';
 import { addMonths, eachDayOfInterval, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, startOfMonth, startOfWeek, subMonths } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { enUS, es, zhTW } from 'date-fns/locale';
 import { CalendarDays, ChevronLeft, ChevronRight, Ticket } from 'lucide-react';
 import { useFetch } from '@/Hooks/useFetch';
 import { eventosService } from '@/Services/eventosService';
@@ -421,11 +443,22 @@ import Button from '@/Components/UI/Button';
 import Badge from '@/Components/UI/Badge';
 import SectionTitle from '@/Components/Common/SectionTitle';
 import EmptyState from '@/Components/UI/EmptyState';
-import { formatFecha, formatRangoHoras, formatColones } from '@/Utils/format';
+import { formatRangoHoras, formatColones } from '@/Utils/format';
 import { CATEGORIAS_EVENTO } from '@/Utils/constants';
 import { cn } from '@/Utils/cn';
+import { useLanguage } from '@/Hooks/useLanguage';
 &nbsp;
 export default function Calendario() {
+  const { language, t } = useLanguage();
+  const locale = language === 'en' ? <span class="branch-0 cbranch-no" title="branch not covered" >enUS </span>: language === 'zh' ? <span class="branch-0 cbranch-no" title="branch not covered" >zhTW </span>: es;
+  const categoryLabels = {
+    teatro: { es: 'Teatro', en: 'Theater', zh: '戲劇' },
+    baile: { es: 'Baile', en: 'Dance', zh: '舞蹈' },
+    canto: { es: 'Canto', en: 'Song', zh: '歌唱' },
+    exposicion: { es: 'Exposición', en: 'Exhibition', zh: '展覽' },
+    taller: { es: 'Taller', en: 'Workshop', zh: '工作坊' },
+    cine: { es: 'Cine', en: 'Film', zh: '電影' },
+  };
   const [mesActual, setMesActual] = useState(new Date());
   const [categoria, setCategoria] = useState('todas');
   const [seleccionado, setSeleccionado] = useState(new Date());
@@ -452,13 +485,13 @@ export default function Calendario() {
       &lt;div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-white/55 via-white/45 to-jade-50/45 dark:from-ink-900/80 dark:via-ink-900/75 dark:to-jade-950/70" /&gt;
       &lt;div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"&gt;
       &lt;SectionTitle
-        eyebrow="Agenda cultural"
-        title="Calendario interactivo"
-        description="Selecciona un día para ver las actividades programadas en el Centro Cultural Orotinense."
+        eyebrow={t('calendar.eyebrow')}
+        title={t('calendar.title')}
+        description={t('calendar.description')}
       /&gt;
 &nbsp;
       {/* Filtros */}
-      &lt;div className="mt-8 flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar por categoría"&gt;
+      &lt;div className="mt-8 flex flex-wrap items-center gap-2" role="group" aria-label={t('calendar.category')}&gt;
         &lt;button
           type="button"
           onClick={() =&gt; setCategoria('todas')}
@@ -468,7 +501,7 @@ export default function Calendario() {
             categoria === 'todas' ? 'bg-brand-500 text-white' : 'border border-ink-300 text-ink-600 dark:border-ink-600 dark:text-ink-300',
           )}
         &gt;
-          Todas
+          {t('calendar.all')}
         &lt;/button&gt;
         {CATEGORIAS_EVENTO.map((c) =&gt; (
           &lt;button
@@ -481,30 +514,30 @@ export default function Calendario() {
               categoria === c ? 'bg-brand-500 text-white' : 'border border-ink-300 text-ink-600 dark:border-ink-600 dark:text-ink-300',
             )}
           &gt;
-            {c}
+            {categoryLabels[c]?.[language] ?? c}
           &lt;/button&gt;
         ))}
       &lt;/div&gt;
 &nbsp;
       &lt;div className="mt-8 grid gap-8 lg:grid-cols-[1.6fr_1fr]"&gt;
         {/* Grilla del calendario */}
-        &lt;section aria-label={`Calendario de ${format(mesActual, 'MMMM yyyy', { locale: es })}`} className="rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
+        &lt;section aria-label={`${t('calendar.title')}: ${format(mesActual, 'MMMM yyyy', { locale })}`} className="rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
           &lt;header className="flex items-center justify-between"&gt;
             &lt;h3 className="font-display text-lg font-bold capitalize text-ink-900 dark:text-ink-50"&gt;
-              {format(mesActual, 'MMMM yyyy', { locale: es })}
+              {format(mesActual, 'MMMM yyyy', { locale })}
             &lt;/h3&gt;
             &lt;div className="flex gap-2"&gt;
-              &lt;Button variant="outline" size="icon" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setMesActual(<span class="fstat-no" title="function not covered" >(m</span>) =&gt; <span class="cstat-no" title="statement not covered" >subMonths(m, 1))</span>}</span> aria-label="Mes anterior"&gt;
+              &lt;Button variant="outline" size="icon" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setMesActual(<span class="fstat-no" title="function not covered" >(m</span>) =&gt; <span class="cstat-no" title="statement not covered" >subMonths(m, 1))</span>}</span> aria-label={t('calendar.previous')}&gt;
                 &lt;ChevronLeft aria-hidden="true" className="h-4 w-4" /&gt;
               &lt;/Button&gt;
-              &lt;Button variant="outline" size="icon" onClick={() =&gt; setMesActual((m) =&gt; addMonths(m, 1))} aria-label="Mes siguiente"&gt;
+              &lt;Button variant="outline" size="icon" onClick={() =&gt; setMesActual((m) =&gt; addMonths(m, 1))} aria-label={t('calendar.next')}&gt;
                 &lt;ChevronRight aria-hidden="true" className="h-4 w-4" /&gt;
               &lt;/Button&gt;
             &lt;/div&gt;
           &lt;/header&gt;
 &nbsp;
           &lt;div className="mt-5 grid grid-cols-7 gap-1 text-center text-[11px] font-semibold uppercase tracking-wide text-ink-400"&gt;
-            {['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'].map((d) =&gt; &lt;div key={d}&gt;{d}&lt;/div&gt;)}
+            {(language === 'en' ? <span class="branch-0 cbranch-no" title="branch not covered" >['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] </span>: language === 'zh' ? <span class="branch-0 cbranch-no" title="branch not covered" >['一', '二', '三', '四', '五', '六', '日'] </span>: ['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom']).map((d) =&gt; &lt;div key={d}&gt;{d}&lt;/div&gt;)}
           &lt;/div&gt;
 &nbsp;
           &lt;div className="mt-2 grid grid-cols-7 gap-1"&gt;
@@ -519,7 +552,7 @@ export default function Calendario() {
                   type="button"
                   onClick={() =&gt; setSeleccionado(dia)}
                   aria-pressed={activo}
-                  aria-label={`${format(dia, "d 'de' MMMM", { locale: es })}${delDia.length ? `, ${delDia.length} evento(s)` : ''}`}
+                  aria-label={`${format(dia, language === 'zh' ? <span class="branch-0 cbranch-no" title="branch not covered" >'M月d日' </span>: language === 'en' ? <span class="branch-0 cbranch-no" title="branch not covered" >'MMMM d' </span>: "d 'de' MMMM", { locale })}${delDia.length ? `, ${t('calendar.event', { count: delDia.length })}` : ''}`}
                   className={cn(
                     'relative flex aspect-square flex-col items-center justify-center rounded-xl text-sm transition',
                     fueraDeMes &amp;&amp; 'opacity-40',
@@ -542,16 +575,16 @@ export default function Calendario() {
         &lt;/section&gt;
 &nbsp;
         {/* Detalle del día */}
-        &lt;section aria-label="Eventos del día seleccionado" className="rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
+        &lt;section aria-label={t('calendar.selectedEvents')} className="rounded-2xl border border-ink-200 bg-white p-5 dark:border-ink-700 dark:bg-ink-800"&gt;
           &lt;h3 className="font-display text-lg font-bold text-ink-900 dark:text-ink-50"&gt;
-            {formatFecha(seleccionado, "EEEE d 'de' MMMM")}
+            {format(seleccionado, language === 'zh' ? <span class="branch-0 cbranch-no" title="branch not covered" >'M月d日 EEEE' </span>: language === 'en' ? <span class="branch-0 cbranch-no" title="branch not covered" >'EEEE, MMMM d' </span>: "EEEE d 'de' MMMM", { locale })}
           &lt;/h3&gt;
 &nbsp;
-          {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;p className="mt-4 text-sm text-ink-500"&gt;Cargando eventos…&lt;/p&gt;}</span>
+          {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;p className="mt-4 text-sm text-ink-500"&gt;{t('calendar.loading')}&lt;/p&gt;}</span>
 &nbsp;
           {!loading &amp;&amp; eventosSeleccionados.length === 0 &amp;&amp; (
             &lt;div className="mt-5"&gt;
-              &lt;EmptyState icon={CalendarDays} title="Sin actividades" description="No hay eventos programados para este día." /&gt;
+              &lt;EmptyState icon={CalendarDays} title={t('calendar.empty')} description={t('calendar.emptyDescription')} /&gt;
             &lt;/div&gt;
           )}
 &nbsp;
@@ -560,22 +593,22 @@ export default function Calendario() {
               &lt;li key={e.id} className="rounded-xl border border-ink-200 p-4 dark:border-ink-700"&gt;
                 &lt;div className="flex items-start justify-between gap-3"&gt;
                   &lt;h4 className="font-display text-base font-semibold text-ink-900 dark:text-ink-50"&gt;{e.titulo}&lt;/h4&gt;
-                  &lt;Badge tone="info"&gt;{e.categoria}&lt;/Badge&gt;
+                  &lt;Badge tone="info"&gt;{categoryLabels[e.categoria]?.[language] ?? <span class="branch-1 cbranch-no" title="branch not covered" >e.categoria}</span>&lt;/Badge&gt;
                 &lt;/div&gt;
                 &lt;p className="mt-2 text-sm text-ink-600 dark:text-ink-300"&gt;{e.descripcion}&lt;/p&gt;
                 &lt;dl className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-ink-500 dark:text-ink-400"&gt;
                   &lt;div className="flex gap-1.5"&gt;
-                    &lt;dt className="font-semibold"&gt;Horario:&lt;/dt&gt;
+                    &lt;dt className="font-semibold"&gt;{t('calendar.time')}&lt;/dt&gt;
                     &lt;dd&gt;{formatRangoHoras(e.horaInicio, e.horaFin)}&lt;/dd&gt;
                   &lt;/div&gt;
                   &lt;div className="flex gap-1.5"&gt;
-                    &lt;dt className="font-semibold"&gt;Entrada:&lt;/dt&gt;
-                    &lt;dd&gt;{e.precio &gt; 0 ? formatColones(e.precio) : 'Gratuita'}&lt;/dd&gt;
+                    &lt;dt className="font-semibold"&gt;{t('calendar.admission')}&lt;/dt&gt;
+                    &lt;dd&gt;{e.precio &gt; 0 ? formatColones(e.precio) : t('calendar.free')}&lt;/dd&gt;
                   &lt;/div&gt;
                 &lt;/dl&gt;
                 &lt;Button as="a" href="/boletos" size="sm" variant="outline" className="mt-4"&gt;
                   &lt;Ticket aria-hidden="true" className="h-4 w-4" /&gt;
-                  Reservar boleto
+                  {t('calendar.book')}
                 &lt;/Button&gt;
               &lt;/li&gt;
             ))}
@@ -592,7 +625,7 @@ export default function Calendario() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-01T17:40:15.073Z
+                at 2026-10-02T20:29:21.612Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -41,13 +41,13 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
   const { t } = useLanguage();
   const content = (
     <>
-      <div className="flex h-16 items-center gap-2.5 border-b border-ink-200 px-4 dark:border-ink-700">
-        <Link to={PATHS.home} className="flex items-center gap-2.5" onClick={onCloseMobile}>
-          <img src="/logoOrotina.jpeg" alt="" className="h-9 w-9 shrink-0 rounded-full object-cover object-center" />
+      <div className="admin-sidebar__brand flex h-16 items-center gap-2.5 border-b border-ink-200 px-4 dark:border-ink-700">
+        <Link to={PATHS.home} className="flex min-w-0 items-center gap-2.5" onClick={onCloseMobile}>
+          <img src="/logoOrotina.jpeg" alt="" className="admin-sidebar__logo h-9 w-9 shrink-0 rounded-full object-cover object-center" />
           {!collapsed && (
-            <span className="min-w-0 font-display text-sm font-bold leading-tight text-ink-900 dark:text-ink-50">
+            <span className="admin-sidebar__wordmark min-w-0 font-display text-sm font-bold leading-tight text-ink-900 dark:text-ink-50">
               {t('adminNav.brand')}
-              <span className="block text-[11px] font-medium text-ink-500 dark:text-ink-400">{t('adminNav.subtitle')}</span>
+              <span className="admin-sidebar__subtitle block text-[11px] font-medium text-ink-500 dark:text-ink-400">{t('adminNav.subtitle')}</span>
             </span>
           )}
         </Link>
@@ -62,11 +62,11 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
         </button>
       </div>
 
-      <nav aria-label={t('adminNav.navigation')} className="flex-1 overflow-y-auto px-3 py-4">
+      <nav aria-label={t('adminNav.navigation')} className="admin-sidebar__nav flex-1 overflow-y-auto px-3 py-4">
         {SECCIONES.map((seccion) => (
-          <div key={seccion.titulo} className="mb-5">
+          <div key={seccion.titulo} className="admin-sidebar__section mb-5">
             {!collapsed && (
-              <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-ink-400">{t(`adminNav.sections.${seccion.titulo}`)}</p>
+              <p className="admin-sidebar__section-title mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-ink-400">{t(`adminNav.sections.${seccion.titulo}`)}</p>
             )}
             <ul className="space-y-1">
               {seccion.items.map(({ to, label, Icon }) => (
@@ -77,7 +77,7 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
                     title={collapsed ? t(`adminNav.items.${label}`) : undefined}
                     className={({ isActive }) =>
                       cn(
-                        'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition',
+                        'admin-sidebar__link nav-tab-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition',
                         collapsed && 'justify-center px-2',
                         isActive
                           ? 'bg-brand-500 text-white'
@@ -100,7 +100,7 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
         onClick={onToggleCollapse}
         aria-label={t(collapsed ? 'ui.expandSidebar' : 'ui.collapseSidebar')}
         aria-pressed={collapsed}
-        className="hidden h-12 items-center justify-center gap-2 border-t border-ink-200 text-xs font-medium text-ink-500 transition hover:bg-ink-100 lg:flex dark:border-ink-700 dark:hover:bg-ink-700"
+        className="admin-sidebar__collapse hidden h-12 items-center justify-center gap-2 border-t border-ink-200 text-xs font-medium text-ink-500 transition hover:bg-ink-100 lg:flex dark:border-ink-700 dark:hover:bg-ink-700"
       >
         <ChevronLeft aria-hidden="true" className={cn('h-4 w-4 transition-transform', collapsed && 'rotate-180')} />
         {!collapsed && t('adminNav.collapse')}
@@ -124,7 +124,7 @@ export default function Sidebar({ collapsed, mobileOpen, onCloseMobile, onToggle
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-ink-900/60" onClick={onCloseMobile} aria-hidden="true" />
-          <aside className="admin-sidebar relative flex h-full w-72 flex-col border-r border-ink-200 bg-white animate-slide-up dark:border-ink-700 dark:bg-ink-800">
+          <aside className="admin-sidebar admin-sidebar--mobile relative flex h-full w-72 flex-col border-r border-ink-200 bg-white animate-slide-up dark:border-ink-700 dark:bg-ink-800">
             {content}
           </aside>
         </div>

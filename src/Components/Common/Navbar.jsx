@@ -78,7 +78,7 @@ export default function Navbar() {
                 end={item.to === PATHS.home}
                 className={({ isActive }) =>
                   cn(
-                    'relative whitespace-nowrap rounded-lg px-2 py-2 text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm',
+                    'nav-tab-link relative whitespace-nowrap rounded-lg px-2 py-2 text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm',
                     isActive
                       ? 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200'
                       : 'text-ink-600 hover:bg-ink-100 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800 dark:hover:text-ink-50',
@@ -168,7 +168,7 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
                     cn(
-                      'block rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 hover:translate-x-1',
+                      'nav-tab-link block rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 hover:translate-x-1',
                       isActive
                         ? 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200'
                         : 'text-ink-700 hover:bg-ink-100 dark:text-ink-200 dark:hover:bg-ink-800',

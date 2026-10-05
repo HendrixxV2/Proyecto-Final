@@ -17,8 +17,8 @@ export default function AppIntro() {
   useEffect(() => {
     if (!visible) return undefined;
 
-    const welcomeTimer = window.setTimeout(() => setShowWelcome(true), 950);
-    const exitTimer = window.setTimeout(() => setLeaving(true), 2650);
+    const welcomeTimer = window.setTimeout(() => setShowWelcome(true), 850);
+    const exitTimer = window.setTimeout(() => setLeaving(true), 2350);
     const removeTimer = window.setTimeout(() => {
       setVisible(false);
       try {
@@ -26,7 +26,7 @@ export default function AppIntro() {
       } catch {
         // La intro puede repetirse si el almacenamiento no está disponible.
       }
-    }, 1180);
+    }, 3050);
 
     return () => {
       window.clearTimeout(welcomeTimer);
@@ -38,7 +38,7 @@ export default function AppIntro() {
   if (!visible) return null;
 
   return (
-    <div className={`app-intro${leaving ? ' app-intro--leaving' : ''}`} role="status" aria-label="Bienvenida al Centro Cultural Orotinense" aria-live="polite">
+    <div className={`app-intro${leaving ? ' app-intro--leaving' : ''}`} role="status" aria-label="Bienvenid@s" aria-live="polite">
       <div className="app-intro__mark">
         <span className="app-intro__logo">
           <Landmark aria-hidden="true" className="h-8 w-8" />
@@ -48,13 +48,9 @@ export default function AppIntro() {
             onError={(event) => { event.currentTarget.style.display = 'none'; }}
           />
         </span>
-        <span className="app-intro__rule" />
-        <p>Centro Cultural Orotinense</p>
-        <small>Luis Ferrero Acosta</small>
         {showWelcome && (
           <div className="app-intro__welcome">
-            <h1>¡Te damos la bienvenida!</h1>
-            <p>Un lugar para encontrarnos, crear y celebrar nuestra cultura.</p>
+            <h1>Bienvenid@s</h1>
           </div>
         )}
       </div>

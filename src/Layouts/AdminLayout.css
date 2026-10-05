@@ -174,6 +174,247 @@ html.dark .admin-shell [class~="dark:hover:bg-ink-700/40"]:hover {
   color: var(--admin-text);
 }
 
+.admin-shell .admin-sidebar {
+  border-color: rgb(174 199 220 / 0.16) !important;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgb(65 123 151 / 0.2), transparent 42%),
+    linear-gradient(165deg, rgb(20 34 55 / 0.98), rgb(13 24 41 / 0.98)) !important;
+  box-shadow: 12px 0 36px rgb(5 13 24 / 0.24), inset -1px 0 rgb(255 255 255 / 0.04);
+  color: #edf4f6;
+  backdrop-filter: blur(22px);
+}
+
+html.dark .admin-shell .admin-sidebar[class~="dark:bg-ink-800"] {
+  background:
+    radial-gradient(ellipse at 12% 0%, rgb(65 123 151 / 0.2), transparent 42%),
+    linear-gradient(165deg, rgb(20 34 55 / 0.98), rgb(13 24 41 / 0.98)) !important;
+}
+
+.admin-shell .admin-sidebar:not(.admin-sidebar--mobile) {
+  border-right: 1px solid rgb(174 199 220 / 0.16);
+}
+
+.admin-shell .admin-sidebar__brand {
+  border-color: rgb(174 199 220 / 0.14) !important;
+}
+
+.admin-shell .admin-sidebar__logo {
+  border: 1px solid rgb(255 255 255 / 0.28);
+  box-shadow: 0 3px 12px rgb(3 12 22 / 0.34);
+}
+
+.admin-shell .admin-sidebar__wordmark {
+  color: #f4f6f2 !important;
+  letter-spacing: 0.01em;
+}
+
+html.dark .admin-shell .admin-sidebar__wordmark {
+  color: #f4f6f2 !important;
+}
+
+.admin-shell .admin-sidebar__subtitle {
+  color: #a9bdc8 !important;
+  letter-spacing: 0.04em;
+}
+
+html.dark .admin-shell .admin-sidebar__subtitle {
+  color: #a9bdc8 !important;
+}
+
+.admin-shell .admin-sidebar__nav {
+  scrollbar-color: rgb(148 170 186 / 0.35) transparent;
+  scrollbar-width: thin;
+}
+
+.admin-shell .admin-sidebar__section-title {
+  color: #8fa9b9 !important;
+  letter-spacing: 0.13em;
+}
+
+html.dark .admin-shell .admin-sidebar__section-title {
+  color: #8fa9b9 !important;
+}
+
+.admin-shell .admin-sidebar .admin-sidebar__link {
+  position: relative;
+  min-height: 2.7rem;
+  border: 1px solid transparent;
+  color: #cfdae1 !important;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+html.dark .admin-shell .admin-sidebar .admin-sidebar__link {
+  color: #cfdae1 !important;
+}
+
+.admin-shell .admin-sidebar .admin-sidebar__link::after {
+  content: none;
+}
+
+.admin-shell .admin-sidebar .admin-sidebar__link:hover:not([aria-current='page']) {
+  transform: translateX(2px);
+  border-color: rgb(174 199 220 / 0.11);
+  background-color: rgb(255 255 255 / 0.07) !important;
+  color: #fff !important;
+}
+
+.admin-shell .admin-sidebar .admin-sidebar__link[aria-current='page'] {
+  border-color: rgb(100 211 192 / 0.24);
+  background: linear-gradient(105deg, rgb(17 135 133 / 0.95), rgb(24 165 147 / 0.82)) !important;
+  box-shadow: 0 6px 18px rgb(11 145 132 / 0.2), inset 0 1px rgb(255 255 255 / 0.16);
+  color: #fff !important;
+}
+
+.admin-shell .admin-sidebar .admin-sidebar__link[aria-current='page']::before {
+  position: absolute;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  left: -0.78rem;
+  width: 3px;
+  border-radius: 0 999px 999px 0;
+  background: #71dec4;
+  box-shadow: 0 0 12px rgb(113 222 196 / 0.72);
+  content: '';
+  animation: admin-sidebar-indicator-in 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: center;
+}
+
+@keyframes admin-sidebar-indicator-in {
+  from {
+    opacity: 0.35;
+    transform: scaleY(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.admin-shell .admin-sidebar__collapse {
+  border-color: rgb(174 199 220 / 0.14) !important;
+  color: #a9bdc8 !important;
+}
+
+html.dark .admin-shell .admin-sidebar__collapse {
+  color: #a9bdc8 !important;
+}
+
+.admin-shell .admin-sidebar__collapse:hover {
+  background-color: rgb(255 255 255 / 0.07) !important;
+  color: #fff !important;
+}
+
+.admin-shell .admin-topbar {
+  border-color: var(--admin-border) !important;
+  border-radius: 1.1rem;
+  background: linear-gradient(110deg, rgb(248 250 255 / 0.94), rgb(239 244 250 / 0.86)) !important;
+  box-shadow: 0 10px 28px rgb(16 31 53 / 0.1), inset 0 1px rgb(255 255 255 / 0.8);
+  backdrop-filter: blur(18px);
+}
+
+.admin-shell .admin-topbar__mobile-trigger,
+.admin-shell .admin-topbar__visit-site,
+.admin-shell .admin-topbar__account button {
+  border: 1px solid transparent;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.admin-shell .admin-topbar__mobile-trigger:hover,
+.admin-shell .admin-topbar__visit-site:hover,
+.admin-shell .admin-topbar__account button:hover {
+  transform: translateY(-1px);
+  border-color: rgb(35 75 100 / 0.12);
+  background-color: rgb(255 255 255 / 0.72) !important;
+}
+
+.admin-shell .admin-topbar__search input {
+  border-color: rgb(82 111 135 / 0.18);
+  background-color: rgb(255 255 255 / 0.62);
+  box-shadow: inset 0 1px 2px rgb(27 48 68 / 0.035);
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.admin-shell .admin-topbar__search input:focus {
+  border-color: rgb(15 126 134 / 0.58);
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgb(15 126 134 / 0.12);
+}
+
+.admin-shell .admin-topbar__account {
+  border-color: rgb(82 111 135 / 0.2) !important;
+}
+
+.admin-shell .admin-topbar__avatar {
+  border: 2px solid rgb(255 255 255 / 0.9);
+  box-shadow: 0 2px 8px rgb(27 48 68 / 0.2);
+}
+
+html.dark .admin-shell .admin-topbar {
+  border-color: rgb(151 174 198 / 0.17) !important;
+  background: linear-gradient(110deg, rgb(27 40 63 / 0.94), rgb(20 32 52 / 0.9)) !important;
+  box-shadow: 0 10px 28px rgb(2 9 20 / 0.24), inset 0 1px rgb(255 255 255 / 0.06);
+}
+
+html.dark .admin-shell .admin-topbar__search input {
+  border-color: rgb(151 174 198 / 0.18);
+  background-color: rgb(9 19 34 / 0.4);
+}
+
+html.dark .admin-shell .admin-topbar__search input:focus {
+  border-color: rgb(113 222 196 / 0.56);
+  background-color: rgb(9 19 34 / 0.64);
+}
+
+html.dark .admin-shell .admin-topbar__mobile-trigger:hover,
+html.dark .admin-shell .admin-topbar__visit-site:hover,
+html.dark .admin-shell .admin-topbar__account button:hover {
+  border-color: rgb(151 174 198 / 0.16);
+  background-color: rgb(255 255 255 / 0.07) !important;
+}
+
+html.dark .admin-shell .admin-topbar__account {
+  border-color: rgb(151 174 198 / 0.2) !important;
+}
+
+@media (max-width: 639px) {
+  .admin-shell .admin-topbar {
+    border-radius: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-shell .admin-sidebar .admin-sidebar__link[aria-current='page']::before {
+    animation: none !important;
+    transform: none;
+  }
+
+  .admin-shell .admin-sidebar__link,
+  .admin-shell .admin-sidebar__collapse,
+  .admin-shell .admin-topbar__mobile-trigger,
+  .admin-shell .admin-topbar__visit-site,
+  .admin-shell .admin-topbar__account button {
+    transition: none !important;
+  }
+
+  .admin-shell .admin-sidebar__link:hover:not([aria-current='page']),
+  .admin-shell .admin-topbar__mobile-trigger:hover,
+  .admin-shell .admin-topbar__visit-site:hover,
+  .admin-shell .admin-topbar__account button:hover,
+  .admin-shell .admin-topbar__mobile-trigger:active,
+  .admin-shell .admin-topbar__account button:active {
+    transform: none !important;
+  }
+}
+
 .admin-dashboard__heading {
   display: flex;
   align-items: flex-end;

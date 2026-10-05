@@ -25,7 +25,7 @@ const Button = forwardRef(function Button(
   ref,
 ) {
   const classes = cn(
-    'inline-flex items-center justify-center rounded-xl font-medium transition-colors',
+    'button-interactive inline-flex items-center justify-center rounded-xl font-medium transition-colors',
     'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
     'disabled:cursor-not-allowed disabled:opacity-50',
     VARIANTS[variant],

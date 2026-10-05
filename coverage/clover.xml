@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1790972962048" clover="3.2.0">
-  <project timestamp="1790972962049" name="All files">
-    <metrics statements="2301" coveredstatements="1293" conditionals="1712" coveredconditionals="889" methods="989" coveredmethods="523" elements="5002" coveredelements="2705" complexity="0" loc="2301" ncloc="2301" packages="17" files="105" classes="105"/>
+<coverage generated="1791220011491" clover="3.2.0">
+  <project timestamp="1791220011491" name="All files">
+    <metrics statements="2314" coveredstatements="1362" conditionals="1720" coveredconditionals="952" methods="991" coveredmethods="551" elements="5025" coveredelements="2865" complexity="0" loc="2314" ncloc="2314" packages="17" files="105" classes="105"/>
     <package name="src">
       <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="App.jsx" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\App.jsx">
@@ -10,7 +10,7 @@
       </file>
     </package>
     <package name="src.Components.AI">
-      <metrics statements="91" coveredstatements="25" conditionals="87" coveredconditionals="10" methods="38" coveredmethods="4"/>
+      <metrics statements="95" coveredstatements="46" conditionals="85" coveredconditionals="35" methods="39" coveredmethods="15"/>
       <file name="AdminAssistant.jsx" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Components\AI\AdminAssistant.jsx">
         <metrics statements="31" coveredstatements="12" conditionals="26" coveredconditionals="6" methods="15" coveredmethods="2"/>
         <line num="8" count="1" type="stmt"/>
@@ -46,40 +46,44 @@
         <line num="151" count="0" type="stmt"/>
       </file>
       <file name="AiAssistant.jsx" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Components\AI\AiAssistant.jsx">
-        <metrics statements="33" coveredstatements="13" conditionals="38" coveredconditionals="4" methods="15" coveredmethods="2"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="26" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="33" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="38" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="57" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="105" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="132" count="0" type="stmt"/>
-        <line num="135" count="0" type="stmt"/>
-        <line num="145" count="0" type="stmt"/>
-        <line num="146" count="0" type="stmt"/>
-        <line num="154" count="0" type="stmt"/>
+        <metrics statements="37" coveredstatements="34" conditionals="36" coveredconditionals="29" methods="16" coveredmethods="13"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="32" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="32" type="stmt"/>
+        <line num="25" count="32" type="stmt"/>
+        <line num="26" count="32" type="stmt"/>
+        <line num="27" count="32" type="stmt"/>
+        <line num="28" count="32" type="stmt"/>
+        <line num="30" count="32" type="stmt"/>
+        <line num="31" count="32" type="stmt"/>
+        <line num="32" count="32" type="cond" truecount="1" falsecount="1"/>
+        <line num="38" count="32" type="stmt"/>
+        <line num="39" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="32" type="stmt"/>
+        <line num="43" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="46" count="2" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="52" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="63" count="32" type="stmt"/>
+        <line num="67" count="3" type="stmt"/>
+        <line num="95" count="36" type="stmt"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="136" count="112" type="stmt"/>
+        <line num="139" count="0" type="stmt"/>
+        <line num="149" count="2" type="stmt"/>
+        <line num="150" count="2" type="stmt"/>
+        <line num="158" count="21" type="stmt"/>
       </file>
       <file name="EventRecommender.jsx" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Components\AI\EventRecommender.jsx">
         <metrics statements="24" coveredstatements="0" conditionals="17" coveredconditionals="0" methods="7" coveredmethods="0"/>
@@ -257,30 +261,30 @@
       </file>
     </package>
     <package name="src.Components.Common">
-      <metrics statements="423" coveredstatements="17" conditionals="208" coveredconditionals="11" methods="126" coveredmethods="7"/>
+      <metrics statements="423" coveredstatements="57" conditionals="208" coveredconditionals="41" methods="126" coveredmethods="23"/>
       <file name="AppIntro.jsx" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Components\Common\AppIntro.jsx">
-        <metrics statements="22" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="8" coveredmethods="0"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
+        <metrics statements="22" coveredstatements="20" conditionals="8" coveredconditionals="8" methods="8" coveredmethods="7"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="40" count="0" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="38" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="3" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
       </file>
       <file name="BackToTop.jsx" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Components\Common\BackToTop.jsx">
@@ -319,31 +323,31 @@
         <line num="175" count="0" type="stmt"/>
       </file>
       <file name="Navbar.jsx" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Components\Common\Navbar.jsx">
-        <metrics statements="36" coveredstatements="0" conditionals="42" coveredconditionals="0" methods="23" coveredmethods="0"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
+        <metrics statements="36" coveredstatements="20" conditionals="42" coveredconditionals="22" methods="23" coveredmethods="9"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="33" count="4" type="stmt"/>
+        <line num="34" count="4" type="stmt"/>
+        <line num="35" count="4" type="stmt"/>
+        <line num="36" count="32" type="stmt"/>
+        <line num="37" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="39" count="4" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="46" count="4" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
         <line num="49" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
+        <line num="52" count="4" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="96" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="98" count="0" type="stmt"/>
+        <line num="75" count="32" type="stmt"/>
+        <line num="80" count="24" type="stmt"/>
+        <line num="96" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="98" count="12" type="stmt"/>
         <line num="101" count="0" type="stmt"/>
         <line num="148" count="0" type="stmt"/>
         <line num="164" count="0" type="stmt"/>
@@ -765,13 +769,13 @@
       </file>
       <file name="Button.jsx" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Components\UI\Button.jsx">
         <metrics statements="11" coveredstatements="11" conditionals="18" coveredconditionals="18" methods="1" coveredmethods="1"/>
-        <line num="6" count="12" type="stmt"/>
-        <line num="16" count="12" type="stmt"/>
-        <line num="23" count="12" type="stmt"/>
-        <line num="27" count="831" type="stmt"/>
-        <line num="37" count="831" type="stmt"/>
-        <line num="43" count="831" type="cond" truecount="2" falsecount="0"/>
-        <line num="44" count="79" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="16" count="13" type="stmt"/>
+        <line num="23" count="13" type="stmt"/>
+        <line num="27" count="837" type="stmt"/>
+        <line num="37" count="837" type="stmt"/>
+        <line num="43" count="837" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="85" type="stmt"/>
         <line num="51" count="752" type="cond" truecount="2" falsecount="0"/>
         <line num="52" count="9" type="stmt"/>
         <line num="59" count="743" type="cond" truecount="2" falsecount="0"/>
@@ -1070,7 +1074,7 @@
       </file>
       <file name="LanguageContext.jsx" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Context\LanguageContext.jsx">
         <metrics statements="9" coveredstatements="8" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="4"/>
-        <line num="6" count="13" type="stmt"/>
+        <line num="6" count="14" type="stmt"/>
         <line num="9" count="42" type="stmt"/>
         <line num="11" count="42" type="stmt"/>
         <line num="12" count="41" type="cond" truecount="2" falsecount="2"/>
@@ -1149,11 +1153,11 @@
         <line num="12" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
-        <line num="18" count="11" type="stmt"/>
-        <line num="20" count="11" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="10" type="stmt"/>
+        <line num="20" count="10" type="cond" truecount="1" falsecount="1"/>
         <line num="21" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
-        <line num="25" count="11" type="stmt"/>
+        <line num="25" count="10" type="stmt"/>
       </file>
       <file name="useDebounce.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Hooks\useDebounce.js">
         <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="0" methods="4" coveredmethods="4"/>
@@ -1189,32 +1193,32 @@
       </file>
       <file name="useLanguage.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Hooks\useLanguage.js">
         <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="5" count="455" type="stmt"/>
-        <line num="7" count="455" type="cond" truecount="1" falsecount="1"/>
+        <line num="5" count="486" type="stmt"/>
+        <line num="7" count="486" type="cond" truecount="1" falsecount="1"/>
         <line num="8" count="0" type="stmt"/>
-        <line num="11" count="455" type="stmt"/>
+        <line num="11" count="486" type="stmt"/>
       </file>
       <file name="useLocalStorage.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Hooks\useLocalStorage.js">
         <metrics statements="19" coveredstatements="15" conditionals="8" coveredconditionals="4" methods="9" coveredmethods="7"/>
-        <line num="4" count="54" type="stmt"/>
-        <line num="5" count="48" type="stmt"/>
-        <line num="6" count="48" type="stmt"/>
-        <line num="7" count="48" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="118" type="stmt"/>
+        <line num="5" count="56" type="stmt"/>
+        <line num="6" count="56" type="stmt"/>
+        <line num="7" count="56" type="cond" truecount="2" falsecount="0"/>
         <line num="9" count="0" type="stmt"/>
-        <line num="13" count="54" type="stmt"/>
-        <line num="14" count="53" type="stmt"/>
-        <line num="15" count="53" type="stmt"/>
-        <line num="21" count="54" type="stmt"/>
-        <line num="22" count="48" type="stmt"/>
+        <line num="13" count="118" type="stmt"/>
+        <line num="14" count="65" type="stmt"/>
+        <line num="15" count="65" type="stmt"/>
+        <line num="21" count="118" type="stmt"/>
+        <line num="22" count="56" type="stmt"/>
         <line num="23" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="24" count="0" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
-        <line num="30" count="48" type="stmt"/>
-        <line num="31" count="48" type="stmt"/>
-        <line num="34" count="54" type="stmt"/>
-        <line num="35" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="38" count="54" type="stmt"/>
-        <line num="40" count="54" type="stmt"/>
+        <line num="30" count="56" type="stmt"/>
+        <line num="31" count="56" type="stmt"/>
+        <line num="34" count="118" type="stmt"/>
+        <line num="35" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="118" type="stmt"/>
+        <line num="40" count="118" type="stmt"/>
       </file>
       <file name="useMediaQuery.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Hooks\useMediaQuery.js">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="5"/>
@@ -1988,17 +1992,17 @@
       </file>
       <file name="paths.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Routes\paths.js">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="1" count="6" type="stmt"/>
+        <line num="1" count="7" type="stmt"/>
         <line num="5" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="13" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="30" count="6" type="stmt"/>
+        <line num="30" count="7" type="stmt"/>
       </file>
     </package>
     <package name="src.Services">
-      <metrics statements="526" coveredstatements="273" conditionals="336" coveredconditionals="148" methods="239" coveredmethods="117"/>
+      <metrics statements="535" coveredstatements="281" conditionals="346" coveredconditionals="156" methods="240" coveredmethods="118"/>
       <file name="aiService.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Services\aiService.js">
-        <metrics statements="343" coveredstatements="101" conditionals="239" coveredconditionals="70" methods="158" coveredmethods="37"/>
-        <line num="20" count="2" type="stmt"/>
+        <metrics statements="352" coveredstatements="109" conditionals="249" coveredconditionals="78" methods="159" coveredmethods="38"/>
+        <line num="20" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="21" count="2" type="stmt"/>
         <line num="22" count="2" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
@@ -2016,8 +2020,8 @@
         <line num="43" count="2" type="stmt"/>
         <line num="46" count="2" type="stmt"/>
         <line num="54" count="2" type="stmt"/>
-        <line num="55" count="24" type="cond" truecount="3" falsecount="1"/>
-        <line num="56" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="55" count="27" type="cond" truecount="3" falsecount="1"/>
+        <line num="56" count="27" type="cond" truecount="2" falsecount="0"/>
         <line num="59" count="2" type="stmt"/>
         <line num="60" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="62" count="2" type="stmt"/>
@@ -2051,11 +2055,11 @@
         <line num="136" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="139" count="3" type="stmt"/>
         <line num="141" count="2" type="stmt"/>
-        <line num="142" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="143" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="147" count="2" type="cond" truecount="3" falsecount="1"/>
-        <line num="148" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="149" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="142" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="143" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="147" count="3" type="cond" truecount="3" falsecount="1"/>
+        <line num="148" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="149" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="156" count="2" type="stmt"/>
         <line num="163" count="2" type="stmt"/>
         <line num="164" count="30" type="cond" truecount="1" falsecount="1"/>
@@ -2276,71 +2280,80 @@
         <line num="954" count="0" type="stmt"/>
         <line num="955" count="0" type="stmt"/>
         <line num="960" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="966" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="967" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="968" count="4" type="cond" truecount="4" falsecount="0"/>
-        <line num="971" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="972" count="2" type="stmt"/>
-        <line num="973" count="2" type="stmt"/>
-        <line num="974" count="2" type="stmt"/>
-        <line num="975" count="2" type="stmt"/>
+        <line num="966" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="967" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="969" count="2" type="stmt"/>
+        <line num="974" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="976" count="1" type="stmt"/>
-        <line num="978" count="0" type="stmt"/>
-        <line num="982" count="2" type="stmt"/>
-        <line num="994" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="978" count="1" type="stmt"/>
+        <line num="979" count="1" type="stmt"/>
+        <line num="981" count="0" type="stmt"/>
+        <line num="983" count="1" type="stmt"/>
+        <line num="987" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="988" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="989" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="992" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="993" count="2" type="stmt"/>
+        <line num="994" count="2" type="stmt"/>
         <line num="995" count="2" type="stmt"/>
-        <line num="997" count="2" type="stmt"/>
-        <line num="998" count="2" type="stmt"/>
-        <line num="1000" count="0" type="stmt"/>
-        <line num="1002" count="2" type="stmt"/>
-        <line num="1006" count="0" type="stmt"/>
-        <line num="1007" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="1008" count="0" type="stmt"/>
-        <line num="1009" count="0" type="stmt"/>
-        <line num="1010" count="0" type="stmt"/>
-        <line num="1012" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="1013" count="0" type="stmt"/>
-        <line num="1015" count="0" type="stmt"/>
-        <line num="1018" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="1019" count="0" type="stmt"/>
-        <line num="1020" count="0" type="stmt"/>
+        <line num="996" count="2" type="stmt"/>
+        <line num="997" count="1" type="stmt"/>
+        <line num="999" count="0" type="stmt"/>
+        <line num="1003" count="2" type="stmt"/>
+        <line num="1015" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="1016" count="2" type="stmt"/>
+        <line num="1018" count="2" type="stmt"/>
+        <line num="1019" count="2" type="stmt"/>
         <line num="1021" count="0" type="stmt"/>
-        <line num="1023" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="1026" count="0" type="stmt"/>
+        <line num="1023" count="2" type="stmt"/>
+        <line num="1027" count="0" type="stmt"/>
+        <line num="1028" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="1029" count="0" type="stmt"/>
         <line num="1030" count="0" type="stmt"/>
-        <line num="1032" count="0" type="stmt"/>
-        <line num="1033" count="0" type="stmt"/>
+        <line num="1031" count="0" type="stmt"/>
+        <line num="1033" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="1034" count="0" type="stmt"/>
         <line num="1036" count="0" type="stmt"/>
-        <line num="1039" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="1039" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="1040" count="0" type="stmt"/>
         <line num="1041" count="0" type="stmt"/>
-        <line num="1042" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="1043" count="0" type="stmt"/>
+        <line num="1042" count="0" type="stmt"/>
         <line num="1044" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="1047" count="0" type="stmt"/>
-        <line num="1052" count="0" type="stmt"/>
-        <line num="1059" count="0" type="stmt"/>
-        <line num="1066" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="1067" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="1068" count="1" type="cond" truecount="3" falsecount="1"/>
-        <line num="1070" count="1" type="stmt"/>
-        <line num="1071" count="1" type="stmt"/>
-        <line num="1072" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="1074" count="0" type="stmt"/>
-        <line num="1075" count="0" type="stmt"/>
-        <line num="1076" count="0" type="stmt"/>
-        <line num="1078" count="0" type="stmt"/>
-        <line num="1082" count="0" type="stmt"/>
-        <line num="1094" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="1051" count="0" type="stmt"/>
+        <line num="1053" count="0" type="stmt"/>
+        <line num="1054" count="0" type="stmt"/>
+        <line num="1055" count="0" type="stmt"/>
+        <line num="1057" count="0" type="stmt"/>
+        <line num="1060" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="1061" count="0" type="stmt"/>
+        <line num="1062" count="0" type="stmt"/>
+        <line num="1063" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="1064" count="0" type="stmt"/>
+        <line num="1065" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="1068" count="0" type="stmt"/>
+        <line num="1073" count="0" type="stmt"/>
+        <line num="1080" count="0" type="stmt"/>
+        <line num="1087" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="1088" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="1089" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="1091" count="1" type="stmt"/>
+        <line num="1092" count="1" type="stmt"/>
+        <line num="1093" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="1095" count="0" type="stmt"/>
+        <line num="1096" count="0" type="stmt"/>
         <line num="1097" count="0" type="stmt"/>
-        <line num="1098" count="0" type="stmt"/>
-        <line num="1100" count="0" type="stmt"/>
-        <line num="1102" count="0" type="stmt"/>
+        <line num="1099" count="0" type="stmt"/>
         <line num="1103" count="0" type="stmt"/>
-        <line num="1105" count="0" type="stmt"/>
-        <line num="1107" count="0" type="stmt"/>
+        <line num="1115" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="1116" count="0" type="stmt"/>
+        <line num="1118" count="0" type="stmt"/>
+        <line num="1119" count="0" type="stmt"/>
+        <line num="1121" count="0" type="stmt"/>
+        <line num="1123" count="0" type="stmt"/>
+        <line num="1124" count="0" type="stmt"/>
+        <line num="1126" count="0" type="stmt"/>
+        <line num="1128" count="0" type="stmt"/>
       </file>
       <file name="api.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Services\api.js">
         <metrics statements="25" coveredstatements="24" conditionals="14" coveredconditionals="12" methods="8" coveredmethods="8"/>
@@ -2563,22 +2576,22 @@
       <metrics statements="69" coveredstatements="51" conditionals="43" coveredconditionals="34" methods="25" coveredmethods="22"/>
       <file name="cn.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Utils\cn.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="4" count="3031" type="stmt"/>
+        <line num="4" count="3133" type="stmt"/>
       </file>
       <file name="constants.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Utils\constants.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="19" type="stmt"/>
-        <line num="6" count="19" type="stmt"/>
-        <line num="11" count="19" type="stmt"/>
-        <line num="18" count="19" type="stmt"/>
-        <line num="26" count="19" type="stmt"/>
-        <line num="37" count="19" type="stmt"/>
-        <line num="39" count="19" type="stmt"/>
-        <line num="46" count="19" type="stmt"/>
-        <line num="47" count="19" type="stmt"/>
-        <line num="48" count="19" type="stmt"/>
-        <line num="49" count="19" type="stmt"/>
-        <line num="50" count="19" type="stmt"/>
+        <line num="1" count="20" type="stmt"/>
+        <line num="6" count="20" type="stmt"/>
+        <line num="11" count="20" type="stmt"/>
+        <line num="18" count="20" type="stmt"/>
+        <line num="26" count="20" type="stmt"/>
+        <line num="37" count="20" type="stmt"/>
+        <line num="39" count="20" type="stmt"/>
+        <line num="46" count="20" type="stmt"/>
+        <line num="47" count="20" type="stmt"/>
+        <line num="48" count="20" type="stmt"/>
+        <line num="49" count="20" type="stmt"/>
+        <line num="50" count="20" type="stmt"/>
       </file>
       <file name="errorSound.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\Utils\errorSound.js">
         <metrics statements="15" coveredstatements="1" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
@@ -2650,19 +2663,19 @@
       <metrics statements="8" coveredstatements="8" conditionals="14" coveredconditionals="13" methods="4" coveredmethods="4"/>
       <file name="adminTranslations.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\i18n\adminTranslations.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="13" type="stmt"/>
+        <line num="1" count="14" type="stmt"/>
       </file>
       <file name="moreTranslations.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\i18n\moreTranslations.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="13" type="stmt"/>
+        <line num="1" count="14" type="stmt"/>
       </file>
       <file name="pageTranslations.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\i18n\pageTranslations.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="13" type="stmt"/>
+        <line num="1" count="14" type="stmt"/>
       </file>
       <file name="translations.js" path="C:\Users\DELLD\OneDrive\Desktop\React FWD\CentroCultural\CentroCultural\src\i18n\translations.js">
         <metrics statements="5" coveredstatements="5" conditionals="14" coveredconditionals="13" methods="4" coveredmethods="4"/>
-        <line num="5" count="13" type="stmt"/>
+        <line num="5" count="14" type="stmt"/>
         <line num="39" count="29968" type="stmt"/>
         <line num="40" count="7432" type="cond" truecount="9" falsecount="0"/>
         <line num="50" count="7432" type="cond" truecount="1" falsecount="1"/>

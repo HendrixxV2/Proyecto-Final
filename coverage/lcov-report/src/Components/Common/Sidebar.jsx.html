@@ -372,13 +372,13 @@ export default function <span class="fstat-no" title="function not covered" >Sid
   const { t } = <span class="cstat-no" title="statement not covered" >useLanguage();</span>
   const content = (
 <span class="cstat-no" title="statement not covered" >    &lt;&gt;</span>
-      &lt;div className="flex h-16 items-center gap-2.5 border-b border-ink-200 px-4 dark:border-ink-700"&gt;
-        &lt;Link to={PATHS.home} className="flex items-center gap-2.5" onClick={onCloseMobile}&gt;
-          &lt;img src="/logoOrotina.jpeg" alt="" className="h-9 w-9 shrink-0 rounded-full object-cover object-center" /&gt;
+      &lt;div className="admin-sidebar__brand flex h-16 items-center gap-2.5 border-b border-ink-200 px-4 dark:border-ink-700"&gt;
+        &lt;Link to={PATHS.home} className="flex min-w-0 items-center gap-2.5" onClick={onCloseMobile}&gt;
+          &lt;img src="/logoOrotina.jpeg" alt="" className="admin-sidebar__logo h-9 w-9 shrink-0 rounded-full object-cover object-center" /&gt;
           {!collapsed &amp;&amp; (
-            &lt;span className="min-w-0 font-display text-sm font-bold leading-tight text-ink-900 dark:text-ink-50"&gt;
+            &lt;span className="admin-sidebar__wordmark min-w-0 font-display text-sm font-bold leading-tight text-ink-900 dark:text-ink-50"&gt;
               {t('adminNav.brand')}
-              &lt;span className="block text-[11px] font-medium text-ink-500 dark:text-ink-400"&gt;{t('adminNav.subtitle')}&lt;/span&gt;
+              &lt;span className="admin-sidebar__subtitle block text-[11px] font-medium text-ink-500 dark:text-ink-400"&gt;{t('adminNav.subtitle')}&lt;/span&gt;
             &lt;/span&gt;
           )}
         &lt;/Link&gt;
@@ -393,11 +393,11 @@ export default function <span class="fstat-no" title="function not covered" >Sid
         &lt;/button&gt;
       &lt;/div&gt;
 &nbsp;
-      &lt;nav aria-label={t('adminNav.navigation')} className="flex-1 overflow-y-auto px-3 py-4"&gt;
+      &lt;nav aria-label={t('adminNav.navigation')} className="admin-sidebar__nav flex-1 overflow-y-auto px-3 py-4"&gt;
         {SECCIONES.map(<span class="fstat-no" title="function not covered" >(s</span>eccion) =&gt; (
-<span class="cstat-no" title="statement not covered" >          &lt;div key={seccion.titulo} className="mb-5"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div key={seccion.titulo} className="admin-sidebar__section mb-5"&gt;</span>
             {!collapsed &amp;&amp; (
-              &lt;p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-ink-400"&gt;{t(`adminNav.sections.${seccion.titulo}`)}&lt;/p&gt;
+              &lt;p className="admin-sidebar__section-title mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-ink-400"&gt;{t(`adminNav.sections.${seccion.titulo}`)}&lt;/p&gt;
             )}
             &lt;ul className="space-y-1"&gt;
               {seccion.items.map(<span class="fstat-no" title="function not covered" >({</span> to, label, Icon }) =&gt; (
@@ -408,7 +408,7 @@ export default function <span class="fstat-no" title="function not covered" >Sid
                     title={collapsed ? t(`adminNav.items.${label}`) : undefined}
                     className={<span class="fstat-no" title="function not covered" >({</span> isActive }) =&gt;
 <span class="cstat-no" title="statement not covered" >                      cn(</span>
-                        'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition',
+                        'admin-sidebar__link nav-tab-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition',
                         collapsed &amp;&amp; 'justify-center px-2',
                         isActive
                           ? 'bg-brand-500 text-white'
@@ -431,7 +431,7 @@ export default function <span class="fstat-no" title="function not covered" >Sid
         onClick={onToggleCollapse}
         aria-label={t(collapsed ? 'ui.expandSidebar' : 'ui.collapseSidebar')}
         aria-pressed={collapsed}
-        className="hidden h-12 items-center justify-center gap-2 border-t border-ink-200 text-xs font-medium text-ink-500 transition hover:bg-ink-100 lg:flex dark:border-ink-700 dark:hover:bg-ink-700"
+        className="admin-sidebar__collapse hidden h-12 items-center justify-center gap-2 border-t border-ink-200 text-xs font-medium text-ink-500 transition hover:bg-ink-100 lg:flex dark:border-ink-700 dark:hover:bg-ink-700"
       &gt;
         &lt;ChevronLeft aria-hidden="true" className={cn('h-4 w-4 transition-transform', collapsed &amp;&amp; 'rotate-180')} /&gt;
         {!collapsed &amp;&amp; t('adminNav.collapse')}
@@ -455,7 +455,7 @@ export default function <span class="fstat-no" title="function not covered" >Sid
       {mobileOpen &amp;&amp; (
         &lt;div className="fixed inset-0 z-50 lg:hidden"&gt;
           &lt;div className="absolute inset-0 bg-ink-900/60" onClick={onCloseMobile} aria-hidden="true" /&gt;
-          &lt;aside className="admin-sidebar relative flex h-full w-72 flex-col border-r border-ink-200 bg-white animate-slide-up dark:border-ink-700 dark:bg-ink-800"&gt;
+          &lt;aside className="admin-sidebar admin-sidebar--mobile relative flex h-full w-72 flex-col border-r border-ink-200 bg-white animate-slide-up dark:border-ink-700 dark:bg-ink-800"&gt;
             {content}
           &lt;/aside&gt;
         &lt;/div&gt;
@@ -469,7 +469,7 @@ export default function <span class="fstat-no" title="function not covered" >Sid
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-02T20:29:21.612Z
+                at 2026-10-05T17:06:51.092Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

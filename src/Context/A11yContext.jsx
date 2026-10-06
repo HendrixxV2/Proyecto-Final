@@ -14,36 +14,20 @@ const DEFAULTS = {
   voiceGuide: false,
 };
 
-const COLOR_SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
-const COLOR_FAMILIES = ['brand', 'jade', 'gold', 'cielo'];
-const COLOR_PALETTES = {
-  'red-green': { brand: '#0072B2', jade: '#E69F00', gold: '#F0E442', cielo: '#56B4E9' },
-  'blue-yellow': { brand: '#CC6677', jade: '#117733', gold: '#AA4499', cielo: '#44AA99' },
+const COLOR_PALETTE_FILTERS = {
+  'red-green': 'hue-rotate(35deg) saturate(0.9)',
+  'blue-yellow': 'hue-rotate(180deg) saturate(0.9)',
 };
 
-function getColorScale(hex) {
-  const channels = hex.match(/[\da-f]{2}/gi).map((value) => Number.parseInt(value, 16));
+function applyColorPalette(root, colorPalette, highContrast) {
+  const palette = COLOR_PALETTE_FILTERS[colorPalette] ? colorPalette : 'standard';
+  const filters = [
+    highContrast && 'contrast(1.15)',
+    COLOR_PALETTE_FILTERS[palette],
+  ].filter(Boolean);
 
-  return Object.fromEntries(COLOR_SHADES.map((shade) => {
-    const amount = Math.abs(500 - shade) / 500;
-    const target = shade < 500 ? 255 : 0;
-    const rgb = channels.map((channel) => Math.round(channel + (target - channel) * amount));
-    return [shade, rgb.join(' ')];
-  }));
-}
-
-function applyColorPalette(root, colorPalette) {
-  const colors = COLOR_PALETTES[colorPalette];
-  root.dataset.colorPalette = colors ? colorPalette : 'standard';
-
-  COLOR_FAMILIES.forEach((family) => {
-    const scale = colors ? getColorScale(colors[family]) : null;
-    COLOR_SHADES.forEach((shade) => {
-      const property = `--a11y-${family}-${shade}`;
-      if (scale) root.style.setProperty(property, scale[shade]);
-      else root.style.removeProperty(property);
-    });
-  });
+  root.dataset.colorPalette = palette;
+  root.style.filter = filters.join(' ');
 }
 
 export function A11yProvider({ children }) {
@@ -58,9 +42,9 @@ export function A11yProvider({ children }) {
     root.dataset.fontScale = settings.fontScale;
     root.classList.toggle('reduce-motion', settings.reducedMotion);
     root.classList.toggle('underline-links', settings.underlineLinks);
-    root.classList.toggle('high-contrast', settings.highContrast);
     root.classList.toggle('visual-feedback', settings.visualFeedback);
-    applyColorPalette(root, settings.colorPalette);
+    root.classList.toggle('high-contrast', settings.highContrast);
+    applyColorPalette(root, settings.colorPalette, settings.highContrast);
   }, [settings]);
 
   useEffect(() => {
@@ -75,7 +59,8 @@ export function A11yProvider({ children }) {
 
     const speak = (text) => {
       const utterance = new Utterance(text);
-      utterance.lang = document.documentElement.lang || 'es';
+      const language = document.documentElement.lang || 'es';
+      utterance.lang = language.startsWith('zh') ? 'zh-CN' : language;
       synthesis.cancel();
       synthesis.speak(utterance);
     };

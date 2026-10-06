@@ -150,12 +150,12 @@ export default function Inicio() {
               key={imagen.src}
               src={imagen.src}
               alt=""
-              className={`inicio-carrusel-imagen absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1600ms] ${imagenActiva === index ? 'inicio-carrusel-imagen--activa opacity-40' : 'opacity-0'}`}
+              className={`inicio-carrusel-imagen absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1600ms] ${imagenActiva === index ? 'inicio-carrusel-imagen--activa opacity-55' : 'opacity-0'}`}
             />
           ))}
         </div>
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/80 to-brand-900/35" />
-        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_78%_45%,transparent_0%,rgb(28_25_23_/_0.12)_52%,rgb(28_25_23_/_0.4)_100%)]" />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_78%_45%,transparent_0%,rgb(0_0_0_/_0.1)_52%,rgb(0_0_0_/_0.3)_100%)]" />
         <div className="relative mx-auto grid min-h-[clamp(38rem,78vh,52rem)] max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-8 lg:py-24">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">

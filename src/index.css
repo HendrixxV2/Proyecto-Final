@@ -19,6 +19,22 @@
     background-color: rgb(28 25 23);
   }
 
+  html:not(.dark) #contenido-principal img:not(.leaflet-tile) {
+    filter: brightness(0.9) contrast(1.06);
+  }
+
+  html.dark #contenido-principal img:not(.leaflet-tile) {
+    filter: brightness(1.12) contrast(1.06);
+  }
+
+  html:not(.dark) #contenido-principal .inicio-galeria-marco:hover .inicio-galeria-foto {
+    filter: brightness(0.94) contrast(1.06) saturate(1.08);
+  }
+
+  html.dark #contenido-principal .inicio-galeria-marco:hover .inicio-galeria-foto {
+    filter: brightness(1.18) contrast(1.06) saturate(1.08);
+  }
+
   html, body, #root {
     min-height: 100%;
   }
@@ -53,7 +69,6 @@
     scroll-behavior: auto !important;
   }
 
-  .high-contrast { filter: contrast(1.15); }
   .high-contrast a,
   .high-contrast button { text-decoration: underline; }
 

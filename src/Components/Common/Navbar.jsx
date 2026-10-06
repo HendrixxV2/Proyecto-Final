@@ -50,7 +50,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className={cn('sticky top-2 z-40 mx-2 rounded-2xl border border-ink-200/70 bg-ink-50 shadow-md backdrop-blur-xl transition-all duration-300 dark:border-ink-700/70 dark:bg-ink-900 sm:mx-4', scrolled && 'bg-ink-50/80 shadow-lg dark:bg-ink-900/80')}>
+    <header className={cn('sticky top-2 z-40 mx-2 rounded-2xl border border-black/[0.06] bg-white/95 shadow-[0_8px_28px_-18px_rgb(28_25_23_/_0.4)] backdrop-blur-xl transition-all duration-300 dark:border-ink-700/70 dark:bg-ink-900 sm:mx-4', scrolled && 'bg-white/90 shadow-md dark:bg-ink-900/80')}>
       <nav aria-label={t('common.mainNavigation')} className={cn('mx-auto grid max-w-[90rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 sm:gap-4 sm:px-6 lg:px-8 xl:grid-rows-[auto_auto] xl:gap-x-6 xl:gap-y-1', scrolled ? 'min-h-12 py-1 xl:grid-cols-[auto_minmax(0,1fr)] xl:gap-y-0' : 'min-h-16 py-2 xl:grid-cols-[auto_minmax(0,1fr)]')}>
         <Link to={PATHS.home} className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3" aria-label="Centro Cultural Orotinense Luis Ferrero Acosta">
           <span className={cn('relative grid shrink-0 place-items-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-ink-200/70 transition-all duration-300 dark:ring-ink-700', scrolled ? 'h-8 w-8' : 'h-10 w-10 sm:h-11 sm:w-11')}>
@@ -78,10 +78,10 @@ export default function Navbar() {
                 end={item.to === PATHS.home}
                 className={({ isActive }) =>
                   cn(
-                    'nav-tab-link relative whitespace-nowrap rounded-lg px-2 py-2 text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm',
+                    'nav-tab-link relative whitespace-nowrap rounded-lg px-2 py-2 text-xs font-medium transition-colors duration-200',
                     isActive
-                      ? 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200'
-                      : 'text-ink-600 hover:bg-ink-100 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800 dark:hover:text-ink-50',
+                      ? 'bg-ink-100 font-semibold text-ink-900 dark:bg-ink-700 dark:text-ink-50'
+                      : 'text-ink-600 hover:bg-ink-50 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-700 dark:hover:text-ink-50',
                   )
                 }
               >
@@ -170,8 +170,8 @@ export default function Navbar() {
                     cn(
                       'nav-tab-link block rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 hover:translate-x-1',
                       isActive
-                        ? 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200'
-                        : 'text-ink-700 hover:bg-ink-100 dark:text-ink-200 dark:hover:bg-ink-800',
+                        ? 'bg-ink-100 font-semibold text-ink-900 dark:bg-ink-700 dark:text-ink-50'
+                        : 'text-ink-700 hover:bg-ink-100 dark:text-ink-200 dark:hover:bg-ink-700',
                     )
                   }
                 >

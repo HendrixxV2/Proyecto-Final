@@ -33,15 +33,26 @@ describe('Navbar scroll appearance', () => {
     );
 
     const header = screen.getByRole('banner');
-    expect(header).toHaveClass('rounded-2xl', 'shadow-md', 'bg-ink-50', 'dark:bg-ink-900');
-    expect(header).not.toHaveClass('bg-ink-50/80', 'dark:bg-ink-900/80');
+    expect(header).toHaveClass('rounded-2xl', 'border-black/[0.06]', 'bg-white/95', 'dark:bg-ink-900');
+    expect(header).not.toHaveClass('bg-white/90', 'dark:bg-ink-900/80');
 
     Object.defineProperty(window, 'scrollY', { configurable: true, value: 100 });
     fireEvent.scroll(window);
-    expect(header).toHaveClass('bg-ink-50/80', 'dark:bg-ink-900/80', 'shadow-lg');
+    expect(header).toHaveClass('bg-white/90', 'dark:bg-ink-900/80', 'shadow-md');
 
     Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 });
     fireEvent.scroll(window);
-    expect(header).not.toHaveClass('bg-ink-50/80', 'dark:bg-ink-900/80');
+    expect(header).not.toHaveClass('bg-white/90', 'dark:bg-ink-900/80');
+  });
+
+  it('uses brighter surfaces for active and hovered navigation links in dark mode', () => {
+    render(
+      <MemoryRouter>
+        <Navbar />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('link', { name: 'common.home' })).toHaveClass('dark:bg-ink-700');
+    expect(screen.getByRole('link', { name: 'common.tickets' })).toHaveClass('dark:hover:bg-ink-700');
   });
 });

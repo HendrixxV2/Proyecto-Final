@@ -60,7 +60,14 @@ export function A11yProvider({ children }) {
     const speak = (text) => {
       const utterance = new Utterance(text);
       const language = document.documentElement.lang || 'es';
-      utterance.lang = language.startsWith('zh') ? 'zh-CN' : language;
+      const isMandarin = language.startsWith('zh');
+      utterance.lang = isMandarin ? 'zh-CN' : language;
+      if (isMandarin) {
+        const voices = synthesis.getVoices?.() ?? [];
+        const voice = voices.find((candidate) => candidate.lang.toLowerCase() === 'zh-cn')
+          ?? voices.find((candidate) => candidate.lang.toLowerCase().startsWith('zh'));
+        if (voice) utterance.voice = voice;
+      }
       synthesis.cancel();
       synthesis.speak(utterance);
     };

@@ -268,9 +268,14 @@ export default function Boletos() {
                             {columna === 3 && <span aria-hidden="true" />}
                             <button
                               type="button"
-                              aria-label={`Butaca ${boleto.asiento}, ${seleccionado ? 'seleccionada' : disponible ? 'disponible' : 'ocupada'}`}
+                              aria-label={t('voice.seat', {
+                                seat: boleto.asiento,
+                                status: seleccionado
+                                  ? t('voice.seatSelected')
+                                  : disponible ? t('voice.seatAvailable') : t('voice.seatOccupied'),
+                              })}
                               aria-pressed={seleccionado}
-                              title={`Butaca ${boleto.asiento}`}
+                              title={t('voice.seatLabel', { seat: boleto.asiento })}
                               disabled={!disponible}
                               onClick={() => alternarButaca(boleto)}
                               className={`flex aspect-square min-h-10 flex-col items-center justify-center gap-0.5 rounded-md border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
@@ -291,7 +296,7 @@ export default function Boletos() {
                   ))}
                   {asientosSala.length === 0 && <p className="py-6 text-center text-sm text-ink-300">No hay butacas emitidas para esta función.</p>}
                 </div>
-                <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-ink-700 pt-3 text-xs text-ink-200" aria-label="Estados de butacas">
+                <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-ink-700 pt-3 text-xs text-ink-200" aria-label={t('voice.seatStatuses')}>
                   <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded-sm border border-jade-400 bg-jade-700" aria-hidden="true" />Disponible</span>
                   <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded-sm border border-gold-400 bg-gold-500" aria-hidden="true" />Seleccionada</span>
                   <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded-sm border border-ink-600 bg-ink-700" aria-hidden="true" />Ocupada</span>

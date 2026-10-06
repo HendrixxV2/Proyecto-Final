@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useFetch } from '@/Hooks/useFetch';
+import { LanguageProvider } from '@/Context/LanguageContext';
 import Artes from '@/Pages/Public/Artes';
 import Galeria from '@/Pages/Public/Galeria';
 
@@ -38,6 +39,8 @@ describe('Artes', () => {
 });
 
 describe('Galeria', () => {
+  const renderGaleria = () => render(<LanguageProvider><Galeria /></LanguageProvider>);
+
   beforeEach(() => {
     jest.clearAllMocks();
     useFetch.mockReturnValue({
@@ -48,7 +51,7 @@ describe('Galeria', () => {
 
   it('opens the photo presentation and navigates with buttons and arrow keys', async () => {
     const user = userEvent.setup();
-    render(<Galeria />);
+    renderGaleria();
 
     expect(screen.getByText('Estación de Orotina, circa 1952')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Abrir presentación de fotografías del Ferrocarril al Pacífico' })).toHaveClass('galeria-feature--weathered');
@@ -65,12 +68,12 @@ describe('Galeria', () => {
 
   it('supports direct photo selection, wraps navigation, and closes the modal', async () => {
     const user = userEvent.setup();
-    render(<Galeria />);
+    renderGaleria();
     await user.click(screen.getByRole('button', { name: 'Abrir presentación de fotografías del Ferrocarril al Pacífico' }));
     await user.click(screen.getByRole('button', { name: 'Ver fotografía anterior' }));
 
     expect(screen.getByRole('dialog', { name: 'Orotina en perspectiva' })).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Ver fotografía 2: El tren al Pacífico' }));
+    await user.click(screen.getByRole('button', { name: 'Ver fotografía 2' }));
     expect(screen.getByRole('dialog', { name: 'El tren al Pacífico' })).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Cerrar ventana' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();

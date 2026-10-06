@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { A11yProvider } from '@/Context/A11yContext';
 import { useA11y } from '@/Hooks/useA11y';
+import { getTranslation } from '@/i18n/translations';
 
 function AccessibilityHarness() {
   const { setColorPalette, toggle } = useA11y();
@@ -87,7 +88,12 @@ describe('A11yProvider', () => {
   });
 
   it('uses Mandarin Chinese for welcome and focused labels in the Chinese interface', async () => {
-    const speechSynthesis = { cancel: jest.fn(), speak: jest.fn() };
+    const chineseVoice = { lang: 'zh-CN' };
+    const speechSynthesis = {
+      cancel: jest.fn(),
+      speak: jest.fn(),
+      getVoices: () => [chineseVoice],
+    };
     class MockUtterance {
       constructor(text) { this.text = text; }
     }
@@ -99,9 +105,16 @@ describe('A11yProvider', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Activar guía' }));
     await waitFor(() => expect(speechSynthesis.speak).toHaveBeenCalled());
     expect(speechSynthesis.speak.mock.calls[0][0].lang).toBe('zh-CN');
+    expect(speechSynthesis.speak.mock.calls[0][0].voice).toBe(chineseVoice);
 
-    screen.getByRole('link', { name: 'Programación cultural' }).focus();
-    await waitFor(() => expect(speechSynthesis.speak.mock.calls.at(-1)[0].text).toBe('Programación cultural'));
+    const calendarLink = document.createElement('a');
+    calendarLink.href = '/calendario';
+    calendarLink.textContent = getTranslation('zh', 'common.calendar');
+    document.body.append(calendarLink);
+    calendarLink.focus();
+    await waitFor(() => expect(speechSynthesis.speak.mock.calls.at(-1)[0].text).toBe('日曆'));
     expect(speechSynthesis.speak.mock.calls.at(-1)[0].lang).toBe('zh-CN');
+    expect(speechSynthesis.speak.mock.calls.at(-1)[0].voice).toBe(chineseVoice);
+    calendarLink.remove();
   });
 });

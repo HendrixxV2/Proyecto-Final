@@ -109,7 +109,7 @@ const COPY = {
 };
 
 export default function Footer() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const enlaces = ENLACES[language] ?? ENLACES.es;
   const copy = COPY[language] ?? COPY.es;
 
@@ -177,7 +177,7 @@ export default function Footer() {
                   href={href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  aria-label={`${label} del Centro Cultural Orotinense`}
+                  aria-label={t('voice.socialLink', { network: label })}
                   className="grid h-9 w-9 place-items-center rounded-lg border border-ink-200 text-ink-600 transition hover:border-brand-500 hover:text-brand-600 dark:border-ink-700 dark:text-ink-300"
                 >
                   <Icon aria-hidden="true" className="h-4 w-4" />

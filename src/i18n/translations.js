@@ -1,6 +1,7 @@
 import { PAGE_TRANSLATIONS } from './pageTranslations.js';
 import { MORE_TRANSLATIONS } from './moreTranslations.js';
 import { ADMIN_TRANSLATIONS } from './adminTranslations.js';
+import { VOICE_TRANSLATIONS } from './voiceTranslations.js';
 
 export const TRANSLATIONS = {
   es: {
@@ -41,6 +42,7 @@ export function getTranslation(language, key, variables = {}) {
     ?? resolve(PAGE_TRANSLATIONS[language])
     ?? resolve(MORE_TRANSLATIONS[language])
     ?? resolve(ADMIN_TRANSLATIONS[language])
+    ?? resolve(VOICE_TRANSLATIONS[language])
     ?? resolve(PAGE_TRANSLATIONS.es)
     ?? resolve(MORE_TRANSLATIONS.es)
     ?? resolve(ADMIN_TRANSLATIONS.es)

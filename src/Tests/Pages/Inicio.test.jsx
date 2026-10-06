@@ -64,17 +64,17 @@ describe('Inicio', () => {
     renderInicio();
 
     const heroCarousel = screen.getByRole('group', { name: 'Carrusel de imágenes' });
-    const heroButton = within(heroCarousel).getByRole('button', { name: 'Mostrar imagen: Pabellón de Orotina' });
+    const heroButton = within(heroCarousel).getByRole('button', { name: 'Mostrar imagen 1' });
     await user.click(heroButton);
     expect(heroButton).toHaveAttribute('aria-pressed', 'true');
 
     const eventCarousel = screen.getByRole('group', { name: 'Imágenes de próximos eventos' });
-    const eventButton = within(eventCarousel).getByRole('button', { name: 'Mostrar imagen: Próximo evento cultural' });
+    const eventButton = within(eventCarousel).getByRole('button', { name: 'Mostrar imagen 1' });
     await user.click(eventButton);
     expect(eventButton).toHaveAttribute('aria-pressed', 'true');
 
     const recommendations = screen.getByRole('group', { name: 'Imágenes de recomendaciones' });
-    const recommendationButton = within(recommendations).getByRole('button', { name: 'Mostrar imagen: Orotina de noche' });
+    const recommendationButton = within(recommendations).getByRole('button', { name: 'Mostrar imagen 1' });
     await user.click(recommendationButton);
     expect(recommendationButton).toHaveAttribute('aria-pressed', 'true');
   });
@@ -82,7 +82,7 @@ describe('Inicio', () => {
   it('opens the band photo viewer and supports keyboard navigation and Escape', async () => {
     const user = userEvent.setup();
     renderInicio();
-    await user.click(screen.getByRole('button', { name: 'Ver Orgullo comunal en pantalla completa' }));
+    await user.click(screen.getAllByRole('button', { name: 'Ver imagen en pantalla completa' })[3]);
 
     const dialog = screen.getByRole('dialog', { name: 'Galería de la Banda Comunal de Orotina' });
     expect(dialog).toBeInTheDocument();
@@ -96,6 +96,19 @@ describe('Inicio', () => {
     expect(document.body).not.toHaveStyle({ overflow: 'hidden' });
   });
 
+  it('opens an individual folkloric dance photo in the fullscreen viewer', async () => {
+    const user = userEvent.setup();
+    renderInicio();
+    await user.click(screen.getAllByRole('button', { name: 'Ver imagen en pantalla completa' })[0]);
+
+    const dialog = screen.getByRole('dialog', { name: 'Galería del Grupo de Baile Folclórico' });
+    expect(within(dialog).getByRole('img', { name: 'Presentación del Grupo de Baile Folclórico de Orotina' })).toBeInTheDocument();
+    expect(within(dialog).getByText('Tradición que se baila · 1 / 3')).toBeInTheDocument();
+
+    await user.click(within(dialog).getByRole('button', { name: 'Cerrar pantalla completa' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
   it('keeps the carousel still with reduced motion and scrolls to the top instantly', () => {
     jest.useFakeTimers();
     useA11y.mockReturnValue({ reducedMotion: true });
@@ -103,9 +116,9 @@ describe('Inicio', () => {
     window.scrollTo = jest.fn();
     renderInicio();
 
-    expect(screen.getByRole('button', { name: 'Mostrar imagen: Luis Ferrero Acosta' })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(screen.getByRole('group', { name: 'Carrusel de imágenes' })).getByRole('button', { name: 'Mostrar imagen 1' })).toHaveAttribute('aria-pressed', 'true');
     act(() => jest.advanceTimersByTime(12000));
-    expect(screen.getByRole('button', { name: 'Mostrar imagen: Luis Ferrero Acosta' })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(screen.getByRole('group', { name: 'Carrusel de imágenes' })).getByRole('button', { name: 'Mostrar imagen 1' })).toHaveAttribute('aria-pressed', 'true');
 
     fireEvent.scroll(window);
     const backToTop = screen.getByRole('button', { name: 'Volver arriba' });

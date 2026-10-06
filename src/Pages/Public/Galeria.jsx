@@ -4,6 +4,7 @@ import { contenidoService } from '@/Services/contenidoService';
 import SectionTitle from '@/Components/Common/SectionTitle';
 import Modal from '@/Components/UI/Modal';
 import { ArrowLeft, ArrowRight, Images } from 'lucide-react';
+import { useLanguage } from '@/Hooks/useLanguage';
 import './Galeria.css';
 
 const FOTOS_ARCHIVO = [
@@ -30,6 +31,7 @@ const FOTOS_ARCHIVO = [
 ];
 
 export default function Galeria() {
+  const { t } = useLanguage();
   const { data } = useFetch(() => contenidoService.bySeccion('galeria_ferrocarril'), []);
   const [indiceActivo, setIndiceActivo] = useState(null);
   const pieza = data?.[0];
@@ -67,7 +69,7 @@ export default function Galeria() {
           type="button"
           onClick={() => setIndiceActivo(0)}
           className={`group mt-10 grid w-full overflow-hidden rounded-2xl border border-amber-900/20 bg-[#201d19] text-left shadow-xl shadow-stone-950/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-offset-4 md:min-h-[25rem] md:grid-cols-[1.15fr_0.85fr] ${pieza?.titulo === 'Estación de Orotina, circa 1952' ? 'galeria-feature--weathered' : ''}`}
-          aria-label="Abrir presentación de fotografías del Ferrocarril al Pacífico"
+          aria-label={t('voice.galleryPresentation')}
         >
         <span className="relative block min-h-64 overflow-hidden bg-stone-800 md:min-h-full">
           <img
@@ -123,7 +125,7 @@ export default function Galeria() {
               <button
                 type="button"
                 onClick={retroceder}
-                aria-label="Ver fotografía anterior"
+                aria-label={t('voice.previousPhoto')}
                 className="absolute left-3 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/55 text-white transition hover:bg-black/80"
               >
                 <ArrowLeft aria-hidden="true" className="h-5 w-5" />
@@ -131,7 +133,7 @@ export default function Galeria() {
               <button
                 type="button"
                 onClick={avanzar}
-                aria-label="Ver fotografía siguiente"
+                aria-label={t('voice.nextPhoto')}
                 className="absolute right-3 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/55 text-white transition hover:bg-black/80"
               >
                 <ArrowRight aria-hidden="true" className="h-5 w-5" />
@@ -142,13 +144,13 @@ export default function Galeria() {
             </div>
             <div className="mt-4 flex items-center justify-between gap-4">
               <p className="text-sm leading-relaxed text-ink-700 dark:text-ink-200">{fotoActiva.descripcion}</p>
-              <div className="flex shrink-0 items-center gap-1.5" aria-label="Elegir fotografía">
+              <div className="flex shrink-0 items-center gap-1.5" aria-label={t('voice.choosePhoto')}>
                 {FOTOS_ARCHIVO.map((foto, indice) => (
                   <button
                     key={foto.src}
                     type="button"
                     onClick={() => setIndiceActivo(indice)}
-                    aria-label={`Ver fotografía ${indice + 1}: ${foto.titulo}`}
+                    aria-label={t('voice.photoNumber', { index: indice + 1 })}
                     aria-current={indiceActivo === indice ? 'true' : undefined}
                     className={`h-2.5 w-2.5 rounded-full transition ${indiceActivo === indice ? 'bg-amber-600 ring-2 ring-amber-600/25' : 'bg-ink-300 hover:bg-amber-400 dark:bg-ink-500'}`}
                   />

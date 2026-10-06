@@ -58,9 +58,11 @@ export default function Inicio() {
   const [imagenActiva, setImagenActiva] = useState(0);
   const [imagenEventoActiva, setImagenEventoActiva] = useState(0);
   const [imagenRecomendadaActiva, setImagenRecomendadaActiva] = useState(0);
-  const [imagenBandaActiva, setImagenBandaActiva] = useState(null);
+  const [galeriaVisorActiva, setGaleriaVisorActiva] = useState(null);
+  const [imagenVisorActiva, setImagenVisorActiva] = useState(0);
   const [mostrarBotonArriba, setMostrarBotonArriba] = useState(false);
-  const visorAbierto = imagenBandaActiva !== null;
+  const visorAbierto = galeriaVisorActiva !== null;
+  const imagenesVisor = galeriaVisorActiva === 'danza' ? GALERIA_DANZA : GALERIA_BANDA;
   const visorRef = useRef(null);
   const cerrarVisorRef = useRef(null);
   const focoAnteriorRef = useRef(null);
@@ -111,12 +113,12 @@ export default function Inicio() {
     document.body.style.overflow = 'hidden';
     cerrarVisorRef.current?.focus();
     const manejarTeclado = (event) => {
-      if (event.key === 'Escape') setImagenBandaActiva(null);
+      if (event.key === 'Escape') setGaleriaVisorActiva(null);
       if (event.key === 'ArrowRight') {
-        setImagenBandaActiva((indice) => (indice + 1) % GALERIA_BANDA.length);
+        setImagenVisorActiva((indice) => (indice + 1) % imagenesVisor.length);
       }
       if (event.key === 'ArrowLeft') {
-        setImagenBandaActiva((indice) => (indice - 1 + GALERIA_BANDA.length) % GALERIA_BANDA.length);
+        setImagenVisorActiva((indice) => (indice - 1 + imagenesVisor.length) % imagenesVisor.length);
       }
       if (event.key === 'Tab' && visorRef.current) {
         const controles = visorRef.current.querySelectorAll('button');
@@ -138,7 +140,7 @@ export default function Inicio() {
       document.body.style.overflow = overflowAnterior;
       focoAnteriorRef.current?.focus?.();
     };
-  }, [visorAbierto]);
+  }, [visorAbierto, imagenesVisor.length]);
 
   return (
     <>
@@ -212,13 +214,13 @@ export default function Inicio() {
           </div>
 
         </div>
-        <div role="group" aria-label="Carrusel de imágenes" className="absolute bottom-5 right-5 z-10 flex items-center gap-2 sm:bottom-8 sm:right-8">
+        <div role="group" aria-label={t('voice.homeCarousel')} className="absolute bottom-5 right-5 z-10 flex items-center gap-2 sm:bottom-8 sm:right-8">
           {IMAGENES_INICIO.map((imagen, index) => (
             <button
               key={imagen.src}
               type="button"
               onClick={() => setImagenActiva(index)}
-              aria-label={`Mostrar imagen: ${imagen.alt}`}
+              aria-label={t('voice.showImage', { index: index + 1 })}
               aria-pressed={imagenActiva === index}
               className={`h-2.5 rounded-full transition-all ${imagenActiva === index ? 'w-7 bg-gold-400' : 'w-2.5 bg-white/70 hover:bg-white'}`}
             />
@@ -312,13 +314,13 @@ export default function Inicio() {
             <Button as={Link} to={PATHS.calendario} variant="outline">{t('home.fullCalendar')}</Button>
           </div>
 
-          <div role="group" aria-label="Imágenes de próximos eventos" className="mt-6 flex justify-center gap-2">
+          <div role="group" aria-label={t('voice.eventImages')} className="mt-6 flex justify-center gap-2">
             {IMAGENES_EVENTOS.map((imagen, index) => (
               <button
                 key={imagen.src}
                 type="button"
                 onClick={() => setImagenEventoActiva(index)}
-                aria-label={`Mostrar imagen: ${imagen.alt}`}
+                aria-label={t('voice.showImage', { index: index + 1 })}
                 aria-pressed={imagenEventoActiva === index}
                 className={`h-2.5 rounded-full transition-all ${imagenEventoActiva === index ? 'w-8 bg-brand-700 dark:bg-gold-400' : 'w-2.5 bg-brand-300 hover:bg-brand-500 dark:bg-ink-500'}`}
               />
@@ -350,6 +352,17 @@ export default function Inicio() {
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             {GALERIA_DANZA.map((imagen, index) => (
               <figure key={imagen.src} className={`inicio-galeria-marco group relative overflow-hidden rounded-2xl bg-ink-200 dark:bg-ink-700 ${index === 0 ? 'col-span-2 aspect-[16/9]' : 'aspect-[4/3]'}`}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setImagenVisorActiva(index);
+                    setGaleriaVisorActiva('danza');
+                  }}
+                  aria-label={t('voice.imageFullscreen')}
+                  className="absolute inset-0 z-10 flex h-full w-full items-start justify-end p-3 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-white"
+                >
+                  <Expand aria-hidden="true" className="h-5 w-5 rounded-sm bg-ink-950/60 p-0.5 opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100" />
+                </button>
                 <img
                   src={imagen.src}
                   alt={imagen.alt}
@@ -374,8 +387,11 @@ export default function Inicio() {
               <figure key={imagen.src} className="inicio-galeria-marco group relative aspect-[4/3] overflow-hidden rounded-2xl bg-ink-200 dark:bg-ink-700">
                 <button
                   type="button"
-                  onClick={() => setImagenBandaActiva(index)}
-                  aria-label={`Ver ${imagen.caption} en pantalla completa`}
+                  onClick={() => {
+                    setImagenVisorActiva(index);
+                    setGaleriaVisorActiva('banda');
+                  }}
+                  aria-label={t('voice.imageFullscreen')}
                   className="absolute inset-0 z-10 flex h-full w-full items-start justify-end p-3 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-white"
                 >
                   <Expand aria-hidden="true" className="h-5 w-5 rounded-sm bg-ink-950/60 p-0.5 opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100" />
@@ -415,20 +431,20 @@ export default function Inicio() {
         </div>
       </section>
 
-      {imagenBandaActiva !== null && createPortal(
+      {visorAbierto && createPortal(
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8"
           ref={visorRef}
           role="dialog"
           aria-modal="true"
-          aria-label="Galería de la Banda Comunal de Orotina"
-          onClick={() => setImagenBandaActiva(null)}
+          aria-label={t(galeriaVisorActiva === 'danza' ? 'voice.danceGallery' : 'voice.bandGallery')}
+          onClick={() => setGaleriaVisorActiva(null)}
         >
           <button
             type="button"
             ref={cerrarVisorRef}
-            onClick={() => setImagenBandaActiva(null)}
-            aria-label="Cerrar pantalla completa"
+            onClick={() => setGaleriaVisorActiva(null)}
+            aria-label={t('voice.closeFullscreen')}
             className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white sm:right-6 sm:top-6"
           >
             <X aria-hidden="true" className="h-6 w-6" />
@@ -437,31 +453,31 @@ export default function Inicio() {
             type="button"
             onClick={(event) => {
               event.stopPropagation();
-              setImagenBandaActiva((indice) => (indice - 1 + GALERIA_BANDA.length) % GALERIA_BANDA.length);
+              setImagenVisorActiva((indice) => (indice - 1 + imagenesVisor.length) % imagenesVisor.length);
             }}
-            aria-label="Imagen anterior"
+            aria-label={t('voice.previousImage')}
             className="absolute left-2 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white sm:left-6"
           >
             <ArrowLeft aria-hidden="true" className="h-6 w-6" />
           </button>
           <figure className="flex max-h-full max-w-full flex-col items-center gap-3" onClick={(event) => event.stopPropagation()}>
             <img
-              key={GALERIA_BANDA[imagenBandaActiva].src}
-              src={GALERIA_BANDA[imagenBandaActiva].src}
-              alt={GALERIA_BANDA[imagenBandaActiva].alt}
+              key={imagenesVisor[imagenVisorActiva].src}
+              src={imagenesVisor[imagenVisorActiva].src}
+              alt={imagenesVisor[imagenVisorActiva].alt}
               className="inicio-imagen-ampliada max-h-[calc(100dvh-8rem)] max-w-full object-contain"
             />
             <figcaption className="text-center text-sm font-medium text-white sm:text-base">
-              {GALERIA_BANDA[imagenBandaActiva].caption} · {imagenBandaActiva + 1} / {GALERIA_BANDA.length}
+              {imagenesVisor[imagenVisorActiva].caption} · {imagenVisorActiva + 1} / {imagenesVisor.length}
             </figcaption>
           </figure>
           <button
             type="button"
             onClick={(event) => {
               event.stopPropagation();
-              setImagenBandaActiva((indice) => (indice + 1) % GALERIA_BANDA.length);
+              setImagenVisorActiva((indice) => (indice + 1) % imagenesVisor.length);
             }}
-            aria-label="Imagen siguiente"
+            aria-label={t('voice.nextImage')}
             className="absolute right-2 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white sm:right-6"
           >
             <ArrowRight aria-hidden="true" className="h-6 w-6" />
@@ -492,13 +508,13 @@ export default function Inicio() {
           <div className="mt-8">
             <EventRecommender limite={3} />
           </div>
-          <div role="group" aria-label="Imágenes de recomendaciones" className="mt-6 flex justify-center gap-2">
+          <div role="group" aria-label={t('voice.recommendationImages')} className="mt-6 flex justify-center gap-2">
             {IMAGENES_RECOMENDADAS.map((imagen, index) => (
               <button
                 key={imagen.src}
                 type="button"
                 onClick={() => setImagenRecomendadaActiva(index)}
-                aria-label={`Mostrar imagen: ${imagen.alt}`}
+                aria-label={t('voice.showImage', { index: index + 1 })}
                 aria-pressed={imagenRecomendadaActiva === index}
                 className={`h-2.5 rounded-full transition-all ${imagenRecomendadaActiva === index ? 'w-8 bg-brand-700 dark:bg-gold-400' : 'w-2.5 bg-brand-300 hover:bg-brand-500 dark:bg-ink-500'}`}
               />
@@ -562,7 +578,7 @@ export default function Inicio() {
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' })}
-          aria-label="Volver arriba"
+          aria-label={t('voice.backToTop')}
           className="fixed bottom-5 right-5 z-40 grid h-12 w-12 place-items-center rounded-full border border-white/20 bg-ink-900 text-white shadow-lg shadow-ink-950/25 transition hover:-translate-y-1 hover:bg-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 sm:bottom-7 sm:right-7"
         >
           <ArrowUp aria-hidden="true" className="h-5 w-5" />

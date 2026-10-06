@@ -7,9 +7,9 @@ import { cn } from '@/Utils/cn';
 
 const SUGERENCIAS_ADMIN = [
   '¿Cuántas reservas están pendientes?',
+  'Ver boletos de Noche de Teatro: Voces del Pacífico',
   'Resume los indicadores del panel',
-  'Gestionar eventos',
-  'Abrir reportes',
+  'Abrir disponibilidad',
 ];
 
 export default function AdminAssistant() {
@@ -94,7 +94,7 @@ export default function AdminAssistant() {
                     : 'bg-ink-100 text-ink-800 dark:bg-ink-700 dark:text-ink-100',
                 )}
               >
-                <p>{message.texto}</p>
+                <p className="whitespace-pre-line">{message.texto}</p>
                 {message.items?.length > 0 && (
                   <ul className="mt-2.5 space-y-2">
                     {message.items.map((item, itemIndex) => (
@@ -117,7 +117,7 @@ export default function AdminAssistant() {
             {loading && (
               <p className="inline-flex items-center gap-2 text-xs text-ink-500 dark:text-ink-400">
                 <Loader2 aria-hidden="true" className="h-3.5 w-3.5 animate-spin" />
-                Consultando indicadores del panel…
+                Consultando registros e indicadores del panel…
               </p>
             )}
           </div>
@@ -149,7 +149,7 @@ export default function AdminAssistant() {
                 id="admin-ai-input"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder="Consulta indicadores o abre una sección…"
+                placeholder="Busca códigos, eventos, titulares o abre una sección…"
                 className="h-10 flex-1 rounded-lg border border-ink-300 bg-white px-3 text-sm outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/25 dark:border-ink-600 dark:bg-ink-900 dark:text-ink-100"
               />
               <button

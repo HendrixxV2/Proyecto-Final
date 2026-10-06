@@ -1,6 +1,13 @@
 import { aiService, resumirTexto } from '@/Services/aiService';
 import { api } from '@/Services/api';
 import { reportesService } from '@/Services/reportesService';
+import { boletosService } from '@/Services/boletosService';
+import { eventosService } from '@/Services/eventosService';
+import { usuariosService } from '@/Services/usuariosService';
+import { reservasService } from '@/Services/reservasService';
+import { espaciosService } from '@/Services/espaciosService';
+import { contenidoService } from '@/Services/contenidoService';
+import { noticiasService } from '@/Services/noticiasService';
 
 describe('aiService.resumirTexto', () => {
   const texto =
@@ -194,5 +201,63 @@ describe('aiService.chat privacy', () => {
     expect(response.texto).toContain('8 reservas pendientes');
     expect(response.items[0].ruta).toBe('/admin/reservas');
     expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('joins ticket codes to event, holder, price, and status for admin event queries', async () => {
+    jest.spyOn(boletosService, 'list').mockResolvedValue([
+      { id: 20, codigo: 'ORO-001-ABC12', eventoId: 1, usuarioId: 2, precio: 8000, estado: 'pagado' },
+      { id: 21, codigo: 'ORO-002-XYZ89', eventoId: 2, usuarioId: null, precio: 0, estado: 'disponible' },
+    ]);
+    jest.spyOn(eventosService, 'list').mockResolvedValue([
+      { id: 1, titulo: 'Noche de Teatro: Voces del Pacífico', categoria: 'teatro', fecha: '2026-10-12', horaInicio: '19:00', espacioId: 1, precio: 8000, publicado: true },
+      { id: 2, titulo: 'Festival de Baile Folclórico', categoria: 'baile', fecha: '2026-10-19', precio: 0, publicado: true },
+    ]);
+    jest.spyOn(usuariosService, 'list').mockResolvedValue([
+      { id: 2, nombre: 'Carlos Mora', email: 'private@example.com', password: 'never-send' },
+    ]);
+    jest.spyOn(reservasService, 'list').mockResolvedValue([]);
+    jest.spyOn(espaciosService, 'list').mockResolvedValue([{ id: 1, nombre: 'Teatro Municipal' }]);
+    jest.spyOn(contenidoService, 'list').mockResolvedValue([]);
+    jest.spyOn(noticiasService, 'list').mockResolvedValue([]);
+
+    const response = await aiService.chatAdmin(
+      'Dame el código de Noche de Teatro: Voces del Pacífico en boletos',
+      { usuario: { id: 1, rol: 'admin' } },
+    );
+
+    expect(response.texto).toContain('ORO-001-ABC12');
+    expect(response.texto).toContain('Noche de Teatro: Voces del Pacífico');
+    expect(response.texto).toContain('Carlos Mora');
+    expect(response.texto).toContain('₡8');
+    expect(response.texto).toContain('000');
+    expect(response.texto).toContain('Estado: pagado');
+    expect(response.texto).not.toContain('ORO-002-XYZ89');
+    expect(response.texto).not.toContain('private@example.com');
+    expect(response.texto).not.toContain('never-send');
+    expect(response.items[0].ruta).toBe('/admin/boletos');
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('keeps a previous event in context for ticket follow-up questions', async () => {
+    jest.spyOn(boletosService, 'list').mockResolvedValue([
+      { id: 20, codigo: 'ORO-001-ABC12', eventoId: 1, usuarioId: null, precio: 8000, estado: 'disponible' },
+    ]);
+    jest.spyOn(eventosService, 'list').mockResolvedValue([
+      { id: 1, titulo: 'Noche de Teatro: Voces del Pacífico', categoria: 'teatro', precio: 8000 },
+    ]);
+    jest.spyOn(usuariosService, 'list').mockResolvedValue([]);
+    jest.spyOn(reservasService, 'list').mockResolvedValue([]);
+    jest.spyOn(espaciosService, 'list').mockResolvedValue([]);
+    jest.spyOn(contenidoService, 'list').mockResolvedValue([]);
+    jest.spyOn(noticiasService, 'list').mockResolvedValue([]);
+
+    const response = await aiService.chatAdmin('¿Y quién es el titular?', {
+      historial: [{ role: 'user', texto: 'Busca los boletos de Noche de Teatro: Voces del Pacífico' }],
+      usuario: { id: 1, rol: 'admin' },
+    });
+
+    expect(response.texto).toContain('ORO-001-ABC12');
+    expect(response.texto).toContain('Sin asignar');
+    expect(response.items[0].ruta).toBe('/admin/boletos');
   });
 });

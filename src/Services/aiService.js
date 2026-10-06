@@ -93,11 +93,226 @@ const loadPersonalContext = async (usuario, contextoPublico) => {
 
 const ADMIN_ACTIONS = [
   { id: 'reservas', keywords: ['reservas pendientes', 'solicitudes pendientes', 'aprobar reservas', 'por aprobar'], titulo: 'Revisar reservas', meta: 'Gestiona solicitudes pendientes', ruta: '/admin/reservas' },
+  { id: 'disponibilidad', keywords: ['disponibilidad', 'ver disponibilidad', 'consultar disponibilidad'], titulo: 'Consultar disponibilidad', meta: 'Revisa horarios y ocupación de espacios', ruta: '/admin/disponibilidad' },
+  { id: 'boletos', keywords: ['gestionar boletos', 'administrar boletos', 'abrir boletos'], titulo: 'Gestionar boletos', meta: 'Consulta códigos, titulares, precios y estados', ruta: '/admin/boletos' },
   { id: 'eventos', keywords: ['gestionar eventos', 'crear evento', 'editar evento', 'publicar evento'], titulo: 'Gestionar eventos', meta: 'Crear, editar o publicar eventos', ruta: '/admin/eventos' },
   { id: 'espacios', keywords: ['gestionar espacios', 'crear espacio', 'editar espacio'], titulo: 'Gestionar espacios', meta: 'Actualizar espacios y disponibilidad', ruta: '/admin/espacios' },
+  { id: 'contenido', keywords: ['gestionar contenido', 'administrar contenido', 'abrir contenido', 'noticias'], titulo: 'Gestionar contenido', meta: 'Administra contenido y noticias', ruta: '/admin/contenido' },
   { id: 'usuarios', keywords: ['gestionar usuarios', 'administrar usuarios'], titulo: 'Gestionar usuarios', meta: 'Administrar cuentas y roles', ruta: '/admin/usuarios' },
   { id: 'reportes', keywords: ['reportes', 'estadisticas', 'métricas', 'metricas', 'indicadores', 'ingresos'], titulo: 'Abrir reportes', meta: 'Consultar indicadores del centro', ruta: '/admin/reportes' },
 ];
+
+const ADMIN_ROUTES = [
+  '/admin/dashboard',
+  '/admin/reservas',
+  '/admin/disponibilidad',
+  '/admin/boletos',
+  '/admin/espacios',
+  '/admin/eventos',
+  '/admin/contenido',
+  '/admin/usuarios',
+  '/admin/reportes',
+];
+
+const loadAdminRecords = async () => {
+  const [boletos, eventos, usuarios, reservas, espacios, contenido, noticias] = await Promise.all([
+    boletosService.list(),
+    eventosService.list(),
+    usuariosService.list(),
+    reservasService.list(),
+    espaciosService.list(),
+    contenidoService.list(),
+    noticiasService.list(),
+  ]);
+
+  return { boletos, eventos, usuarios, reservas, espacios, contenido, noticias };
+};
+
+const ADMIN_STOP_WORDS = new Set([
+  'para', 'como', 'cuando', 'donde', 'cual', 'cuanto', 'cuantos', 'dame', 'muestra',
+  'mostrar', 'buscar', 'consulta', 'consultar', 'quiero', 'necesito', 'favor', 'por',
+  'del', 'de', 'la', 'el', 'los', 'las', 'un', 'una', 'en', 'me', 'su', 'sus',
+  'boleto', 'boletos', 'entrada', 'entradas', 'ticket', 'tickets', 'codigo', 'codigos',
+  'evento', 'eventos', 'precio', 'estado', 'titular', 'titulares', 'reserva', 'reservas',
+  'usuario', 'usuarios', 'seccion', 'admin', 'administrativo', 'reporte', 'reportes',
+  'bolleto', 'bolletos', 'pendiente', 'pendientes', 'aprobado', 'aprobada', 'aprobados',
+  'aprobadas', 'rechazado', 'rechazada', 'rechazados', 'rechazadas', 'cancelado', 'cancelada',
+  'cancelados', 'canceladas',
+]);
+
+const queryTerms = (text) => normalizar(text)
+  .split(/[^a-z0-9]+/)
+  .filter((term) => term.length > 2 && !ADMIN_STOP_WORDS.has(term));
+
+const scoreAdminRecord = (record, fields, terms) => {
+  const values = fields.map((field) => normalizar(record?.[field] ?? ''));
+  const joined = values.join(' ');
+  if (values.some((value) => value.length > 3 && normalizar(terms.join(' ')).includes(value))) return terms.length + 3;
+  return terms.reduce((score, term) => score + (joined.includes(term) ? 1 : 0), 0);
+};
+
+const bestAdminRecord = (records, fields, terms, minimumScore = 2) => {
+  const ranked = records
+    .map((record) => ({ record, score: scoreAdminRecord(record, fields, terms) }))
+    .sort((a, b) => b.score - a.score);
+  return ranked[0]?.score >= minimumScore ? ranked[0].record : null;
+};
+
+const adminItem = (titulo, meta, ruta) => ({ titulo, meta, ruta });
+
+const formatAdminDate = (value) => {
+  if (!value) return 'Fecha no registrada';
+  return formatFecha(value, 'dd/MM/yyyy');
+};
+
+const resolveAdminRecordQuery = (mensaje, historial, records) => {
+  const previousQuestions = historial
+    .filter((entry) => entry?.role === 'user')
+    .slice(-3)
+    .map((entry) => String(entry.texto ?? ''));
+  const fullQuery = [mensaje, ...previousQuestions].join(' ');
+  const normalized = normalizar(fullQuery);
+  const terms = queryTerms(fullQuery);
+  const ticketsByCode = records.boletos.filter((ticket) =>
+    ticket.codigo && normalized.includes(normalizar(ticket.codigo)));
+  const event = bestAdminRecord(records.eventos, ['titulo', 'categoria'], terms);
+  const user = bestAdminRecord(records.usuarios, ['nombre'], terms, 1);
+  const space = bestAdminRecord(records.espacios, ['nombre', 'tipo', 'ubicacion'], terms);
+  const normalizedMessage = normalizar(mensaje);
+  const asksTickets = /\b(?:boleto|boletos|bolleto|bolletos|entrada|entradas|ticket|tickets|codigo|codigos|titular|precio|pagado|pagados)\b/.test(normalizedMessage);
+  const asksBookings = /\b(?:reserva|reservas|solicitud|solicitudes|espacio|espacios|disponibilidad|ocupacion)\b/.test(normalizedMessage);
+  const asksEvents = /\b(?:evento|eventos|funcion|actividad|cartelera|fecha|categoria|precio)\b/.test(normalizedMessage);
+  const asksUsers = /\b(?:usuario|usuarios|titular|titulares|nombre|registrado|cuenta)\b/.test(normalizedMessage);
+
+  if (asksTickets && (ticketsByCode.length || event || user)) {
+    let tickets = records.boletos;
+    if (ticketsByCode.length) {
+      const ticketIds = new Set(ticketsByCode.map((ticket) => String(ticket.id)));
+      tickets = tickets.filter((ticket) => ticketIds.has(String(ticket.id)));
+    }
+    if (event) tickets = tickets.filter((ticket) => String(ticket.eventoId) === String(event.id));
+    if (user) tickets = tickets.filter((ticket) => String(ticket.usuarioId) === String(user.id));
+    if (!tickets.length) {
+      const searchedFor = event ? `el evento “${event.titulo}”` : `el titular ${user.nombre}`;
+      return r(
+        `No encontré boletos que coincidan con ${searchedFor}.`,
+        [adminItem('Ver boletos', 'Busca o emite boletos para este evento', '/admin/boletos'), adminItem('Ver evento', 'Revisar fecha, categoría y publicación', '/admin/eventos')],
+      );
+    }
+
+    const eventById = new Map(records.eventos.map((item) => [String(item.id), item]));
+    const usersById = new Map(records.usuarios.map((item) => [String(item.id), item]));
+    const matchedTickets = tickets.slice(0, 5);
+    const ticketDetails = matchedTickets.map((ticket) => {
+      const linkedEvent = eventById.get(String(ticket.eventoId));
+      const holder = usersById.get(String(ticket.usuarioId));
+      return `${ticket.codigo ?? `Boleto #${ticket.id}`} · ${linkedEvent?.titulo ?? 'Evento sin título'} · Titular: ${holder?.nombre ?? 'Sin asignar'} · ${formatColones(ticket.precio ?? linkedEvent?.precio ?? 0)} · Estado: ${ticket.estado ?? 'No indicado'}`;
+    });
+    const hasMore = tickets.length > matchedTickets.length ? ` Se muestran ${matchedTickets.length} de ${tickets.length} boletos.` : '';
+    const relationship = event ? ` con “${event.titulo}”` : user ? ` a nombre de ${user.nombre}` : '';
+    const relatedItems = [adminItem('Abrir gestión de boletos', 'Ver y filtrar todos los registros', '/admin/boletos')];
+    if (event) relatedItems.push(adminItem('Abrir evento', 'Consultar fecha, categoría y publicación', '/admin/eventos'));
+    if (user) relatedItems.push(adminItem('Abrir titular', 'Consultar perfil y reservas relacionadas', '/admin/usuarios'));
+    return r(
+      `${tickets.length} boleto(s) relacionado(s)${relationship}:\n${ticketDetails.join('\n')}${hasMore}`,
+      relatedItems,
+    );
+  }
+
+  const requestedBookingStatus = /\bpendientes?\b/.test(normalizedMessage)
+    ? 'pendiente'
+    : /\baprobadas?\b/.test(normalizedMessage)
+      ? 'aprobada'
+      : /\brechazadas?\b/.test(normalizedMessage)
+        ? 'rechazada'
+        : /\bcanceladas?\b/.test(normalizedMessage)
+          ? 'cancelada'
+          : null;
+  if (asksBookings && (terms.length || requestedBookingStatus || /\b\d{4}-\d{2}-\d{2}\b/.test(fullQuery))) {
+    const dateMatch = fullQuery.match(/\b\d{4}-\d{2}-\d{2}\b/);
+    const matchingBookings = records.reservas.filter((booking) => {
+      const linkedSpace = records.espacios.find((item) => String(item.id) === String(booking.espacioId));
+      const linkedUser = records.usuarios.find((item) => String(item.id) === String(booking.usuarioId));
+      const termsMatch = !terms.length || scoreAdminRecord(
+        { espacio: linkedSpace?.nombre, titular: linkedUser?.nombre, motivo: booking.motivo, estado: booking.estado },
+        ['espacio', 'titular', 'motivo', 'estado'],
+        terms,
+      ) >= 1;
+      return (!dateMatch || booking.fecha === dateMatch[0])
+        && (!requestedBookingStatus || booking.estado === requestedBookingStatus)
+        && termsMatch;
+    });
+    if (matchingBookings.length || dateMatch || user || space) {
+      const list = (matchingBookings.length ? matchingBookings : []).slice(0, 5).map((booking) => {
+        const linkedSpace = records.espacios.find((item) => String(item.id) === String(booking.espacioId));
+        const linkedUser = records.usuarios.find((item) => String(item.id) === String(booking.usuarioId));
+        return `Reserva #${booking.id} · ${linkedSpace?.nombre ?? 'Espacio no registrado'} · Titular: ${linkedUser?.nombre ?? 'No asignado'} · ${formatAdminDate(booking.fecha)} ${booking.horaInicio ?? ''}-${booking.horaFin ?? ''} · Estado: ${booking.estado ?? 'No indicado'}`;
+      });
+      const summary = list.length
+        ? `Encontré ${matchingBookings.length} reserva(s):\n${list.join('\n')}`
+        : 'No encontré reservas que coincidan con esos datos.';
+      return r(summary, [adminItem('Abrir reservas', 'Revisar solicitudes, titulares y estados', '/admin/reservas')]);
+    }
+  }
+
+  if (event && asksEvents) {
+    const eventSpace = records.espacios.find((item) => String(item.id) === String(event.espacioId));
+    return r(
+      `Evento: ${event.titulo} · Categoría: ${event.categoria ?? 'No indicada'} · Fecha: ${formatAdminDate(event.fecha)} ${event.horaInicio ?? ''} · Espacio: ${eventSpace?.nombre ?? 'No asignado'} · Precio: ${Number(event.precio) > 0 ? formatColones(event.precio) : 'Gratuito'} · Estado: ${event.publicado ? 'Publicado' : 'Borrador'}.`,
+      [adminItem('Abrir evento', 'Consultar y administrar el registro', '/admin/eventos'), adminItem('Consultar boletos', 'Ver códigos, titulares, precios y estados', '/admin/boletos')],
+    );
+  }
+
+  if (user && asksUsers) {
+    const userBookings = records.reservas.filter((booking) => String(booking.usuarioId) === String(user.id));
+    const userTickets = records.boletos.filter((ticket) => String(ticket.usuarioId) === String(user.id));
+    return r(
+      `${user.nombre} · Rol: ${user.rol ?? 'No indicado'} · Reservas: ${userBookings.length} · Boletos: ${userTickets.length}. No se muestran correos ni credenciales.`,
+      [adminItem('Abrir usuarios', 'Consultar perfiles y roles', '/admin/usuarios'), adminItem('Abrir reservas', 'Revisar reservas relacionadas', '/admin/reservas')],
+    );
+  }
+
+  if (space && /\b(?:espacio|espacios|sala|salas|galeria|galerias|ubicacion|capacidad|tarifa)\b/.test(normalizedMessage)) {
+    return r(
+      `${space.nombre} · Tipo: ${String(space.tipo ?? 'No indicado').replace('_', ' ')} · Capacidad: ${space.capacidad ?? 'No indicada'} · Ubicación: ${space.ubicacion ?? 'No indicada'} · Tarifa: ${formatColones(space.precioHora ?? 0)}/hora · Estado: ${space.activo ? 'Activo' : 'Inactivo'} · Accesible: ${space.accesible ? 'Sí' : 'No'}.`,
+      [adminItem('Abrir espacios', 'Administrar datos y disponibilidad', '/admin/espacios'), adminItem('Consultar disponibilidad', 'Ver ocupación por fecha y horario', '/admin/disponibilidad')],
+    );
+  }
+
+  if (/\b(?:disponibilidad|ocupacion|horarios?)\b/.test(normalizedMessage)) {
+    const dateMatch = fullQuery.match(/\b\d{4}-\d{2}-\d{2}\b/);
+    const bookings = records.reservas.filter((booking) =>
+      (!dateMatch || booking.fecha === dateMatch[0])
+      && (!space || String(booking.espacioId) === String(space.id))
+      && !['rechazada', 'cancelada'].includes(booking.estado));
+    const dateText = dateMatch ? formatAdminDate(dateMatch[0]) : 'todas las fechas registradas';
+    return r(
+      `${bookings.length} reserva(s) activa(s) para ${space?.nombre ?? 'los espacios'} en ${dateText}.`,
+      [adminItem('Abrir disponibilidad', 'Filtrar por espacio y fecha', '/admin/disponibilidad'), adminItem('Abrir reservas', 'Consultar los registros asociados', '/admin/reservas')],
+    );
+  }
+
+  if (/\b(?:contenido|noticia|noticias|pagina|publicacion)\b/.test(normalizedMessage)) {
+    const editorial = [...records.contenido, ...records.noticias];
+    const matched = bestAdminRecord(editorial, ['titulo', 'seccion', 'categoria'], terms);
+    if (matched) {
+      return r(
+        `Contenido: ${matched.titulo ?? matched.seccion ?? 'Registro sin título'} · Sección/categoría: ${matched.seccion ?? matched.categoria ?? 'No indicada'} · Fecha: ${formatAdminDate(matched.fecha)}.`,
+        [adminItem('Abrir contenido', 'Administrar páginas y noticias', '/admin/contenido')],
+      );
+    }
+    return r(`Hay ${editorial.length} registros de contenido y noticias disponibles para administrar.`, [adminItem('Abrir contenido', 'Buscar páginas y noticias', '/admin/contenido')]);
+  }
+
+  if (asksTickets) {
+    return r(
+      'No encontré boletos con esos datos. Indica el código del boleto o el nombre del evento para localizar sus códigos, titulares, precios y estados.',
+      [adminItem('Abrir gestión de boletos', 'Buscar por código o evento', '/admin/boletos')],
+    );
+  }
+
+  return null;
+};
 
 const getAdminShortcut = (mensaje, dashboard) => {
   const normalized = normalizar(mensaje);
@@ -129,12 +344,16 @@ const getAdminShortcut = (mensaje, dashboard) => {
 };
 
 const sanitizeAdminItems = (items = []) => {
-  const allowedRoutes = new Set(['/admin/dashboard', ...ADMIN_ACTIONS.map((action) => action.ruta)]);
+  const allowedRoutes = new Set(ADMIN_ROUTES);
   return items
     .filter((item) => allowedRoutes.has(item?.ruta))
     .slice(0, 4)
     .map(({ titulo, meta, ruta }) => ({ titulo: String(titulo ?? '').slice(0, 100), meta: String(meta ?? '').slice(0, 140), ruta }));
 };
+
+const isSpecificAdminLookup = (mensaje) =>
+  /\b(?:codigo|codigos|titular|precio|estado|fecha|para|de|del|por|quien|cuando|cuanto|detalle|datos|buscar|busca|consulta|consultar|disponibles)\b|\b\d{4}-\d{2}-\d{2}\b|#\d+/i
+    .test(normalizar(mensaje));
 
 const refuseSensitiveOutput = () => r('No puedo proporcionar correos, contraseñas ni datos de acceso.');
 
@@ -1090,6 +1309,21 @@ export const aiService = {
 
     const dashboard = await reportesService.dashboard().catch(() => null);
     const shortcut = getAdminShortcut(mensaje, dashboard);
+    const normalized = normalizar(mensaje);
+    const aggregateQuery = /\b(?:cuantas? reservas? pendientes?|reservas? pendientes?|resumen(?: del panel| de indicadores)?|indicadores del panel|abrir reportes|dashboard)\b/.test(normalized);
+    if (shortcut && (aggregateQuery || !isSpecificAdminLookup(mensaje))) return shortcut;
+
+    let recordResponse;
+    try {
+      const records = await loadAdminRecords();
+      recordResponse = resolveAdminRecordQuery(mensaje, historial, records);
+    } catch {
+      return r(
+        'No pude consultar los registros administrativos en este momento. Intenta de nuevo o abre la sección correspondiente.',
+        sanitizeAdminItems(ADMIN_ACTIONS.map(({ titulo, meta, ruta }) => ({ titulo, meta, ruta }))),
+      );
+    }
+    if (recordResponse) return recordResponse;
     if (shortcut) return shortcut;
 
     try {

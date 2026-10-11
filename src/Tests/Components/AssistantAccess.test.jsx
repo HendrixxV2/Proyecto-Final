@@ -36,5 +36,8 @@ describe('assistant access', () => {
     expect(button).toBeInTheDocument();
     expect(button.className).toContain('rounded-full');
     expect(button.className).toContain('bg-blue-600');
+    expect(button.querySelector('img')).toHaveAttribute('src', '/chatbotAdmin.jpeg');
+    expect(button.querySelector('img').className).toContain('object-cover');
+    expect(button.querySelector('img').className).toContain('scale-150');
   });
 });

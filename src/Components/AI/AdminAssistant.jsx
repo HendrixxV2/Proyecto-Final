@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Bot, Loader2, Send, X } from 'lucide-react';
+import { Loader2, Send, X } from 'lucide-react';
 import { aiService } from '@/Services/aiService';
 import { useAuth } from '@/Hooks/useAuth';
 import { cn } from '@/Utils/cn';
@@ -62,9 +62,18 @@ export default function AdminAssistant() {
         aria-expanded={open}
         aria-controls="asistente-admin"
         aria-label={open ? 'Cerrar Lulu Admin' : 'Abrir Lulu Admin'}
-        className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-blue-600 text-white shadow-lg transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center overflow-hidden rounded-full bg-blue-600 text-white shadow-lg transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
       >
-        {open ? <X aria-hidden="true" className="h-5 w-5" /> : <Bot aria-hidden="true" className="h-6 w-6" />}
+        {open ? (
+          <X aria-hidden="true" className="h-5 w-5" />
+        ) : (
+          <img
+            src="/chatbotAdmin.jpeg"
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full rounded-full object-cover scale-150"
+          />
+        )}
       </button>
 
       {open && (
@@ -74,8 +83,13 @@ export default function AdminAssistant() {
           className="fixed bottom-24 right-5 z-50 flex h-[70vh] max-h-[600px] w-[calc(100vw-2.5rem)] max-w-md flex-col overflow-hidden rounded-xl border border-ink-200 bg-white shadow-2xl animate-slide-up dark:border-ink-700 dark:bg-ink-800"
         >
           <header className="flex items-center gap-3 border-b border-blue-700 bg-blue-600 px-4 py-3 text-white">
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/15">
-              <Bot aria-hidden="true" className="h-5 w-5" />
+            <span className="h-9 w-9 overflow-hidden rounded-full bg-white/15">
+              <img
+                src="/chatbotAdmin.jpeg"
+                alt=""
+                aria-hidden="true"
+                className="h-full w-full object-cover scale-150"
+              />
             </span>
             <div className="min-w-0">
               <p className="text-sm font-semibold">Lulu Admin</p>
